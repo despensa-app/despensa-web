@@ -8,8 +8,5 @@ export interface ShoppingList {
   id: number;
   name: string;
   totalProducts: number;
-  totalCalories: number;
-  totalPrice: number;
   createdAt: string;
-  updatedAt: string;
 }
