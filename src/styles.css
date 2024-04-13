@@ -1,1 +1,2 @@
-/* You can add global styles to this file, and also import other style files */
+@import "admin-lte/plugins/fontawesome-free/css/all.min.css";
+@import "admin-lte/dist/css/adminlte.min.css";
