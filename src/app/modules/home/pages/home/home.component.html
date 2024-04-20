@@ -58,18 +58,26 @@
     </section>
     <section class="content">
       <div class="container-fluid">
-        @if (shoppingListsRes$ | async; as shoppingListRes) {
-          @for (response of shoppingListRes.content; track response.id) {
-            <div class="card card-primary card-outline cursor-pointer">
-              <div class="card-body">
-                <h3 class="card-title">{{ response.name }}</h3>
-                <br/>
-                <span class="text-muted">{{ response.totalProducts }} Productos</span>
-                <br/>
-                <small class="text-muted">{{ response.createdAt }}</small>
+        @for (response of shoppingListsRes().content; track response.id) {
+          <div class="card card-primary card-outline">
+            <div class="card-body">
+              <div class="d-flex">
+                <div class="flex-grow-1">
+                  <h3 class="card-title">{{ response.name }}</h3>
+                  <br/>
+                  <span class="text-muted">{{ response.totalProducts }} Productos</span>
+                  <br/>
+                  <small class="text-muted">{{ response.createdAt }}</small>
+                </div>
+                <div>
+                  <a class="btn stretched-link"
+                     routerLink="/shopping-list/{{response.id}}">
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
               </div>
             </div>
-          }
+          </div>
         }
       </div>
     </section>
