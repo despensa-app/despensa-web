@@ -4,13 +4,23 @@ import {ShoppingListsService} from '../../../../services/shopping-lists/shopping
 import {AsyncPipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {FindAllShoppingListRes} from '../../../../models/find-all-shopping-list-res';
+import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
+import {SidebarComponent} from '../../../../layout/sidebar/sidebar.component';
+import {HeaderComponent} from '../../../../layout/header/header.component';
+import {ShoppingListCardComponent} from '../../../../shared/components/shopping-list-card/shopping-list-card.component';
+import {NavbarService} from '../../../../services/navbar.service';
+import {DataNavbar} from '../../../../models/data-navbar';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     AsyncPipe,
-    RouterLink
+    RouterLink,
+    NavbarComponent,
+    SidebarComponent,
+    HeaderComponent,
+    ShoppingListCardComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -25,9 +35,22 @@ export class HomeComponent implements OnInit {
     total: 0
   };
 
+  private readonly _navbar: DataNavbar[] = [
+    {
+      btnType: 'success',
+      text: 'Nuevo',
+      fasIcon: 'fa-plus',
+      path: '/shopping-list'
+    }
+  ];
+
   shoppingListsRes = signal<FindAllShoppingListRes>(this._initShoppingList);
 
-  constructor(private shoppingListsService: ShoppingListsService) {
+  constructor(
+    private shoppingListsService: ShoppingListsService,
+    private navbarService: NavbarService
+  ) {
+    this.navbarService.setElements(this._navbar);
   }
 
   ngOnInit() {
