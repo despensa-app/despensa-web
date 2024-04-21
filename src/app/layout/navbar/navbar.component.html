@@ -1,0 +1,34 @@
+<nav
+  class="main-header navbar navbar-expand fixed-bottom navbar-white navbar-light d-flex justify-content-between border-top">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <button class="btn" data-widget="pushmenu" type="button">
+        <i class="fas fa-bars"></i>
+      </button>
+    </li>
+  </ul>
+  <ul class="navbar-nav">
+    @for (data of getElements(); track $index) {
+      <li class="nav-item">
+        @if (data.buttonType) {
+          <button class="btn btn-{{data.btnType}}" type="button" (click)="data.click">
+            <i class="fas {{data.fasIcon}} pr-1"></i>
+            <span>{{ data.text }}</span>
+          </button>
+        } @else {
+          <a class="btn btn-{{data.btnType}}" [routerLink]="data.path">
+            <i class="fas {{data.fasIcon}} pr-1"></i>
+            <span>{{ data.text }}</span>
+          </a>
+        }
+      </li>
+    }
+  </ul>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <button class="btn" type="button">
+        <i class="fas fa-search"></i>
+      </button>
+    </li>
+  </ul>
+</nav>
