@@ -22,8 +22,8 @@ export class AppComponent {
 
   private readonly _sidebar: DataSidebar[] = [
     {
-      path: '/shopping-list',
-      text: 'Lista de la compra'
+      path: '/',
+      text: 'Listas de la compra'
     }
   ];
 
