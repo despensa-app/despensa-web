@@ -13,7 +13,7 @@ export class ShoppingListsService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getShoppingLists() {
+  findAll() {
     return this.httpClient.get<FindAllShoppingListRes>(`${this._shoppingListsURI}`);
   }
 

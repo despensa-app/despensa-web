@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.shoppingListsService.getShoppingLists()
+    this.shoppingListsService.findAll()
         .pipe(
           tap(shoppingLists => this.shoppingListsRes.set(shoppingLists))
         )
