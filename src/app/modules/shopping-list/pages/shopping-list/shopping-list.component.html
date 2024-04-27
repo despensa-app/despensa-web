@@ -1,0 +1,212 @@
+<app-page>
+  <ng-container navbar>
+    <app-navbar-shopping-list/>
+  </ng-container>
+  <ng-container header>
+    <app-header-shopping-list/>
+  </ng-container>
+  <ng-container content>
+    <div class="d-flex justify-content-between">
+      @if (isEdit()) {
+        <form class="flex-grow-1">
+          <div class="input-group">
+            <label class="sr-only" for="name">Nombre</label>
+            <input type="text"
+                   class="form-control"
+                   value="{{shoppingListRes().name}}"
+                   placeholder="Nombre de la lista"
+                   id="name" name="name">
+            <div class="input-group-append">
+              <button class="btn btn-default" type="button">
+                <i class="fas fa-undo-alt"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      } @else {
+        <h1 class="flex-grow-1">{{ shoppingListRes().name }}</h1>
+      }
+    </div>
+    <div class="list-group list-group-custom-button mb-3">
+      @for (response of shoppingListRes().items; track response.product.id) {
+        <li class="list-group-item pl-3">
+          <div class="list-group-item-content">
+            <div class="d-flex justify-content-between">
+              <div class="custom-checkbox">
+                <div class="custom-checkbox-box" [class.active]="response.selected">
+                  @if (response.selected) {
+                    <i class="fas fa-check"></i>
+                  }
+                </div>
+              </div>
+              <div class="flex-grow-1 text-truncate">
+                {{ response.product.name }}
+              </div>
+            </div>
+          </div>
+          <div class="list-group-item-button button-active">
+            <div class="btn-group h-100">
+              <button class="btn btn-primary border-radius-0" data-toggle="modal"
+                      data-target="#product-detail-modal">
+                Ver
+              </button>
+              <button class="btn btn-danger border-radius-0">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </li>
+      }
+    </div>
+  </ng-container>
+</app-page>
+
+<div
+  class="modal fade"
+  id="product-detail-modal"
+  tabIndex="-1"
+  aria-hidden="true"
+  data-backdrop="true"
+  data-keyboard="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">producto 1</h5>
+        <button class="btn close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="d-flex p-3 border-bottom">
+          <div class="flex-grow-1">
+            99 € <small class="text-muted">9 €</small>
+          </div>
+          <div class="flex-grow-1">
+            99
+            <small class="text-muted"> 9</small>
+          </div>
+          <div>
+                  <span class="badge badge-info">
+                    9 tipo
+                  </span>
+          </div>
+        </div>
+        <img src="/src/assets/Agua_potable.jpg" alt="producto 1" class="img-fluid img-rounded"/>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="options-modal"
+     class="modal fade"
+     tabIndex="-1"
+     aria-hidden="true"
+     data-backdrop="true"
+     data-keyboard="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link border-radius-0 active"
+               id="filter-nav-item"
+               data-toggle="tab"
+               href="#filter-tab-pane"
+               role="tab"
+               aria-controls="filter"
+               aria-selected="true">
+              <i class="fas fa-filter pr-1"></i>
+              Filtrar
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link border-radius-0"
+               id="sorting-nav-item"
+               data-toggle="tab"
+               href="#sorting-tab-pane"
+               role="tab"
+               aria-controls="sorting"
+               aria-selected="true">
+              <i class="fas fa-sort pr-1"></i>
+              Ordenar
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link border-radius-0"
+               id="options-nav-item"
+               data-toggle="tab"
+               href="#options-tab-pane"
+               role="tab"
+               aria-controls="options"
+               aria-selected="true">
+              <i class="fas fa-th-large pr-1"></i>
+              Opciones
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="filter-tab-pane" role="tabpanel" aria-labelledby="filter">
+            <div class="list-group list-group-flush">
+              <button
+                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <i class="fas fa-tags w-fixed-25"></i>
+                <span class="flex-grow-1">Categorías</span>
+                <i class="fas fa-angle-right"></i>
+              </button>
+              <button
+                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <i class="fas fa-calendar-alt w-fixed-25"></i>
+                <span class="flex-grow-1">Fecha de creación</span>
+                <i class="fas fa-angle-right"></i>
+              </button>
+              <button
+                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <i class="fas fa-calendar-alt w-fixed-25"></i>
+                <span class="flex-grow-1">Fecha de actualización</span>
+                <i class="fas fa-angle-right"></i>
+              </button>
+              <button
+                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <i class="fas fa-star w-fixed-25"></i>
+                <span class="flex-grow-1">Favoritos</span>
+                <i class="fas fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="sorting-tab-pane" role="tabpanel"
+               aria-labelledby="sorting">
+            <div class="list-group list-group-flush">
+              <button
+                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                Fecha de actualización
+                <i class="fas fa-long-arrow-alt-down"></i>
+              </button>
+              <button
+                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                Fecha de creación
+                <i class="fas fa-long-arrow-alt-down"></i>
+              </button>
+              <button
+                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                Título
+                <i class="fas fa-long-arrow-alt-down"></i>
+              </button>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="options-tab-pane" role="tabpanel"
+               aria-labelledby="options">
+            <div class="list-group list-group-flush">
+              <button class="btn list-group-item list-group-item-action">
+                <i class="fas fa-clone w-fixed-25"></i>
+                Duplicar lista
+              </button>
+              <button class="btn list-group-item list-group-item-action text-danger border-top">
+                <i class="fas fa-trash w-fixed-25"></i>
+                Eliminar lista
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
