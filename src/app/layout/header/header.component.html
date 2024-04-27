@@ -1,10 +1,8 @@
 <section class="content-header">
   <div class="container-fluid">
     <div class="d-flex justify-content-between">
-      <h1>Listas</h1>
-      <button class="btn" type="button">
-        <i class="fas fa-filter"></i>
-      </button>
+      <ng-content select="[header-left]"/>
+      <ng-content select="[header-right]"/>
     </div>
   </div>
 </section>
