@@ -47,4 +47,7 @@ export class ShoppingListComponent {
   constructor(private shoppingListsService: ShoppingListsService) {
   }
 
+  editEvent() {
+    this.isEdit.set(!this.isEdit());
+  }
 }

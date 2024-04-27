@@ -1,24 +1,27 @@
 <app-navbar>
   <ng-container navbar-center>
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <button class="btn btn-primary" type="button">
-          <i class="fas fa-edit pr-1"></i>
-          <span>Editar</span>
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="btn btn-primary" type="button">
-          <i class="fas fa-edit pr-1"></i>
-          <span>Guardar</span>
-        </button>
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-success" routerLink="/shopping-list/products">
-          <i class="fas fa-plus pr-1"></i>
-          <span>Agregar producto</span>
-        </a>
-      </li>
+      @if (isEdit) {
+        <li class="nav-item">
+          <button class="btn btn-primary" type="button" (click)="editClickEvent()">
+            <i class="fas fa-edit pr-1"></i>
+            <span>Guardar</span>
+          </button>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-success" routerLink="/shopping-list/products">
+            <i class="fas fa-plus pr-1"></i>
+            <span>Agregar producto</span>
+          </a>
+        </li>
+      } @else {
+        <li class="nav-item">
+          <button class="btn btn-primary" type="button" (click)="editClickEvent()">
+            <i class="fas fa-edit pr-1"></i>
+            <span>Editar</span>
+          </button>
+        </li>
+      }
     </ul>
   </ng-container>
   <ng-container navbar-right>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 
@@ -14,4 +14,11 @@ import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 })
 export class NavbarShoppingListComponent {
 
+  @Input() isEdit: boolean = false;
+
+  @Output() editEvent = new EventEmitter<void>();
+
+  editClickEvent() {
+    this.editEvent.emit();
+  }
 }
