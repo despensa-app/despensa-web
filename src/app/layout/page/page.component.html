@@ -1,0 +1,12 @@
+<div class="wrapper">
+  <ng-content select="[navbar]"/>
+  <app-sidebar/>
+  <div class="content-wrapper">
+    <ng-content select="[header]"/>
+    <section class="content">
+      <div class="container-fluid">
+        <ng-content select="[content]"/>
+      </div>
+    </section>
+  </div>
+</div>
