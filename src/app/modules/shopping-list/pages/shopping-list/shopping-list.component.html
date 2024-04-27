@@ -3,30 +3,9 @@
     <app-navbar-shopping-list [isEdit]="isEdit()" (editEvent)="editEvent()"/>
   </ng-container>
   <ng-container header>
-    <app-header-shopping-list/>
+    <app-header-shopping-list [isEdit]="isEdit()" [name]="shoppingListRes().name"/>
   </ng-container>
   <ng-container content>
-    <div class="d-flex justify-content-between mb-2">
-      @if (isEdit()) {
-        <form class="flex-grow-1">
-          <div class="input-group">
-            <label class="sr-only" for="name">Nombre</label>
-            <input type="text"
-                   class="form-control"
-                   value="{{shoppingListRes().name}}"
-                   placeholder="Nombre de la lista"
-                   id="name" name="name">
-            <div class="input-group-append">
-              <button class="btn btn-default" type="button">
-                <i class="fas fa-undo-alt"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-      } @else {
-        <h1 class="flex-grow-1">{{ shoppingListRes().name }}</h1>
-      }
-    </div>
     <div class="list-group list-group-custom-button mb-3">
       @for (response of shoppingListRes().items; track response.product.id) {
         <li class="list-group-item pl-3">
