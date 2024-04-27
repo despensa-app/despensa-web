@@ -8,8 +8,9 @@ import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 import {SidebarComponent} from '../../../../layout/sidebar/sidebar.component';
 import {HeaderComponent} from '../../../../layout/header/header.component';
 import {ShoppingListCardComponent} from '../../../../shared/components/shopping-list-card/shopping-list-card.component';
-import {NavbarService} from '../../../../services/navbar.service';
-import {DataNavbar} from '../../../../models/data-navbar';
+import {NavbarHomeComponent} from '../../layout/navbar-home/navbar-home.component';
+import {HeaderHomeComponent} from '../../layout/header-home/header-home.component';
+import {PageComponent} from '../../../../layout/page/page.component';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,10 @@ import {DataNavbar} from '../../../../models/data-navbar';
     NavbarComponent,
     SidebarComponent,
     HeaderComponent,
-    ShoppingListCardComponent
+    ShoppingListCardComponent,
+    NavbarHomeComponent,
+    HeaderHomeComponent,
+    PageComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -35,22 +39,11 @@ export class HomeComponent implements OnInit {
     total: 0
   };
 
-  private readonly _navbar: DataNavbar[] = [
-    {
-      btnType: 'success',
-      text: 'Nuevo',
-      fasIcon: 'fa-plus',
-      path: '/shopping-list'
-    }
-  ];
-
   shoppingListsRes = signal<FindAllShoppingListRes>(this._initShoppingList);
 
   constructor(
-    private shoppingListsService: ShoppingListsService,
-    private navbarService: NavbarService
+    private shoppingListsService: ShoppingListsService
   ) {
-    this.navbarService.setElements(this._navbar);
   }
 
   ngOnInit() {

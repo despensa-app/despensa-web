@@ -1,4 +1,13 @@
-@for (response of shoppingListsRes().content; track response.id) {
-  <app-shopping-list-card [response]="response"/>
-}
-
+<app-page>
+  <ng-container navbar>
+    <app-navbar-home/>
+  </ng-container>
+  <ng-container header>
+    <app-header-home/>
+  </ng-container>
+  <ng-container content>
+    @for (response of shoppingListsRes().content; track response.id) {
+      <app-shopping-list-card [response]="response"/>
+    }
+  </ng-container>
+</app-page>
