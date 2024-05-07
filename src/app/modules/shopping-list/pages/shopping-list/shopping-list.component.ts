@@ -7,6 +7,10 @@ import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 import {NavbarShoppingListComponent} from '../../layout/navbar-shopping-list/navbar-shopping-list.component';
 import {HeaderShoppingListComponent} from '../../layout/header-shopping-list/header-shopping-list.component';
 import {PageComponent} from '../../../../layout/page/page.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import {FormsModule} from '@angular/forms';
+import {ButtonModule} from 'primeng/button';
+import {ButtonGroupModule} from 'primeng/buttongroup';
 
 @Component({
   selector: 'app-shopping-list',
@@ -16,7 +20,11 @@ import {PageComponent} from '../../../../layout/page/page.component';
     NavbarComponent,
     NavbarShoppingListComponent,
     HeaderShoppingListComponent,
-    PageComponent
+    PageComponent,
+    CheckboxModule,
+    FormsModule,
+    ButtonModule,
+    ButtonGroupModule
   ],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css'

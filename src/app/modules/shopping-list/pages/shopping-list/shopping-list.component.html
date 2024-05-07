@@ -6,33 +6,29 @@
     <app-header-shopping-list [isEdit]="isEdit()" [name]="shoppingListRes().name"/>
   </ng-container>
   <ng-container content>
-    <div class="list-group list-group-custom-button mb-3">
+    <div class="list-group mb-3">
       @for (response of shoppingListRes().items; track response.product.id) {
-        <li class="list-group-item pl-3">
-          <div class="list-group-item-content">
-            <div class="d-flex justify-content-between">
-              <div class="custom-checkbox">
-                <div class="custom-checkbox-box" [class.active]="response.selected">
-                  @if (response.selected) {
-                    <i class="fas fa-check"></i>
-                  }
+        <li class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <div class="list-group-item-content flex-grow-1">
+              <div class="d-flex justify-content-between align-items-center">
+                <p-checkbox styleClass="mr-2"
+                            [binary]="true"
+                            checkboxIcon="fas fa-check"
+                            [(ngModel)]="response.selected"/>
+                <div class="flex-grow-1 text-truncate">
+                  {{ response.product.name }}
                 </div>
-              </div>
-              <div class="flex-grow-1 text-truncate">
-                {{ response.product.name }}
+                <p-button icon="fas fa-expand-alt"
+                          [text]="true"
+                          data-toggle="modal"
+                          data-target="#product-detail-modal"/>
               </div>
             </div>
-          </div>
-          <div class="list-group-item-button button-active">
-            <div class="btn-group h-100">
-              <button class="btn btn-primary border-radius-0" data-toggle="modal"
-                      data-target="#product-detail-modal">
-                Ver
-              </button>
-              <button class="btn btn-danger border-radius-0">
-                <i class="fas fa-trash"></i>
-              </button>
-            </div>
+            <p-button icon="fas fa-trash"
+                      [disabled]="!isEdit()"
+                      [text]="true"
+                      severity="danger"/>
           </div>
         </li>
       }
