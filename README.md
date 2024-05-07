@@ -1,27 +1,93 @@
-# DespensaWeb
+# Despensa-app - REST API
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
+[![Twitch nmarulo](https://img.shields.io/twitch/status/nmarulo?color=%23A970FF&label=twitch%20nmarulo&style=flat-square)](https://www.twitch.tv/nmarulo)
+---
 
-## Development server
+## Descripción
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Despensa-app es una aplicación que te permite gestionar los productos que compras de forma habitual.
 
-## Code scaffolding
+Este proyecto es la interfaz grafica que consume los recursos del [proyecto rest-api](https://github.com/despensa-app/despensa-rest-api).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Demostración
 
-## Build
+No disponible.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Despliegue local
 
-## Running unit tests
+- [Requisitos](#requisitos)
+- [Empezar a trabajar](#empezar-a-trabajar)
+  - [Crear base de datos](#create-database)
+  - [Usando postman](#using-postman)
+  - [Trabajando en WebStorm](#working-webstorm)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Requisitos
 
-## Running end-to-end tests
+* [Angular 17](https://angular.dev)
+* [Node.js 20](https://nodejs.org)
+  * [Node para windows](https://github.com/coreybutler/nvm-windows/releases) (Opcional)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Empezar a trabajar
 
-## Further help
+<a name="working-webstorm"></a>
+**Trabajando en WebStorm**
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- [Clonar proyecto](#clonar-proyecto)
+- [Configurar node.js path](#nodejs-path)
+- [Ejecutar](#run)
+- [Habilitar EditorConfig](#editor-config)
+- [Establecer opciones de guardado](#on-save)
+
+<a name="clonar-proyecto"></a>
+Clonar proyecto:
+
+> File > New > Project from Version Control
+
+<a name="nodejs-path"></a>
+Establecer la ruta local de node.js:
+
+> File > Settings > Languages & Frameworks > Node.js
+
+<a name="run"></a>
+Ejecutar aplicación:
+
+- `Run > Run...`
+  - `start`
+
+<a name="editor-config"></a>
+Habilitar EditorConfig
+
+- Es necesario tener habilitado el soporte de EditorConfig:
+
+  > Settings > Editor > Code Style
+  > - Enable Editor Config Support
+
+<a name="on-save"></a>
+Establecer acciones de guardado
+
+- Recomiendo tener activado las acciones de guardado:
+  - Reformat code
+  - Optimize imports
+
+> Settings > Tools > Actions on save
+
+> Tener habilitado EditorConfig.
+
+## Contribuir
+
+Cualquier contribución que hagas será muy apreciada.
+
+- Antes de empezar a codificar, lea las [directrices de contribución](CONTRIBUTING.md).
+
+## Agradecimientos
+
+Gracias a [JetBrains](https://www.jetbrains.com/?from=SoftN%20CMS) por proporcionar una licencia para WebStorm para
+desarrollar este proyecto.
+
+| JetBrains                                                                                             | WebStorm                                                                                                 |
+|-------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| ![JetBrains logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg) | ![WebStorm logo](https://resources.jetbrains.com/storage/products/company/brand/logos/WebStorm_icon.svg) |
+
+## Licencia
+
+[MIT license](LICENSE).
