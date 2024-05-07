@@ -2,11 +2,11 @@
   <ng-container navbar-center>
     <ul class="navbar-nav">
       @if (isEdit) {
-        <li class="nav-item">
-          <button class="btn btn-primary" type="button" (click)="editClickEvent()">
-            <i class="fas fa-edit pr-1"></i>
-            <span>Guardar</span>
-          </button>
+        <li class="nav-item mr-1">
+          <p-button icon="fas fa-save"
+                    styleClass="btn btn-primary"
+                    label="Guardar"
+                    (onClick)="editClickEvent()"/>
         </li>
         <li class="nav-item">
           <a class="btn btn-success" routerLink="/shopping-list/products">
@@ -16,10 +16,10 @@
         </li>
       } @else {
         <li class="nav-item">
-          <button class="btn btn-primary" type="button" (click)="editClickEvent()">
-            <i class="fas fa-edit pr-1"></i>
-            <span>Editar</span>
-          </button>
+          <p-button icon="fas fa-edit"
+                    styleClass="btn btn-primary"
+                    label="Editar"
+                    (onClick)="editClickEvent()"/>
         </li>
       }
     </ul>
