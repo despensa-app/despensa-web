@@ -17,8 +17,6 @@ No disponible.
 
 - [Requisitos](#requisitos)
 - [Empezar a trabajar](#empezar-a-trabajar)
-  - [Crear base de datos](#create-database)
-  - [Usando postman](#using-postman)
   - [Trabajando en WebStorm](#working-webstorm)
 
 ### Requisitos
