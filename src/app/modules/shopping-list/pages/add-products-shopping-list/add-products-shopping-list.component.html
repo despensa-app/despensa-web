@@ -1,0 +1,17 @@
+<app-page>
+  <ng-container navbar>
+    <app-add-products-navbar-shopping-list [idShoppingList]="idShoppingList"/>
+  </ng-container>
+  <ng-container header>
+    <app-add-product-header-shopping-list/>
+  </ng-container>
+  <ng-container content>
+    <div class="list-group">
+      @for (product of shoppingListProductsRes().content; track product.id) {
+        <div class="list-group-item text-truncate">
+          {{ product.name }}
+        </div>
+      }
+    </div>
+  </ng-container>
+</app-page>
