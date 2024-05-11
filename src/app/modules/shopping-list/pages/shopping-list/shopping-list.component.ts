@@ -1,6 +1,6 @@
 import {Component, Input, signal} from '@angular/core';
 import {tap} from 'rxjs';
-import {FindByIdShoppingListRes} from '../../../../models/find-by-id-shopping-list-res';
+import {FindByIdShoppingListRes, Item} from '../../../../models/find-by-id-shopping-list-res';
 import {ShoppingListsService} from '../../../../services/shopping-lists/shopping-lists.service';
 import {AsyncPipe} from '@angular/common';
 import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
@@ -11,6 +11,8 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {FormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {ButtonGroupModule} from 'primeng/buttongroup';
+import {DialogModule} from 'primeng/dialog';
+import {ImageModule} from 'primeng/image';
 
 @Component({
   selector: 'app-shopping-list',
@@ -24,7 +26,9 @@ import {ButtonGroupModule} from 'primeng/buttongroup';
     CheckboxModule,
     FormsModule,
     ButtonModule,
-    ButtonGroupModule
+    ButtonGroupModule,
+    DialogModule,
+    ImageModule
   ],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css'
@@ -39,9 +43,28 @@ export class ShoppingListComponent {
     items: []
   };
 
+  private readonly _initProduct: Item = {
+    product: {
+      id: 0,
+      name: '',
+      price: 0
+    },
+    unitType: {
+      id: 0,
+      name: ''
+    },
+    unitsPerProduct: 0,
+    totalPrice: 0,
+    selected: false
+  };
+
   shoppingListRes = signal(this._initShoppingList);
 
   isEdit = signal(false);
+
+  selectedProduct = signal<Item>(this._initProduct);
+
+  visibleProductDetails = false;
 
   @Input()
   set id(id: number) {
@@ -57,5 +80,10 @@ export class ShoppingListComponent {
 
   editEvent() {
     this.isEdit.set(!this.isEdit());
+  }
+
+  showProductDetailsEvent(product: Item) {
+    this.selectedProduct.set(product);
+    this.visibleProductDetails = !this.visibleProductDetails;
   }
 }

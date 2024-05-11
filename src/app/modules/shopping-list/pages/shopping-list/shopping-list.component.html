@@ -21,8 +21,7 @@
                 </div>
                 <p-button icon="fas fa-expand-alt"
                           [text]="true"
-                          data-toggle="modal"
-                          data-target="#product-detail-modal"/>
+                          (click)="showProductDetailsEvent(response)"/>
               </div>
             </div>
             <p-button icon="fas fa-trash"
@@ -36,41 +35,36 @@
   </ng-container>
 </app-page>
 
-<div
-  class="modal fade"
-  id="product-detail-modal"
-  tabIndex="-1"
-  aria-hidden="true"
-  data-backdrop="true"
-  data-keyboard="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">producto 1</h5>
-        <button class="btn close">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="modal-body p-0">
-        <div class="d-flex p-3 border-bottom">
-          <div class="flex-grow-1">
-            99 € <small class="text-muted">9 €</small>
-          </div>
-          <div class="flex-grow-1">
-            99
-            <small class="text-muted"> 9</small>
-          </div>
-          <div>
-                  <span class="badge badge-info">
-                    9 tipo
-                  </span>
-          </div>
-        </div>
-        <img src="/src/assets/Agua_potable.jpg" alt="producto 1" class="img-fluid img-rounded"/>
-      </div>
+<p-dialog [header]="selectedProduct().product.name"
+          [modal]="true"
+          [(visible)]="visibleProductDetails"
+          [draggable]="false"
+          [resizable]="false"
+          closeIcon="fas fa-times"
+          [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <div class="d-flex">
+    <div class="flex-grow-1">
+      {{ selectedProduct().totalPrice }} €
+      <small class="text-muted">{{ selectedProduct().product.price }} €</small>
+    </div>
+    <div class="flex-grow-1">
+      {{ selectedProduct().unitsPerProduct }}
+      <small class="text-muted"> Unidades</small>
+    </div>
+    <div>
+      <span class="badge badge-info">
+        {{ selectedProduct().unitType.name }}
+      </span>
     </div>
   </div>
-</div>
+  <p-image
+    src="https://drabeatrizbeltran.com/wp-content/uploads/2016/01/agua2.jpg"
+    width="600"
+    [alt]="selectedProduct().product.name"
+    imageClass="img-fluid img-rounded img-fluid"
+    styleClass="mt-3"
+    [preview]="true"/>
+</p-dialog>
 <div id="options-modal"
      class="modal fade"
      tabIndex="-1"
