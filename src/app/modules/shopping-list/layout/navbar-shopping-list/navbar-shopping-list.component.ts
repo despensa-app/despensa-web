@@ -18,6 +18,8 @@ export class NavbarShoppingListComponent {
 
   @Input() isEdit: boolean = false;
 
+  @Input() idShoppingList: number = 0;
+
   @Output() editEvent = new EventEmitter<void>();
 
   editClickEvent() {
