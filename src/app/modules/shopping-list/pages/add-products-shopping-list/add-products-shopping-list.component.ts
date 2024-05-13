@@ -35,7 +35,7 @@ import {FindAllShoppingListProductsRes} from '../../../../models/find-all-shoppi
 })
 export class AddProductsShoppingListComponent implements OnInit {
 
-  private _initShoppingListProductsRes: FindAllShoppingListProductsRes = {
+  private readonly _initShoppingListProductsRes: FindAllShoppingListProductsRes = {
     content: [],
     currentPage: 0,
     pageSize: 0,
