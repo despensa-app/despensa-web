@@ -14,7 +14,7 @@ import {
 } from '../../layout/add-product-header-shopping-list/add-product-header-shopping-list.component';
 import {ProductsService} from '../../../../services/products/products.service';
 import {tap} from 'rxjs';
-import {FindAllShoppingListProductsRes} from '../../../../models/find-all-shopping-list-products-res';
+import {FindAllShoppingListProductsRes, Product} from '../../../../models/find-all-shopping-list-products-res';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -43,9 +43,19 @@ export class AddProductsShoppingListComponent implements OnInit {
     total: 0
   };
 
+  private readonly _initProduct: Product = {
+    id: 0,
+    name: '',
+    price: 0
+  };
+
   shoppingListProductsRes = signal<FindAllShoppingListProductsRes>(this._initShoppingListProductsRes);
 
+  selectedProduct = signal<Product>(this._initProduct);
+
   @Input('id') idShoppingList: number = 0;
+
+  visibleProductDialog: boolean = true;
 
   constructor(private productsService: ProductsService) {
   }
@@ -58,4 +68,8 @@ export class AddProductsShoppingListComponent implements OnInit {
         .subscribe();
   }
 
+  selectProductEvent(product: Product) {
+    this.selectedProduct.set(product);
+    this.visibleProductDialog = true;
+  }
 }

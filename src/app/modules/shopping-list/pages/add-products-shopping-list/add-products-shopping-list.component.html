@@ -8,10 +8,43 @@
   <ng-container content>
     <div class="list-group">
       @for (product of shoppingListProductsRes().content; track product.id) {
-        <div class="list-group-item text-truncate">
+        <div class="list-group-item text-truncate"
+             (click)="selectProductEvent(product)">
           {{ product.name }}
         </div>
       }
     </div>
   </ng-container>
 </app-page>
+
+<p-dialog [header]="selectedProduct().name"
+          [modal]="true"
+          [(visible)]="visibleProductDialog"
+          [draggable]="false"
+          [resizable]="false"
+          closeIcon="fas fa-times"
+          [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <div class="d-flex">
+    <div class="mr-sm-1">
+      <label for="units">Unidades</label>
+      <input type="number" class="form-control" name="units" id="units" value="1">
+    </div>
+    <div class="flex-grow-1">
+      <label for="unit_type_name">Tipo de unidades</label>
+      <input type="text" class="form-control" name="unit_type_name" id="unit_type_name" value="lata">
+    </div>
+  </div>
+  <p-image
+    src="https://placehold.co/600x400"
+    width="600"
+    [alt]="selectedProduct().name"
+    imageClass="img-fluid img-rounded img-fluid"
+    styleClass="mt-3 mb-3"
+    [preview]="true"/>
+  <div>
+    <p-button icon="fas fa-plus"
+              label="Agregar"
+              styleClass="btn btn-success btn-block"
+              severity="success"/>
+  </div>
+</p-dialog>
