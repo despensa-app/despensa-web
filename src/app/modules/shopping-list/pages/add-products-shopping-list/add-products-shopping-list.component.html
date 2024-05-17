@@ -31,7 +31,15 @@
     </div>
     <div class="flex-grow-1">
       <label for="unit_type_name">Tipo de unidades</label>
-      <input type="text" class="form-control" name="unit_type_name" id="unit_type_name" value="lata">
+      <p-autoComplete
+        styleClass="d-block"
+        inputStyleClass="w-75"
+        inputId="unit_type_name"
+        [dropdown]="true"
+        [suggestions]="findAllUnityTypesRes().content"
+        (completeMethod)="autoCompleteUnitTypeEvent($event)"
+        optionLabel="name"
+        optionValue="name"/>
     </div>
   </div>
   <p-image
@@ -45,6 +53,7 @@
     <p-button icon="fas fa-plus"
               label="Agregar"
               styleClass="btn btn-success btn-block"
+              (onClick)="hideDialogSelectProductEvent()"
               severity="success"/>
   </div>
 </p-dialog>

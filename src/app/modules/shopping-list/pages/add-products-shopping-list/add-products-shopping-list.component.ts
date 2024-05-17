@@ -15,6 +15,9 @@ import {
 import {ProductsService} from '../../../../services/products/products.service';
 import {tap} from 'rxjs';
 import {FindAllShoppingListProductsRes, Product} from '../../../../models/find-all-shopping-list-products-res';
+import {UnitTypesService} from '../../../../services/unit-types/unit-types.service';
+import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
+import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -28,7 +31,8 @@ import {FindAllShoppingListProductsRes, Product} from '../../../../models/find-a
     NavbarShoppingListComponent,
     PageComponent,
     AddProductsNavbarShoppingListComponent,
-    AddProductHeaderShoppingListComponent
+    AddProductHeaderShoppingListComponent,
+    AutoCompleteModule
   ],
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'
@@ -49,15 +53,29 @@ export class AddProductsShoppingListComponent implements OnInit {
     price: 0
   };
 
+  private readonly _initFindAllUnitTypesRes: FindAllUnitTypesRes = {
+    content: [],
+    currentPage: 0,
+    pageSize: 0,
+    totalPages: 0,
+    total: 0
+  };
+
   shoppingListProductsRes = signal<FindAllShoppingListProductsRes>(this._initShoppingListProductsRes);
 
   selectedProduct = signal<Product>(this._initProduct);
+
+  findAllUnityTypesRes = signal<FindAllUnitTypesRes>(this._initFindAllUnitTypesRes);
 
   @Input('id') idShoppingList: number = 0;
 
   visibleProductDialog: boolean = true;
 
-  constructor(private productsService: ProductsService) {
+
+  constructor(
+    private productsService: ProductsService,
+    private unitTypesService: UnitTypesService
+  ) {
   }
 
   ngOnInit(): void {
@@ -72,4 +90,17 @@ export class AddProductsShoppingListComponent implements OnInit {
     this.selectedProduct.set(product);
     this.visibleProductDialog = true;
   }
+
+  autoCompleteUnitTypeEvent($event: AutoCompleteCompleteEvent) {
+    this.unitTypesService.findAll()
+        .pipe(
+          tap(unitTypes => this.findAllUnityTypesRes.set(unitTypes))
+        )
+        .subscribe();
+  }
+
+  hideDialogSelectProductEvent() {
+    this.visibleProductDialog = false;
+  }
+
 }
