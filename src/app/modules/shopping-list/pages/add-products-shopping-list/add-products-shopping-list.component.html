@@ -35,10 +35,10 @@
         [useGrouping]="false"/>
     </div>
     <div class="flex-grow-1">
-      <label for="unit_type_name">Tipo de unidades</label>
+      <label for="unit_type_name"
+             class="d-block">Tipo de unidades</label>
       <p-autoComplete
-        styleClass="d-block"
-        inputStyleClass="w-75"
+        styleClass="w-100"
         inputId="unit_type_name"
         [dropdown]="true"
         [suggestions]="findAllUnityTypesRes().content"
