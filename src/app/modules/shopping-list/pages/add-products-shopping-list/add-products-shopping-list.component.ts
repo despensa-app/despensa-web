@@ -18,6 +18,7 @@ import {FindAllShoppingListProductsRes, Product} from '../../../../models/find-a
 import {UnitTypesService} from '../../../../services/unit-types/unit-types.service';
 import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
 import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -32,7 +33,8 @@ import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplet
     PageComponent,
     AddProductsNavbarShoppingListComponent,
     AddProductHeaderShoppingListComponent,
-    AutoCompleteModule
+    AutoCompleteModule,
+    InputNumberModule
   ],
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'

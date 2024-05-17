@@ -26,8 +26,13 @@
           [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
   <div class="d-flex">
     <div class="mr-sm-1">
-      <label for="units">Unidades</label>
-      <input type="number" class="form-control" name="units" id="units" value="1">
+      <label for="units"
+             class="d-block">Unidades</label>
+      <p-inputNumber
+        mode="decimal"
+        min="1"
+        inputId="units"
+        [useGrouping]="false"/>
     </div>
     <div class="flex-grow-1">
       <label for="unit_type_name">Tipo de unidades</label>
