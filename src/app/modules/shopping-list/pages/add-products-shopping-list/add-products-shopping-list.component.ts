@@ -71,7 +71,7 @@ export class AddProductsShoppingListComponent implements OnInit {
 
   @Input('id') idShoppingList: number = 0;
 
-  visibleProductDialog: boolean = true;
+  visibleProductDialog: boolean = false;
 
 
   constructor(
