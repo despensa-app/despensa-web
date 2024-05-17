@@ -68,7 +68,7 @@ export class AddProductsShoppingListComponent implements OnInit {
         .subscribe();
   }
 
-  selectProductEvent(product: Product) {
+  showDialogSelectProductEvent(product: Product) {
     this.selectedProduct.set(product);
     this.visibleProductDialog = true;
   }

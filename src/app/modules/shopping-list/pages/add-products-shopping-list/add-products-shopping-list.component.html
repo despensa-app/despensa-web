@@ -9,7 +9,7 @@
     <div class="list-group">
       @for (product of shoppingListProductsRes().content; track product.id) {
         <div class="list-group-item text-truncate"
-             (click)="selectProductEvent(product)">
+             (click)="showDialogSelectProductEvent(product)">
           {{ product.name }}
         </div>
       }
