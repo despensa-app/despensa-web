@@ -21,6 +21,9 @@ import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplet
 import {InputNumberModule} from 'primeng/inputnumber';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SaveShoppingListProductReq} from '../../../../models/save-shopping-list-product-req';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
+import {InputTextModule} from 'primeng/inputtext';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -38,7 +41,10 @@ import {SaveShoppingListProductReq} from '../../../../models/save-shopping-list-
     AutoCompleteModule,
     InputNumberModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputTextModule,
+    IconFieldModule,
+    InputIconModule
   ],
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'
