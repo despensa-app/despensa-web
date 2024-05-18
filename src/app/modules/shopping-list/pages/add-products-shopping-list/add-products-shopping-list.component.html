@@ -24,41 +24,52 @@
           [resizable]="false"
           closeIcon="fas fa-times"
           [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-  <div class="d-flex">
-    <div class="mr-sm-1">
-      <label for="units"
-             class="d-block">Unidades</label>
-      <p-inputNumber
-        mode="decimal"
-        min="1"
-        inputId="units"
-        [useGrouping]="false"/>
+  <form [formGroup]="saveShoppingListProductForm"
+        (ngSubmit)="addProductsSubmit()">
+    <div class="d-flex">
+      <div class="mr-sm-1">
+        <label for="units"
+               class="d-block">Unidades</label>
+        <p-inputNumber
+          formControlName="unitsPerProduct"
+          mode="decimal"
+          min="1"
+          inputId="units"
+          [useGrouping]="false"/>
+      </div>
+      <div class="flex-grow-1">
+        <label for="unitType"
+               class="d-block">Tipo de unidades</label>
+        <p-autoComplete
+          formControlName="unitType"
+          styleClass="w-100"
+          inputId="unitType"
+          [dropdown]="true"
+          [suggestions]="findAllUnityTypesRes().content"
+          (completeMethod)="autoCompleteUnitTypeEvent($event)"
+          optionLabel="name"/>
+      </div>
+      <input type="hidden"
+             name="shoppingListId"
+             formControlName="shoppingListId">
+      <input type="hidden"
+             name="productId"
+             formControlName="productId">
+      <input type="hidden"
+             name="unitTypeId"
+             formControlName="unitTypeId">
     </div>
-    <div class="flex-grow-1">
-      <label for="unit_type_name"
-             class="d-block">Tipo de unidades</label>
-      <p-autoComplete
-        styleClass="w-100"
-        inputId="unit_type_name"
-        [dropdown]="true"
-        [suggestions]="findAllUnityTypesRes().content"
-        (completeMethod)="autoCompleteUnitTypeEvent($event)"
-        optionLabel="name"
-        optionValue="name"/>
-    </div>
-  </div>
-  <p-image
-    src="https://placehold.co/600x400"
-    width="600"
-    [alt]="selectedProduct().name"
-    imageClass="img-fluid img-rounded img-fluid"
-    styleClass="mt-3 mb-3"
-    [preview]="true"/>
-  <div>
-    <p-button icon="fas fa-plus"
-              label="Agregar"
-              styleClass="btn btn-success btn-block"
-              (onClick)="hideDialogSelectProductEvent()"
-              severity="success"/>
-  </div>
+    <p-image
+      src="https://placehold.co/600x400"
+      width="600"
+      [alt]="selectedProduct().name"
+      imageClass="img-fluid img-rounded img-fluid"
+      styleClass="mt-3 mb-3"
+      [preview]="true"/>
+    <button type="submit"
+            class="btn btn-success btn-block">
+      <i class="fas fa-plus pr-1"></i>
+      Agregar
+    </button>
+  </form>
 </p-dialog>

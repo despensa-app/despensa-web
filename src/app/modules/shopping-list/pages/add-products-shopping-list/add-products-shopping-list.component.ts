@@ -19,6 +19,7 @@ import {UnitTypesService} from '../../../../services/unit-types/unit-types.servi
 import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
 import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -34,7 +35,9 @@ import {InputNumberModule} from 'primeng/inputnumber';
     AddProductsNavbarShoppingListComponent,
     AddProductHeaderShoppingListComponent,
     AutoCompleteModule,
-    InputNumberModule
+    InputNumberModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'
@@ -73,10 +76,23 @@ export class AddProductsShoppingListComponent implements OnInit {
 
   visibleProductDialog: boolean = false;
 
+  saveShoppingListProductForm = this.formBuilder.nonNullable.group({
+    productId: [0],
+    shoppingListId: [0],
+    unitsPerProduct: [0],
+    unitType: [
+      {
+        id: 0,
+        name: ''
+      }
+    ],
+    unitTypeId: [0]
+  });
 
   constructor(
     private productsService: ProductsService,
-    private unitTypesService: UnitTypesService
+    private unitTypesService: UnitTypesService,
+    private formBuilder: FormBuilder
   ) {
   }
 
@@ -86,11 +102,33 @@ export class AddProductsShoppingListComponent implements OnInit {
           tap(shoppingList => this.shoppingListProductsRes.set(shoppingList))
         )
         .subscribe();
+
+    this.saveShoppingListProductForm.get('unitType')
+        ?.valueChanges
+        .pipe(
+          tap(value => {
+              this.saveShoppingListProductForm.get('unitTypeId')
+                  ?.setValue(value.id, {emitEvent: false});
+              console.log(value);
+            }
+          )
+        )
+        .subscribe();
   }
 
   showDialogSelectProductEvent(product: Product) {
     this.selectedProduct.set(product);
     this.visibleProductDialog = true;
+    this.saveShoppingListProductForm.setValue({
+      productId: product.id,
+      shoppingListId: Number(this.idShoppingList),
+      unitsPerProduct: 1,
+      unitTypeId: 0,
+      unitType: {
+        id: 0,
+        name: ''
+      }
+    }, {emitEvent: false});
   }
 
   autoCompleteUnitTypeEvent($event: AutoCompleteCompleteEvent) {
@@ -101,8 +139,9 @@ export class AddProductsShoppingListComponent implements OnInit {
         .subscribe();
   }
 
-  hideDialogSelectProductEvent() {
+  addProductsSubmit() {
     this.visibleProductDialog = false;
+    console.log(this.saveShoppingListProductForm.value);
+    //TODO: POST /products/shopping-list
   }
-
 }
