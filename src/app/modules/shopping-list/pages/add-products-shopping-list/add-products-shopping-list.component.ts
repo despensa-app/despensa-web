@@ -13,7 +13,7 @@ import {
   AddProductHeaderShoppingListComponent
 } from '../../layout/add-product-header-shopping-list/add-product-header-shopping-list.component';
 import {ProductsService} from '../../../../services/products/products.service';
-import {tap} from 'rxjs';
+import {map, tap} from 'rxjs';
 import {FindAllShoppingListProductsRes, Product} from '../../../../models/find-all-shopping-list-products-res';
 import {UnitTypesService} from '../../../../services/unit-types/unit-types.service';
 import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
@@ -106,12 +106,11 @@ export class AddProductsShoppingListComponent implements OnInit {
     this.saveShoppingListProductForm.get('unitType')
         ?.valueChanges
         .pipe(
+          map(value => value.id),
           tap(value => {
-              this.saveShoppingListProductForm.get('unitTypeId')
-                  ?.setValue(value.id, {emitEvent: false});
-              console.log(value);
-            }
-          )
+            this.saveShoppingListProductForm.get('unitTypeId')
+                ?.setValue(value, {emitEvent: false});
+          })
         )
         .subscribe();
   }

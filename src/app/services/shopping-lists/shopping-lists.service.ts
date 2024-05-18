@@ -15,7 +15,7 @@ export class ShoppingListsService {
   }
 
   findAll() {
-    return this.httpClient.get<FindAllShoppingListRes>(`${this._shoppingListsURI}`);
+    return this.httpClient.get<FindAllShoppingListRes>(this._shoppingListsURI);
   }
 
   findById(id: number) {
