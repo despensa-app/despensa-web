@@ -103,16 +103,16 @@ export class AddProductsShoppingListComponent implements OnInit {
         )
         .subscribe();
 
-    this.saveShoppingListProductForm.get('unitType')
-        ?.valueChanges
-        .pipe(
-          map(value => value.id),
-          tap(value => {
-            this.saveShoppingListProductForm.get('unitTypeId')
-                ?.setValue(value, {emitEvent: false});
-          })
-        )
-        .subscribe();
+    this.saveShoppingListProductForm.get('unitType')!
+      .valueChanges
+      .pipe(
+        map(value => value.id),
+        tap(value => {
+          this.saveShoppingListProductForm.get('unitTypeId')!
+            .setValue(value, {emitEvent: false});
+        })
+      )
+      .subscribe();
   }
 
   showDialogSelectProductEvent(product: Product) {
