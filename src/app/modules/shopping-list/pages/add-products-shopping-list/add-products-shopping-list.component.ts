@@ -20,6 +20,7 @@ import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
 import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SaveShoppingListProductReq} from '../../../../models/save-shopping-list-product-req';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -97,11 +98,7 @@ export class AddProductsShoppingListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productsService.findAllShoppingList(this.idShoppingList)
-        .pipe(
-          tap(shoppingList => this.shoppingListProductsRes.set(shoppingList))
-        )
-        .subscribe();
+    this.findAllShoppingList();
 
     this.saveShoppingListProductForm.get('unitType')!
       .valueChanges
@@ -140,7 +137,24 @@ export class AddProductsShoppingListComponent implements OnInit {
 
   addProductsSubmit() {
     this.visibleProductDialog = false;
-    console.log(this.saveShoppingListProductForm.value);
-    //TODO: POST /products/shopping-list
+    const request: SaveShoppingListProductReq = {
+      productId: this.saveShoppingListProductForm.value.productId!,
+      shoppingListId: this.saveShoppingListProductForm.value.shoppingListId!,
+      unitsPerProduct: this.saveShoppingListProductForm.value.unitsPerProduct!,
+      unitTypeId: this.saveShoppingListProductForm.value.unitTypeId!
+    };
+
+    this.productsService.saveShoppingList(request)
+        .subscribe({
+          complete: () => this.findAllShoppingList()
+        });
+  }
+
+  private findAllShoppingList() {
+    this.productsService.findAllShoppingList(this.idShoppingList)
+        .pipe(
+          tap(shoppingList => this.shoppingListProductsRes.set(shoppingList))
+        )
+        .subscribe();
   }
 }
