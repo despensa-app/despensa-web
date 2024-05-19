@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {FindAllShoppingListRes} from '../../models/find-all-shopping-list-res';
 import {FindByIdShoppingListRes} from '../../models/find-by-id-shopping-list-res';
 import {environment} from '../../../environments/environment';
+import {UpdateShoppingListReq} from '../../models/update-shopping-list-req';
+import {UpdateShoppingListRes} from '../../models/update-shopping-list-res';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,10 @@ export class ShoppingListsService {
 
   findById(id: number) {
     return this.httpClient.get<FindByIdShoppingListRes>(`${this._shoppingListsURI}/${id}`);
+  }
+
+  update(id: number, request: UpdateShoppingListReq) {
+    return this.httpClient.put<UpdateShoppingListRes>(`${this._shoppingListsURI}/${id}`, request);
   }
 
 }
