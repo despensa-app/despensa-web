@@ -1,6 +1,6 @@
 import {Component, Input, signal} from '@angular/core';
 import {tap} from 'rxjs';
-import {FindByIdShoppingListRes, Item} from '../../../../models/find-by-id-shopping-list-res';
+import {FindByIdShoppingListRes, ProductShoppingList} from '../../../../models/find-by-id-shopping-list-res';
 import {ShoppingListsService} from '../../../../services/shopping-lists/shopping-lists.service';
 import {AsyncPipe} from '@angular/common';
 import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
@@ -40,10 +40,10 @@ export class ShoppingListComponent {
     name: '',
     totalProducts: 0,
     totalPrice: 0,
-    items: []
+    products: []
   };
 
-  private readonly _initProduct: Item = {
+  private readonly _initProduct: ProductShoppingList = {
     product: {
       id: 0,
       name: '',
@@ -62,7 +62,7 @@ export class ShoppingListComponent {
 
   isEdit = signal(false);
 
-  selectedProduct = signal<Item>(this._initProduct);
+  selectedProduct = signal<ProductShoppingList>(this._initProduct);
 
   visibleProductDetails = false;
 
@@ -82,7 +82,7 @@ export class ShoppingListComponent {
     this.isEdit.set(!this.isEdit());
   }
 
-  showProductDetailsEvent(product: Item) {
+  showProductDetailsEvent(product: ProductShoppingList) {
     this.selectedProduct.set(product);
     this.visibleProductDetails = !this.visibleProductDetails;
   }

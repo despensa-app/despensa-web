@@ -3,10 +3,10 @@ export interface FindByIdShoppingListRes {
   name: string;
   totalProducts: number;
   totalPrice: number;
-  items: Item[];
+  products: ProductShoppingList[];
 }
 
-export interface Item {
+export interface ProductShoppingList {
   unitsPerProduct: number;
   selected: boolean;
   product: Product;
