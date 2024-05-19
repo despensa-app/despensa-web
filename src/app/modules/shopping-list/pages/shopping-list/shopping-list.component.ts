@@ -13,6 +13,7 @@ import {ButtonModule} from 'primeng/button';
 import {ButtonGroupModule} from 'primeng/buttongroup';
 import {DialogModule} from 'primeng/dialog';
 import {ImageModule} from 'primeng/image';
+import {UpdateShoppingListReq} from '../../../../models/update-shopping-list-req';
 
 @Component({
   selector: 'app-shopping-list',
@@ -85,5 +86,28 @@ export class ShoppingListComponent {
   showProductDetailsEvent(product: ProductShoppingList) {
     this.selectedProduct.set(product);
     this.visibleProductDetails = !this.visibleProductDetails;
+  }
+
+  saveEvent() {
+    const request: UpdateShoppingListReq = {
+      name: this.shoppingListRes().name
+    };
+
+    this.isEdit.set(!this.isEdit());
+
+    this.shoppingListsService.update(this.shoppingListRes().id, request)
+        .subscribe({
+          error: error => {
+            console.log(error);
+          }
+        });
+  }
+
+  nameShoppingListChangeEvent($event: string) {
+    this.shoppingListRes.update(value => {
+      value.name = $event;
+
+      return value;
+    });
   }
 }

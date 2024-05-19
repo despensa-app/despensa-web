@@ -22,7 +22,13 @@ export class NavbarShoppingListComponent {
 
   @Output() editEvent = new EventEmitter<void>();
 
+  @Output() saveEvent = new EventEmitter<void>();
+
   editClickEvent() {
     this.editEvent.emit();
+  }
+
+  saveClickEvent() {
+    this.saveEvent.emit();
   }
 }

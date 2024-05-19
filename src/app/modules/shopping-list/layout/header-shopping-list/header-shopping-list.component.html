@@ -18,13 +18,13 @@
         <label class="sr-only" for="name">Nombre</label>
         <input type="text"
                class="form-control"
-               value="{{name}}"
+               [formControl]="nameShoppingListFormControl"
                placeholder="Nombre de la lista"
                id="name"
                name="name">
       </div>
     } @else {
-      <h1 class="flex-grow-1">{{ name }}</h1>
+      <h1 class="flex-grow-1">{{ nameShoppingListFormControl.value }}</h1>
     }
   </div>
 </app-header>

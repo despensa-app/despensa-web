@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {HeaderComponent} from '../../../../layout/header/header.component';
-import {NgClass} from '@angular/common';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-header-shopping-list',
@@ -9,7 +9,7 @@ import {NgClass} from '@angular/common';
   imports: [
     RouterLink,
     HeaderComponent,
-    NgClass
+    ReactiveFormsModule
   ],
   templateUrl: './header-shopping-list.component.html',
   styleUrl: './header-shopping-list.component.css'
@@ -18,6 +18,20 @@ export class HeaderShoppingListComponent {
 
   @Input() isEdit: boolean = false;
 
-  @Input() name!: string;
+  @Input({required: true})
+  set nameShoppingList(value: string) {
+    this.nameShoppingListFormControl.setValue(value);
+  };
 
+  @Output() nameShoppingListChange = new EventEmitter<string>();
+
+  nameShoppingListFormControl = new FormControl('', {nonNullable: true});
+
+  constructor() {
+    this.nameShoppingListFormControl
+        .valueChanges
+        .subscribe(value => {
+          this.nameShoppingListChange.emit(value);
+        });
+  }
 }
