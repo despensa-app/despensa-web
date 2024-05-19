@@ -12,23 +12,17 @@
       <i class="fas fa-ellipsis-h"></i>
     </button>
   </ng-container>
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between mt-2">
     @if (isEdit) {
-      <form class="flex-grow-1">
-        <div class="input-group">
-          <label class="sr-only" for="name">Nombre</label>
-          <input type="text"
-                 class="form-control"
-                 value="{{name}}"
-                 placeholder="Nombre de la lista"
-                 id="name" name="name">
-          <div class="input-group-append">
-            <button class="btn btn-default" type="button">
-              <i class="fas fa-undo-alt"></i>
-            </button>
-          </div>
-        </div>
-      </form>
+      <div class="flex-grow-1">
+        <label class="sr-only" for="name">Nombre</label>
+        <input type="text"
+               class="form-control"
+               value="{{name}}"
+               placeholder="Nombre de la lista"
+               id="name"
+               name="name">
+      </div>
     } @else {
       <h1 class="flex-grow-1">{{ name }}</h1>
     }
