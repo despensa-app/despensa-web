@@ -9,7 +9,7 @@
   </ng-container>
   <ng-container content>
     <div class="list-group mb-3">
-      @for (response of shoppingListRes().items; track response.product.id) {
+      @for (response of shoppingListRes().products; track response.product.id) {
         <li class="list-group-item">
           <div class="d-flex justify-content-between">
             <div class="list-group-item-content flex-grow-1">
