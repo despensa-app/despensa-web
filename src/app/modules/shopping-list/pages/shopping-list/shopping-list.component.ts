@@ -104,10 +104,10 @@ export class ShoppingListComponent {
   }
 
   nameShoppingListChangeEvent($event: string) {
-    this.shoppingListRes.update(value => {
-      value.name = $event;
-
-      return value;
-    });
+    this.shoppingListRes.update(value => ({
+        ...value,
+        name: $event
+      })
+    );
   }
 }
