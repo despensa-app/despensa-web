@@ -11,32 +11,40 @@
                               (nameShoppingListChange)="nameShoppingListChangeEvent($event)"/>
   </ng-container>
   <ng-container content>
-    <div class="list-group mb-3">
-      @for (response of shoppingListRes().products; track response.product.id) {
-        <li class="list-group-item">
-          <div class="d-flex justify-content-between">
-            <div class="list-group-item-content flex-grow-1">
-              <div class="d-flex justify-content-between align-items-center">
-                <p-checkbox styleClass="mr-2"
-                            [binary]="true"
-                            checkboxIcon="fas fa-check"
-                            [(ngModel)]="response.selected"/>
-                <div class="flex-grow-1 text-truncate">
-                  {{ response.product.name }}
+    <form [formGroup]="productShoppingListForm">
+      <div class="list-group mb-3"
+           formArrayName="productsShoppingListForm">
+        @for (response of shoppingListRes().products; track response.product.id) {
+          <li class="list-group-item"
+              [formGroupName]="$index">
+            <div class="d-flex justify-content-between">
+              <div class="list-group-item-content flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center">
+                  <p-checkbox styleClass="mr-2"
+                              [binary]="true"
+                              checkboxIcon="fas fa-check"
+                              formControlName="selected"/>
+                  <div class="flex-grow-1 text-truncate">
+                    {{ response.product.name }}
+                  </div>
+                  <p-button icon="fas fa-expand-alt"
+                            [text]="true"
+                            (onClick)="showProductDetailsEvent(response)"/>
                 </div>
-                <p-button icon="fas fa-expand-alt"
-                          [text]="true"
-                          (onClick)="showProductDetailsEvent(response)"/>
               </div>
+              <p-button icon="fas fa-trash"
+                        [disabled]="!isEdit()"
+                        [text]="true"
+                        severity="danger"/>
             </div>
-            <p-button icon="fas fa-trash"
-                      [disabled]="!isEdit()"
-                      [text]="true"
-                      severity="danger"/>
-          </div>
-        </li>
-      }
-    </div>
+            <input type="hidden"
+                   formControlName="productId">
+            <input type="hidden"
+                   formControlName="unitTypeId">
+          </li>
+        }
+      </div>
+    </form>
   </ng-container>
 </app-page>
 

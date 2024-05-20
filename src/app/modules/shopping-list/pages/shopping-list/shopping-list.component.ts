@@ -1,4 +1,4 @@
-import {Component, Input, signal} from '@angular/core';
+import {Component, effect, Input, signal} from '@angular/core';
 import {tap} from 'rxjs';
 import {FindByIdShoppingListRes, ProductShoppingList} from '../../../../models/find-by-id-shopping-list-res';
 import {ShoppingListsService} from '../../../../services/shopping-lists/shopping-lists.service';
@@ -8,7 +8,7 @@ import {NavbarShoppingListComponent} from '../../layout/navbar-shopping-list/nav
 import {HeaderShoppingListComponent} from '../../layout/header-shopping-list/header-shopping-list.component';
 import {PageComponent} from '../../../../layout/page/page.component';
 import {CheckboxModule} from 'primeng/checkbox';
-import {FormsModule} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {ButtonGroupModule} from 'primeng/buttongroup';
 import {DialogModule} from 'primeng/dialog';
@@ -29,7 +29,8 @@ import {UpdateShoppingListReq} from '../../../../models/update-shopping-list-req
     ButtonModule,
     ButtonGroupModule,
     DialogModule,
-    ImageModule
+    ImageModule,
+    ReactiveFormsModule
   ],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css'
@@ -67,6 +68,14 @@ export class ShoppingListComponent {
 
   visibleProductDetails = false;
 
+  productShoppingListForm = this.formBuilder.nonNullable.group({
+    productsShoppingListForm: this.formBuilder.array<FormGroup<{
+      selected: FormControl<boolean>;
+      productId: FormControl<number>;
+      unitTypeId: FormControl<number>;
+    }>>([])
+  });
+
   @Input()
   set id(id: number) {
     this.shoppingListsService.findById(id)
@@ -76,7 +85,46 @@ export class ShoppingListComponent {
         .subscribe();
   }
 
-  constructor(private shoppingListsService: ShoppingListsService) {
+  constructor(
+    private shoppingListsService: ShoppingListsService,
+    private formBuilder: FormBuilder
+  ) {
+    effect(() => {
+      this.shoppingListRes()
+          .products
+          .forEach(productShoppingList => {
+            const control = this.formBuilder.nonNullable.group({
+              selected: productShoppingList.selected,
+              productId: productShoppingList.product.id,
+              unitTypeId: productShoppingList.unitType.id
+            });
+
+            control.valueChanges
+                   .pipe(
+                     tap(value => {
+                       const request: UpdateShoppingListReq = {
+                         name: this.shoppingListRes().name,
+                         products: [
+                           {
+                             selected: value.selected!,
+                             productId: value.productId!,
+                             unitTypeId: value.unitTypeId!
+                           }
+                         ]
+                       };
+
+                       this.updateShoppingList(request);
+                     })
+                   )
+                   .subscribe();
+
+            this.productsShoppingListForm.push(control, {emitEvent: false});
+          });
+    });
+  }
+
+  get productsShoppingListForm() {
+    return this.productShoppingListForm.get('productsShoppingListForm') as FormArray;
   }
 
   editEvent() {
@@ -110,4 +158,10 @@ export class ShoppingListComponent {
       })
     );
   }
+
+  private updateShoppingList(request: UpdateShoppingListReq) {
+    this.shoppingListsService.update(this.shoppingListRes().id, request)
+        .subscribe();
+  }
+
 }
