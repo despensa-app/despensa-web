@@ -5,6 +5,7 @@ import {FindByIdShoppingListRes} from '../../models/find-by-id-shopping-list-res
 import {environment} from '../../../environments/environment';
 import {UpdateShoppingListReq} from '../../models/update-shopping-list-req';
 import {UpdateShoppingListRes} from '../../models/update-shopping-list-res';
+import {DeleteProductsShoppingListReq} from '../../models/delete-products-shopping-list-req';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,7 @@ export class ShoppingListsService {
     return this.httpClient.put<UpdateShoppingListRes>(`${this._shoppingListsURI}/${id}`, request);
   }
 
+  deleteProducts(id: number, request: DeleteProductsShoppingListReq) {
+    return this.httpClient.delete(`${this._shoppingListsURI}/${id}/products`, {body: request});
+  }
 }

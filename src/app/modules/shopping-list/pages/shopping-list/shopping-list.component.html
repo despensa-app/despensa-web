@@ -33,6 +33,7 @@
                 </div>
               </div>
               <p-button icon="fas fa-trash"
+                        (onClick)="deleteEvent(response)"
                         [disabled]="!isEdit()"
                         [text]="true"
                         severity="danger"/>

@@ -14,6 +14,7 @@ import {ButtonGroupModule} from 'primeng/buttongroup';
 import {DialogModule} from 'primeng/dialog';
 import {ImageModule} from 'primeng/image';
 import {UpdateShoppingListReq} from '../../../../models/update-shopping-list-req';
+import {DeleteProductsShoppingListReq} from '../../../../models/delete-products-shopping-list-req';
 
 @Component({
   selector: 'app-shopping-list',
@@ -157,6 +158,25 @@ export class ShoppingListComponent {
         name: $event
       })
     );
+  }
+
+  deleteEvent(response: ProductShoppingList) {
+    const request: DeleteProductsShoppingListReq = {
+      productsId: [
+        response.product.id
+      ]
+    };
+
+    this.shoppingListsService.deleteProducts(this.shoppingListRes().id, request)
+        .pipe(
+          tap(() => this.shoppingListRes.update(value => ({
+              ...value,
+              products: value.products
+                             .filter(product => product.product.id !== response.product.id)
+            })
+          ))
+        )
+        .subscribe();
   }
 
   private updateShoppingList(request: UpdateShoppingListReq) {
