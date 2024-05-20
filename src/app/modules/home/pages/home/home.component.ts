@@ -7,7 +7,7 @@ import {FindAllShoppingListRes} from '../../../../models/find-all-shopping-list-
 import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 import {SidebarComponent} from '../../../../layout/sidebar/sidebar.component';
 import {HeaderComponent} from '../../../../layout/header/header.component';
-import {ShoppingListCardComponent} from '../../../../shared/components/shopping-list-card/shopping-list-card.component';
+import {ShoppingListCardComponent} from '../../components/shopping-list-card/shopping-list-card.component';
 import {NavbarHomeComponent} from '../../layout/navbar-home/navbar-home.component';
 import {HeaderHomeComponent} from '../../layout/header-home/header-home.component';
 import {PageComponent} from '../../../../layout/page/page.component';
