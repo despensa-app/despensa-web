@@ -20,7 +20,7 @@ export class HeaderShoppingListComponent {
 
   @Input({required: true})
   set nameShoppingList(value: string) {
-    this.nameShoppingListFormControl.setValue(value, {emitEvent: value != ''});
+    this.nameShoppingListFormControl.setValue(value, {emitEvent: false});
   };
 
   @Output() nameShoppingListChange = new EventEmitter<string>();
