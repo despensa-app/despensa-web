@@ -16,11 +16,11 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
 })
 export class HeaderShoppingListComponent {
 
-  @Input() isEdit: boolean = false;
+  @Input() isEditOrNew: boolean = false;
 
   @Input({required: true})
   set nameShoppingList(value: string) {
-    this.nameShoppingListFormControl.setValue(value);
+    this.nameShoppingListFormControl.setValue(value, {emitEvent: value != ''});
   };
 
   @Output() nameShoppingListChange = new EventEmitter<string>();

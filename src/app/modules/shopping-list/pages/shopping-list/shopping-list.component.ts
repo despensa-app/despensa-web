@@ -15,6 +15,7 @@ import {DialogModule} from 'primeng/dialog';
 import {ImageModule} from 'primeng/image';
 import {UpdateShoppingListReq} from '../../../../models/update-shopping-list-req';
 import {DeleteProductsShoppingListReq} from '../../../../models/delete-products-shopping-list-req';
+import {SaveShoppingListReq} from '../../../../models/save-shopping-list-req';
 
 @Component({
   selector: 'app-shopping-list',
@@ -65,6 +66,8 @@ export class ShoppingListComponent {
 
   isEdit = signal(false);
 
+  isNew = signal(false);
+
   selectedProduct = signal<ProductShoppingList>(this._initProduct);
 
   visibleProductDetails = false;
@@ -79,11 +82,15 @@ export class ShoppingListComponent {
 
   @Input()
   set id(id: number) {
-    this.shoppingListsService.findById(id)
-        .pipe(
-          tap(shoppingList => this.shoppingListRes.set(shoppingList))
-        )
-        .subscribe();
+    if (id) {
+      this.shoppingListsService.findById(id)
+          .pipe(
+            tap(shoppingList => this.shoppingListRes.set(shoppingList))
+          )
+          .subscribe();
+    }
+
+    this.isNew.set(!id);
   }
 
   constructor(
@@ -128,6 +135,10 @@ export class ShoppingListComponent {
     return this.productShoppingListForm.get('productsShoppingListForm') as FormArray;
   }
 
+  isEditOrNew() {
+    return this.isEdit() || this.isNew();
+  }
+
   editEvent() {
     this.isEdit.set(!this.isEdit());
   }
@@ -138,18 +149,42 @@ export class ShoppingListComponent {
   }
 
   saveEvent() {
-    const request: UpdateShoppingListReq = {
-      name: this.shoppingListRes().name
-    };
+    this.isEdit.set(!this.isEditOrNew());
 
-    this.isEdit.set(!this.isEdit());
+    /*
+     * Por el momento el único valor que necesita actualizarse es el nombre.
+     * Si no ha cambiado, no es necesario realizar una petición a la API.
+     */
+    if (this.shoppingListRes().id) {
+      const request: UpdateShoppingListReq = {
+        name: this.shoppingListRes().name
+      };
 
-    this.shoppingListsService.update(this.shoppingListRes().id, request)
-        .subscribe({
-          error: error => {
-            console.log(error);
-          }
-        });
+      this.shoppingListsService.update(this.shoppingListRes().id, request)
+          .subscribe({
+            error: error => {
+              console.log(error);
+            }
+          });
+    }
+
+    if (this.isNew()) {
+      const request: SaveShoppingListReq = {
+        name: this.shoppingListRes().name
+      };
+
+      this.isNew.set(false);
+
+      this.shoppingListsService.save(request)
+          .pipe(
+            tap(shoppingList => this.shoppingListRes.set({
+              ...this._initShoppingList,
+              id: shoppingList.id,
+              name: shoppingList.name
+            }))
+          )
+          .subscribe();
+    }
   }
 
   nameShoppingListChangeEvent($event: string) {

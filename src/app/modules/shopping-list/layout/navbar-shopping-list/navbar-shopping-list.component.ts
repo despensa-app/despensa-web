@@ -16,7 +16,7 @@ import {ButtonModule} from 'primeng/button';
 })
 export class NavbarShoppingListComponent {
 
-  @Input() isEdit: boolean = false;
+  @Input() isEditOrNew: boolean = false;
 
   @Input() idShoppingList: number = 0;
 

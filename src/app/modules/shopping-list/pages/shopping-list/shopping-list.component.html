@@ -1,12 +1,12 @@
 <app-page>
   <ng-container navbar>
-    <app-navbar-shopping-list [isEdit]="isEdit()"
+    <app-navbar-shopping-list [isEditOrNew]="isEditOrNew()"
                               (editEvent)="editEvent()"
                               (saveEvent)="saveEvent()"
                               [idShoppingList]="shoppingListRes().id"/>
   </ng-container>
   <ng-container header>
-    <app-header-shopping-list [isEdit]="isEdit()"
+    <app-header-shopping-list [isEditOrNew]="isEditOrNew()"
                               [nameShoppingList]="shoppingListRes().name"
                               (nameShoppingListChange)="nameShoppingListChangeEvent($event)"/>
   </ng-container>
