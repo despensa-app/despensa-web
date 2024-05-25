@@ -24,11 +24,17 @@ export class NavbarShoppingListComponent {
 
   @Output() saveEvent = new EventEmitter<void>();
 
+  @Output() goToAddProductsLink = new EventEmitter<void>();
+
   editClickEvent() {
     this.editEvent.emit();
   }
 
   saveClickEvent() {
     this.saveEvent.emit();
+  }
+
+  goToAddProducts() {
+    this.goToAddProductsLink.emit();
   }
 }

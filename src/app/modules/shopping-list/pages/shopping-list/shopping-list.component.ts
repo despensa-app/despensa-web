@@ -16,6 +16,7 @@ import {ImageModule} from 'primeng/image';
 import {UpdateShoppingListReq} from '../../../../models/update-shopping-list-req';
 import {DeleteProductsShoppingListReq} from '../../../../models/delete-products-shopping-list-req';
 import {SaveShoppingListReq} from '../../../../models/save-shopping-list-req';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-shopping-list',
@@ -97,7 +98,8 @@ export class ShoppingListComponent {
 
   constructor(
     private shoppingListsService: ShoppingListsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
     effect(() => {
       this.shoppingListRes()
@@ -224,4 +226,29 @@ export class ShoppingListComponent {
         .subscribe();
   }
 
+  goToAddProductsEvent() {
+    if (this.shoppingListRes().id) {
+      this.goToAddProducts(this.shoppingListRes().id);
+
+      return;
+    }
+
+    const request: SaveShoppingListReq = {
+      name: this.shoppingListRes().name
+    };
+
+    this.shoppingListsService.save(request)
+        .pipe(
+          tap(shoppingList => {
+            this.goToAddProducts(shoppingList.id);
+          })
+        )
+        .subscribe();
+  }
+
+  private goToAddProducts(id: number) {
+    this.router.navigate([
+      'shopping-list', id, 'add-products'
+    ]);
+  }
 }

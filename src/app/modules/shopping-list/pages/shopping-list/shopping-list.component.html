@@ -3,7 +3,8 @@
     <app-navbar-shopping-list [isEditOrNew]="isEditOrNew()"
                               (editEvent)="editEvent()"
                               (saveEvent)="saveEvent()"
-                              [idShoppingList]="shoppingListRes().id"/>
+                              [idShoppingList]="shoppingListRes().id"
+                              (goToAddProductsLink)="goToAddProductsEvent()"/>
   </ng-container>
   <ng-container header>
     <app-header-shopping-list [isEditOrNew]="isEditOrNew()"
