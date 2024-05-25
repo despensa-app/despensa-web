@@ -9,7 +9,7 @@ import {SaveShoppingListProductReq} from '../../models/save-shopping-list-produc
 })
 export class ProductsService {
 
-  private readonly _shoppingListProductsURI = `${environment.baseUrl}/products/shopping-list`;
+  private readonly _shoppingListProductsURI = `${environment.DESPENSA_REST_API_URL}/products/shopping-list`;
 
   constructor(private httpClient: HttpClient) {
   }

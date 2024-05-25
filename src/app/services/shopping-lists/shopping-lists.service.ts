@@ -14,7 +14,7 @@ import {SaveShoppingListRes} from '../../models/save-shopping-list-res';
 })
 export class ShoppingListsService {
 
-  private readonly _shoppingListsURI = `${environment.baseUrl}/shopping-lists`;
+  private readonly _shoppingListsURI = `${environment.DESPENSA_REST_API_URL}/shopping-lists`;
 
   constructor(private httpClient: HttpClient) {
   }

@@ -1,3 +1,3 @@
 export const environment = {
-  baseUrl: ''
+  DESPENSA_REST_API_URL: ''
 };

@@ -1,3 +1,3 @@
 export const environment = {
-  baseUrl: 'http://localhost:8080/api'
+  DESPENSA_REST_API_URL: 'http://localhost:8080/api'
 };

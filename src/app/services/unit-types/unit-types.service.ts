@@ -8,7 +8,7 @@ import {FindAllUnitTypesRes} from '../../models/find-all-unit-types-res';
 })
 export class UnitTypesService {
 
-  private readonly _unitTypesURI = `${environment.baseUrl}/unit-types`;
+  private readonly _unitTypesURI = `${environment.DESPENSA_REST_API_URL}/unit-types`;
 
   constructor(private httpClient: HttpClient) {
   }
