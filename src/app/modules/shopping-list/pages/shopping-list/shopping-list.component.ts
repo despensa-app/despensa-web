@@ -68,6 +68,8 @@ export class ShoppingListComponent {
 
   isNew = signal(false);
 
+  isNameChanged = signal(false);
+
   selectedProduct = signal<ProductShoppingList>(this._initProduct);
 
   visibleProductDetails = false;
@@ -155,10 +157,12 @@ export class ShoppingListComponent {
      * Por el momento el único valor que necesita actualizarse es el nombre.
      * Si no ha cambiado, no es necesario realizar una petición a la API.
      */
-    if (this.shoppingListRes().id) {
+    if (this.shoppingListRes().id && this.isNameChanged()) {
       const request: UpdateShoppingListReq = {
         name: this.shoppingListRes().name
       };
+
+      this.isNameChanged.set(false);
 
       this.shoppingListsService.update(this.shoppingListRes().id, request)
           .subscribe({
@@ -188,6 +192,7 @@ export class ShoppingListComponent {
   }
 
   nameShoppingListChangeEvent($event: string) {
+    this.isNameChanged.set(true);
     this.shoppingListRes.update(value => ({
         ...value,
         name: $event
