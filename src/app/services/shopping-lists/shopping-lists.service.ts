@@ -6,6 +6,8 @@ import {environment} from '../../../environments/environment';
 import {UpdateShoppingListReq} from '../../models/update-shopping-list-req';
 import {UpdateShoppingListRes} from '../../models/update-shopping-list-res';
 import {DeleteProductsShoppingListReq} from '../../models/delete-products-shopping-list-req';
+import {SaveShoppingListReq} from '../../models/save-shopping-list-req';
+import {SaveShoppingListRes} from '../../models/save-shopping-list-res';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +33,9 @@ export class ShoppingListsService {
 
   deleteProducts(id: number, request: DeleteProductsShoppingListReq) {
     return this.httpClient.delete(`${this._shoppingListsURI}/${id}/products`, {body: request});
+  }
+
+  save(request: SaveShoppingListReq) {
+    return this.httpClient.post<SaveShoppingListRes>(this._shoppingListsURI, request);
   }
 }
