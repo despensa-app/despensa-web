@@ -38,4 +38,8 @@ export class ShoppingListsService {
   save(request: SaveShoppingListReq) {
     return this.httpClient.post<SaveShoppingListRes>(this._shoppingListsURI, request);
   }
+
+  delete(id: number) {
+    return this.httpClient.delete<void>(`${this._shoppingListsURI}/${id}`);
+  }
 }
