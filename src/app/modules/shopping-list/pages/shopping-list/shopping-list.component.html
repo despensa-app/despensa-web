@@ -56,17 +56,17 @@
           [draggable]="false"
           [resizable]="false"
           closeIcon="fas fa-times"
-          [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-  <div class="d-flex">
-    <div class="flex-grow-1">
+          [breakpoints]="{ '575px': '90vw' }">
+  <div class="row">
+    <div class="col-6 col-sm-4">
       {{ selectedProduct().totalPrice }} €
       <small class="text-muted">{{ selectedProduct().product.price }} €</small>
     </div>
-    <div class="flex-grow-1">
+    <div class="col-6 col-sm-4">
       {{ selectedProduct().unitsPerProduct }}
       <small class="text-muted"> Unidades</small>
     </div>
-    <div>
+    <div class="col-12 col-sm-4">
       <span class="badge badge-info">
         {{ selectedProduct().unitType.name }}
       </span>
@@ -74,7 +74,6 @@
   </div>
   <p-image
     src="https://placehold.co/600x400"
-    width="600"
     [alt]="selectedProduct().product.name"
     imageClass="img-fluid img-rounded img-fluid"
     styleClass="mt-3"
