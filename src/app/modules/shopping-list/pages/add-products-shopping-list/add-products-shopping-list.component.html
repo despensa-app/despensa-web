@@ -30,21 +30,24 @@
           [draggable]="false"
           [resizable]="false"
           closeIcon="fas fa-times"
-          [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+          [breakpoints]="{ '575px': '90vw' }">
   <form [formGroup]="saveShoppingListProductForm"
         (ngSubmit)="addProductsSubmit()">
-    <div class="d-flex">
-      <div class="mr-sm-1">
+    <div class="row">
+      <div class="col-sm-3">
         <label for="units"
                class="d-block">Unidades</label>
         <p-inputNumber
+          [ngClass]="{'d-block': true}"
+          styleClass="w-100"
+          inputStyleClass="w-100"
           formControlName="unitsPerProduct"
           mode="decimal"
           min="1"
           inputId="units"
           [useGrouping]="false"/>
       </div>
-      <div class="flex-grow-1">
+      <div class="col-sm-8">
         <label for="unitType"
                class="d-block">Tipo de unidades</label>
         <p-autoComplete
@@ -68,7 +71,6 @@
     </div>
     <p-image
       src="https://placehold.co/600x400"
-      width="600"
       [alt]="selectedProduct().name"
       imageClass="img-fluid img-rounded img-fluid"
       styleClass="mt-3 mb-3"

@@ -24,6 +24,7 @@ import {SaveShoppingListProductReq} from '../../../../models/save-shopping-list-
 import {IconFieldModule} from 'primeng/iconfield';
 import {InputIconModule} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -44,7 +45,8 @@ import {InputTextModule} from 'primeng/inputtext';
     ReactiveFormsModule,
     InputTextModule,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    NgClass
   ],
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'
