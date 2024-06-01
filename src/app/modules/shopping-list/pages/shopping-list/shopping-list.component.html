@@ -9,7 +9,9 @@
   <ng-container header>
     <app-header-shopping-list [isEditOrNew]="isEditOrNew()"
                               [nameShoppingList]="shoppingListRes().name"
-                              (nameShoppingListChange)="nameShoppingListChangeEvent($event)"/>
+                              (nameShoppingListChange)="nameShoppingListChangeEvent($event)"
+                              (deleteShoppingList)="deleteShoppingListEvent()"
+    />
   </ng-container>
   <ng-container content>
     <form [formGroup]="productShoppingListForm">
@@ -79,117 +81,3 @@
     styleClass="mt-3"
     [preview]="true"/>
 </p-dialog>
-<div id="options-modal"
-     class="modal fade"
-     tabIndex="-1"
-     aria-hidden="true"
-     data-backdrop="true"
-     data-keyboard="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body p-0">
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <a class="nav-link border-radius-0 active"
-               id="filter-nav-item"
-               data-toggle="tab"
-               href="#filter-tab-pane"
-               role="tab"
-               aria-controls="filter"
-               aria-selected="true">
-              <i class="fas fa-filter pr-1"></i>
-              Filtrar
-            </a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link border-radius-0"
-               id="sorting-nav-item"
-               data-toggle="tab"
-               href="#sorting-tab-pane"
-               role="tab"
-               aria-controls="sorting"
-               aria-selected="true">
-              <i class="fas fa-sort pr-1"></i>
-              Ordenar
-            </a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link border-radius-0"
-               id="options-nav-item"
-               data-toggle="tab"
-               href="#options-tab-pane"
-               role="tab"
-               aria-controls="options"
-               aria-selected="true">
-              <i class="fas fa-th-large pr-1"></i>
-              Opciones
-            </a>
-          </li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="filter-tab-pane" role="tabpanel" aria-labelledby="filter">
-            <div class="list-group list-group-flush">
-              <button
-                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <i class="fas fa-tags w-fixed-25"></i>
-                <span class="flex-grow-1">Categorías</span>
-                <i class="fas fa-angle-right"></i>
-              </button>
-              <button
-                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <i class="fas fa-calendar-alt w-fixed-25"></i>
-                <span class="flex-grow-1">Fecha de creación</span>
-                <i class="fas fa-angle-right"></i>
-              </button>
-              <button
-                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <i class="fas fa-calendar-alt w-fixed-25"></i>
-                <span class="flex-grow-1">Fecha de actualización</span>
-                <i class="fas fa-angle-right"></i>
-              </button>
-              <button
-                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <i class="fas fa-star w-fixed-25"></i>
-                <span class="flex-grow-1">Favoritos</span>
-                <i class="fas fa-angle-right"></i>
-              </button>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="sorting-tab-pane" role="tabpanel"
-               aria-labelledby="sorting">
-            <div class="list-group list-group-flush">
-              <button
-                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                Fecha de actualización
-                <i class="fas fa-long-arrow-alt-down"></i>
-              </button>
-              <button
-                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                Fecha de creación
-                <i class="fas fa-long-arrow-alt-down"></i>
-              </button>
-              <button
-                class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                Título
-                <i class="fas fa-long-arrow-alt-down"></i>
-              </button>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="options-tab-pane" role="tabpanel"
-               aria-labelledby="options">
-            <div class="list-group list-group-flush">
-              <button class="btn list-group-item list-group-item-action">
-                <i class="fas fa-clone w-fixed-25"></i>
-                Duplicar lista
-              </button>
-              <button class="btn list-group-item list-group-item-action text-danger border-top">
-                <i class="fas fa-trash w-fixed-25"></i>
-                Eliminar lista
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>

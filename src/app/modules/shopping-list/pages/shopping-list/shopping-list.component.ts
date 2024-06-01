@@ -251,4 +251,12 @@ export class ShoppingListComponent {
       'shopping-list', id, 'add-products'
     ]);
   }
+
+  deleteShoppingListEvent() {
+    this.shoppingListsService.delete(this.shoppingListRes().id)
+        .pipe(
+          tap(() => this.router.navigate(['']))
+        )
+        .subscribe();
+  }
 }
