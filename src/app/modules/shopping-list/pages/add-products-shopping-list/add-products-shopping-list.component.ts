@@ -64,7 +64,8 @@ export class AddProductsShoppingListComponent implements OnInit {
   private readonly _initProduct: Product = {
     id: 0,
     name: '',
-    price: 0
+    price: 0,
+    imgUrl: ''
   };
 
   private readonly _initFindAllUnitTypesRes: FindAllUnitTypesRes = {
