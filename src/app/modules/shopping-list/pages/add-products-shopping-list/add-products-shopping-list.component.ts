@@ -119,19 +119,28 @@ export class AddProductsShoppingListComponent implements OnInit {
         })
       )
       .subscribe();
+    //TODO: Implementación temporal
+    this.saveShoppingListProductForm.get('unitType')!
+      .disable({onlySelf: true});
+    this.unitTypesService.findAll()
+        .pipe(
+          tap(unitTypes => this.findAllUnityTypesRes.set(unitTypes))
+        )
+        .subscribe();
   }
 
   showDialogSelectProductEvent(product: Product) {
     this.selectedProduct.set(product);
     this.visibleProductDialog = true;
+    const unitType = this.findAllUnityTypesRes().content[0];//TODO: ver ngOnInit()
     this.saveShoppingListProductForm.setValue({
       productId: product.id,
       shoppingListId: Number(this.idShoppingList),
       unitsPerProduct: 1,
-      unitTypeId: 0,
+      unitTypeId: unitType.id,
       unitType: {
-        id: 0,
-        name: ''
+        id: unitType.id,
+        name: unitType.name
       }
     }, {emitEvent: false});
   }
