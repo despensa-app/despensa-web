@@ -52,7 +52,8 @@ export class ShoppingListComponent {
     product: {
       id: 0,
       name: '',
-      price: 0
+      price: 0,
+      imgUrl: ''
     },
     unitType: {
       id: 0,
