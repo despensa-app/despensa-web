@@ -188,7 +188,10 @@ export class ShoppingListComponent {
               ...this._initShoppingList,
               id: shoppingList.id,
               name: shoppingList.name
-            }))
+            })),
+            tap(shoppingList => {
+              this.router.navigate(['shopping-list', shoppingList.id]);
+            })
           )
           .subscribe();
     }
