@@ -19,12 +19,13 @@ import {UnitTypesService} from '../../../../services/unit-types/unit-types.servi
 import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
 import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
 import {InputNumberModule} from 'primeng/inputnumber';
-import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SaveShoppingListProductReq} from '../../../../models/save-shopping-list-product-req';
 import {IconFieldModule} from 'primeng/iconfield';
 import {InputIconModule} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
 import {NgClass} from '@angular/common';
+import {AlgoliaService} from '../../../../services/algolia.service';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -99,10 +100,13 @@ export class AddProductsShoppingListComponent implements OnInit {
     unitTypeId: [0]
   });
 
+  nameProductFormControl = new FormControl('', {nonNullable: true});
+
   constructor(
     private productsService: ProductsService,
     private unitTypesService: UnitTypesService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private algoliaService: AlgoliaService
   ) {
   }
 
@@ -127,6 +131,8 @@ export class AddProductsShoppingListComponent implements OnInit {
           tap(unitTypes => this.findAllUnityTypesRes.set(unitTypes))
         )
         .subscribe();
+
+    this.initAlgolia();
   }
 
   showDialogSelectProductEvent(product: Product) {
@@ -174,5 +180,34 @@ export class AddProductsShoppingListComponent implements OnInit {
           tap(shoppingList => this.shoppingListProductsRes.set(shoppingList))
         )
         .subscribe();
+  }
+
+  private initAlgolia() {
+    this.algoliaService.productsStartSearch({
+      searchBox: (renderOptions: any, isFirstRender: any) => {
+        const {refine} = renderOptions;
+
+        this.nameProductFormControl.valueChanges
+            .subscribe(value => {
+              refine(value);
+            });
+      },
+      hits: (renderOptions: any, isFirstRender: any) => {
+        const {hits} = renderOptions;
+
+        this.shoppingListProductsRes.set({
+          content: hits.map((hit: any) => ({
+            id: hit.id,
+            name: hit.name,
+            price: hit.price,
+            imgUrl: hit.img_url
+          })),
+          currentPage: 0,
+          pageSize: 0,
+          totalPages: 0,
+          total: 0
+        });
+      }
+    });
   }
 }
