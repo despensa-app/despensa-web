@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, signal} from '@angular/core';
+import {AfterContentInit, Component, Input, OnDestroy, OnInit, signal} from '@angular/core';
 import {ButtonModule} from 'primeng/button';
 import {CheckboxModule} from 'primeng/checkbox';
 import {DialogModule} from 'primeng/dialog';
@@ -26,6 +26,10 @@ import {InputIconModule} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
 import {NgClass} from '@angular/common';
 import {AlgoliaService} from '../../../../services/algolia.service';
+import {connectHits, connectSearchBox} from 'instantsearch.js/es/connectors';
+import {SearchBoxRenderState} from 'instantsearch.js/es/connectors/search-box/connectSearchBox';
+import {HitsRenderState} from 'instantsearch.js/es/connectors/hits/connectHits';
+import {configure} from 'instantsearch.js/es/widgets';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -52,7 +56,7 @@ import {AlgoliaService} from '../../../../services/algolia.service';
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'
 })
-export class AddProductsShoppingListComponent implements OnInit {
+export class AddProductsShoppingListComponent implements OnInit, AfterContentInit, OnDestroy {
 
   private readonly _initShoppingListProductsRes: FindAllShoppingListProductsRes = {
     content: [],
@@ -66,7 +70,8 @@ export class AddProductsShoppingListComponent implements OnInit {
     id: 0,
     name: '',
     price: 0,
-    imgUrl: ''
+    imgUrl: '',
+    nameHighlight: ''
   };
 
   private readonly _initFindAllUnitTypesRes: FindAllUnitTypesRes = {
@@ -111,8 +116,6 @@ export class AddProductsShoppingListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.findAllShoppingList();
-
     this.saveShoppingListProductForm.get('unitType')!
       .valueChanges
       .pipe(
@@ -133,6 +136,14 @@ export class AddProductsShoppingListComponent implements OnInit {
         .subscribe();
 
     this.initAlgolia();
+  }
+
+  ngAfterContentInit() {
+    this.algoliaService.productStart();
+  }
+
+  ngOnDestroy() {
+    this.algoliaService.productDispose();
   }
 
   showDialogSelectProductEvent(product: Product) {
@@ -169,9 +180,7 @@ export class AddProductsShoppingListComponent implements OnInit {
     };
 
     this.productsService.saveShoppingList(request)
-        .subscribe({
-          complete: () => this.findAllShoppingList()
-        });
+        .subscribe();
   }
 
   private findAllShoppingList() {
@@ -183,31 +192,41 @@ export class AddProductsShoppingListComponent implements OnInit {
   }
 
   private initAlgolia() {
-    this.algoliaService.productsStartSearch({
-      searchBox: (renderOptions: any, isFirstRender: any) => {
-        const {refine} = renderOptions;
+    const searchBox = (renderOptions: SearchBoxRenderState): void => {
+      const {refine} = renderOptions;
 
-        this.nameProductFormControl.valueChanges
-            .subscribe(value => {
-              refine(value);
-            });
-      },
-      hits: (renderOptions: any, isFirstRender: any) => {
-        const {hits} = renderOptions;
+      this.nameProductFormControl.valueChanges
+          .subscribe(value => {
+            refine(value);
+          });
+    };
+    const hits = (renderOptions: HitsRenderState): void => {
+      const {items} = renderOptions;
 
-        this.shoppingListProductsRes.set({
-          content: hits.map((hit: any) => ({
-            id: hit.id,
-            name: hit.name,
-            price: hit.price,
-            imgUrl: hit.img_url
-          })),
-          currentPage: 0,
-          pageSize: 0,
-          totalPages: 0,
-          total: 0
-        });
-      }
-    });
+      this.shoppingListProductsRes.set({
+        content: items.map((item: any) => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          imgUrl: item.img_url,
+          nameHighlight: item._highlightResult.name.value
+        })),
+        currentPage: 0,
+        pageSize: 0,
+        totalPages: 0,
+        total: 0
+      });
+    };
+
+    this.algoliaService.productsAddWidgets([
+      connectSearchBox(searchBox)({}),
+      connectHits(hits)({
+        escapeHTML: false
+      }),
+      configure({
+        highlightPreTag: '<em class="bg-gray-light text-bold">',
+        highlightPostTag: '</em>'
+      })
+    ]);
   }
 }
