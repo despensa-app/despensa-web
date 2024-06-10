@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import algoliasearch from 'algoliasearch/lite';
 import {environment} from '../../environments/environment';
-import instantsearch from 'instantsearch.js';
-import {connectHits, connectSearchBox} from 'instantsearch.js/es/connectors';
+import instantsearch, {IndexWidget, Widget} from 'instantsearch.js';
 
 @Injectable({
   providedIn: 'root'
@@ -11,30 +10,28 @@ export class AlgoliaService {
 
   private readonly searchClient = algoliasearch(environment.APP_ID_ALGOLIA, environment.API_KEY_ALGOLIA);
 
-  private readonly productsOptions;
+  private readonly productsInstantSearch;
 
   constructor() {
-    this.productsOptions = {
+    const productsOptions = {
       indexName: environment.PRODUCTS_INDEX_NAME_ALGOLIA,
       searchClient: this.searchClient,
       future: {
         preserveSharedStateOnUnmount: false
       }
     };
+    this.productsInstantSearch = instantsearch(productsOptions);
   }
 
-  productsStartSearch(param: {
-    hits: (renderOptions: any, isFirstRender: any) => void;
-    searchBox: (renderOptions: any, isFirstRender: any) => void
-  }) {
-    const instantSearch = instantsearch(this.productsOptions);
-    const customSearchBox = connectSearchBox(param.searchBox);
-    const customHits = connectHits(param.hits);
+  productsAddWidgets(widgets: Array<IndexWidget | Widget>) {
+    this.productsInstantSearch.addWidgets(widgets);
+  }
 
-    instantSearch.addWidgets([
-      customHits({}),
-      customSearchBox({})
-    ]);
-    instantSearch.start();
+  productStart() {
+    this.productsInstantSearch.start();
+  }
+
+  productDispose() {
+    this.productsInstantSearch.dispose();
   }
 }
