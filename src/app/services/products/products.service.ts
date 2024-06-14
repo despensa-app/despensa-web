@@ -15,13 +15,7 @@ export class ProductsService {
   }
 
   findAllShoppingList(id: number) {
-    const queryParams = {
-      'exclude_shopping_list_id': id
-    };
-
-    return this.httpClient.get<FindAllShoppingListProductsRes>(this._shoppingListProductsURI, {
-      params: queryParams
-    });
+    return this.httpClient.get<FindAllShoppingListProductsRes>(`${this._shoppingListProductsURI}/${id}`);
   }
 
   saveShoppingList(request: SaveShoppingListProductReq) {
