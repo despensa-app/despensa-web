@@ -183,7 +183,34 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     };
 
     this.productsService.saveShoppingList(request)
+        .pipe(
+          tap(() => {
+            this.shoppingListProductsRes.update(value => {
+              value.content
+                   .push(this.selectedProduct());
+
+              return value;
+            });
+
+            this.addOrUpdateConfigureAlgolia(this.shoppingListProductsRes());
+          })
+        )
         .subscribe();
+  }
+
+  private addOrUpdateConfigureAlgolia(shoppingListProductsRes: FindAllShoppingListProductsRes) {
+    const filters = shoppingListProductsRes.content
+                                           .map(product => product.id)
+                                           .map(id => `NOT id=${id}`)
+                                           .join(' AND ');
+
+    this.algoliaService.productsAddWidgets([
+      configure({
+        highlightPreTag: '<em class="bg-gray-light text-bold">',
+        highlightPostTag: '</em>',
+        filters: filters
+      })
+    ]);
   }
 
   private findAllShoppingList() {
@@ -191,13 +218,13 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
         .pipe(
           tap(shoppingList => {
             this.shoppingListProductsRes.set(shoppingList);
-            this.initAlgolia();
+            this.initAlgolia(shoppingList);
           })
         )
         .subscribe();
   }
 
-  private initAlgolia() {
+  private initAlgolia(shoppingListProductsRes: FindAllShoppingListProductsRes) {
     const searchBox = (renderOptions: SearchBoxRenderState): void => {
       const {refine} = renderOptions;
 
@@ -223,11 +250,10 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
       connectSearchBox(searchBox)({}),
       connectHits(hits)({
         escapeHTML: false
-      }),
-      configure({
-        highlightPreTag: '<em class="bg-gray-light text-bold">',
-        highlightPostTag: '</em>'
       })
     ]);
+
+    this.addOrUpdateConfigureAlgolia(shoppingListProductsRes);
   }
+
 }
