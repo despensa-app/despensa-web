@@ -14,7 +14,6 @@ import {
 } from '../../layout/add-product-header-shopping-list/add-product-header-shopping-list.component';
 import {ProductsService} from '../../../../services/products/products.service';
 import {map, tap} from 'rxjs';
-import {FindAllShoppingListProductsRes, Product} from '../../../../models/find-all-shopping-list-products-res';
 import {UnitTypesService} from '../../../../services/unit-types/unit-types.service';
 import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
 import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
@@ -30,6 +29,8 @@ import {connectHits, connectSearchBox} from 'instantsearch.js/es/connectors';
 import {SearchBoxRenderState} from 'instantsearch.js/es/connectors/search-box/connectSearchBox';
 import {HitsRenderState} from 'instantsearch.js/es/connectors/hits/connectHits';
 import {configure} from 'instantsearch.js/es/widgets';
+import {ProductInstantSearch} from '../../models/product-instant-search';
+import {FindAllShoppingListProductsRes} from '../../../../models/find-all-shopping-list-products-res';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -66,7 +67,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     total: 0
   };
 
-  private readonly _initProduct: Product = {
+  private readonly _initProduct: ProductInstantSearch = {
     id: 0,
     name: '',
     price: 0,
@@ -84,9 +85,11 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
 
   shoppingListProductsRes = signal<FindAllShoppingListProductsRes>(this._initShoppingListProductsRes);
 
-  selectedProduct = signal<Product>(this._initProduct);
+  selectedProduct = signal<ProductInstantSearch>(this._initProduct);
 
   findAllUnityTypesRes = signal<FindAllUnitTypesRes>(this._initFindAllUnitTypesRes);
+
+  products = signal<Array<ProductInstantSearch>>([]);
 
   @Input('id') idShoppingList: number = 0;
 
@@ -135,7 +138,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
         )
         .subscribe();
 
-    this.initAlgolia();
+    this.findAllShoppingList();
   }
 
   ngAfterContentInit() {
@@ -146,7 +149,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     this.algoliaService.productDispose();
   }
 
-  showDialogSelectProductEvent(product: Product) {
+  showDialogSelectProductEvent(product: ProductInstantSearch) {
     this.selectedProduct.set(product);
     this.visibleProductDialog = true;
     const unitType = this.findAllUnityTypesRes().content[0];//TODO: ver ngOnInit()
@@ -186,7 +189,10 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
   private findAllShoppingList() {
     this.productsService.findAllShoppingList(this.idShoppingList)
         .pipe(
-          tap(shoppingList => this.shoppingListProductsRes.set(shoppingList))
+          tap(shoppingList => {
+            this.shoppingListProductsRes.set(shoppingList);
+            this.initAlgolia();
+          })
         )
         .subscribe();
   }
@@ -202,20 +208,15 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     };
     const hits = (renderOptions: HitsRenderState): void => {
       const {items} = renderOptions;
+      const itemsMap = items.map((item: any) => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        imgUrl: item.img_url,
+        nameHighlight: item._highlightResult.name.value
+      }));
 
-      this.shoppingListProductsRes.set({
-        content: items.map((item: any) => ({
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          imgUrl: item.img_url,
-          nameHighlight: item._highlightResult.name.value
-        })),
-        currentPage: 0,
-        pageSize: 0,
-        totalPages: 0,
-        total: 0
-      });
+      this.products.set(itemsMap);
     };
 
     this.algoliaService.productsAddWidgets([
