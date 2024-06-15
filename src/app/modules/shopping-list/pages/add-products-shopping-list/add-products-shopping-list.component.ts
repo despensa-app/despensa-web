@@ -12,9 +12,9 @@ import {
 import {
   AddProductHeaderShoppingListComponent
 } from '../../layout/add-product-header-shopping-list/add-product-header-shopping-list.component';
-import {ProductsService} from '../../../../services/products/products.service';
+import {ProductsService} from '../../../../services/pages/products.service';
 import {map, tap} from 'rxjs';
-import {UnitTypesService} from '../../../../services/unit-types/unit-types.service';
+import {UnitTypesService} from '../../../../services/pages/unit-types.service';
 import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
 import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
 import {InputNumberModule} from 'primeng/inputnumber';
@@ -24,7 +24,7 @@ import {IconFieldModule} from 'primeng/iconfield';
 import {InputIconModule} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
 import {NgClass} from '@angular/common';
-import {AlgoliaService} from '../../../../services/algolia.service';
+import {AlgoliaService} from '../../../../services/external/algolia.service';
 import {connectHits, connectSearchBox} from 'instantsearch.js/es/connectors';
 import {SearchBoxRenderState} from 'instantsearch.js/es/connectors/search-box/connectSearchBox';
 import {HitsRenderState} from 'instantsearch.js/es/connectors/hits/connectHits';

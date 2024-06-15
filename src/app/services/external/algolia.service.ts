@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import algoliasearch from 'algoliasearch/lite';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 import instantsearch, {IndexWidget, Widget} from 'instantsearch.js';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {DataSidebar} from './models/data-sidebar';
-import {SidebarService} from './services/sidebar.service';
+import {SidebarService} from './services/layout/sidebar.service';
 
 @Component({
   selector: 'app-root',

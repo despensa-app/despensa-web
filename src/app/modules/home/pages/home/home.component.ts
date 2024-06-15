@@ -1,6 +1,6 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {tap} from 'rxjs';
-import {ShoppingListsService} from '../../../../services/shopping-lists/shopping-lists.service';
+import {ShoppingListsService} from '../../../../services/pages/shopping-lists.service';
 import {AsyncPipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {FindAllShoppingListRes} from '../../../../models/find-all-shopping-list-res';

@@ -1,7 +1,7 @@
 import {Component, effect, Input, signal} from '@angular/core';
 import {tap} from 'rxjs';
 import {FindByIdShoppingListRes, ProductShoppingList} from '../../../../models/find-by-id-shopping-list-res';
-import {ShoppingListsService} from '../../../../services/shopping-lists/shopping-lists.service';
+import {ShoppingListsService} from '../../../../services/pages/shopping-lists.service';
 import {AsyncPipe} from '@angular/common';
 import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 import {NavbarShoppingListComponent} from '../../layout/navbar-shopping-list/navbar-shopping-list.component';
