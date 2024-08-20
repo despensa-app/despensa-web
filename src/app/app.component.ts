@@ -18,6 +18,10 @@ export class AppComponent {
     {
       path: '/',
       text: 'Listas de la compra'
+    },
+    {
+      path: '/auth/login',
+      text: 'Iniciar sesión'
     }
   ];
 
