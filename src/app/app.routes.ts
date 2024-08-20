@@ -4,6 +4,7 @@ import {ShoppingListComponent} from './modules/shopping-list/pages/shopping-list
 import {
   AddProductsShoppingListComponent
 } from './modules/shopping-list/pages/add-products-shopping-list/add-products-shopping-list.component';
+import {LoginComponent} from './modules/auth/pages/login/login.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,10 @@ export const routes: Routes = [
   {
     path: 'shopping-list',
     component: ShoppingListComponent
+  },
+  {
+    path: 'auth/login',
+    component: LoginComponent
   },
   {
     path: '',
