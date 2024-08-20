@@ -6,13 +6,15 @@
     <div class="card">
       <div class="card-body login-card-body">
         <p class="login-box-msg">Inicie sesión</p>
-        <form>
+        <form [formGroup]="loginForm"
+              (ngSubmit)="loginSubmit()">
           <div class="input-group mb-3">
             <input type="text"
                    class="form-control"
                    placeholder="Usuario"
                    id="username"
-                   name="username">
+                   name="username"
+                   formControlName="username">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -23,7 +25,8 @@
             <input type="password"
                    class="form-control"
                    placeholder="Contraseña"
-                   name="password">
+                   name="password"
+                   formControlName="password">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
