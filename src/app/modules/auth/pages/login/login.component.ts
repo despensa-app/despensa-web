@@ -7,6 +7,7 @@ import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {LoginAuthenticationReq} from '../../../../models/login-authentication-req';
 import {AuthenticationService} from '../../../../services/pages/authentication.service';
 import {tap} from 'rxjs';
+import {BrowserStorageService} from '../../../../services/layout/browser-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -30,8 +31,13 @@ export class LoginComponent {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private browserStorageService: BrowserStorageService,
     private formBuilder: FormBuilder,
     private router: Router) {
+    if (this.browserStorageService.getToken()) {
+      this.router.navigate([''])
+          .then();
+    }
   }
 
   loginSubmit() {
@@ -43,7 +49,7 @@ export class LoginComponent {
     this.authenticationService.login(request)
         .pipe(
           tap(loginResponse => {
-            //TODO: guardar el token
+            this.browserStorageService.setToken(loginResponse.accessToken);
           })
         )
         .subscribe({
