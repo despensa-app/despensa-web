@@ -1,4 +1,5 @@
 export interface DataSidebar {
-  path: string;
+  path?: string;
   text: string;
+  click?: () => void;
 }

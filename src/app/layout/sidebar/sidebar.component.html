@@ -8,13 +8,23 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         @for (element of getElements(); track $index) {
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="element.path">
-              <i class="far fa-circle nav-icon"></i>
-              <p>
+            @if (element.path) {
+              <a class="nav-link"
+                 [routerLink]="element.path">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  {{ element.text }}
+                  <i class="right"></i>
+                </p>
+              </a>
+            } @else if (element.click) {
+              <button class="nav-link btn btn-link btn-block text-left"
+                      style="color: #c2c7d0"
+                      (click)="element.click()">
+                <i class="far fa-circle nav-icon"></i>
                 {{ element.text }}
-                <i class="right"></i>
-              </p>
-            </a>
+              </button>
+            }
           </li>
         }
       </ul>
