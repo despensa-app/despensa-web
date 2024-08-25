@@ -8,6 +8,7 @@ import {LoginAuthenticationReq} from '../../../../models/login-authentication-re
 import {AuthenticationService} from '../../../../services/pages/authentication.service';
 import {tap} from 'rxjs';
 import {BrowserStorageService} from '../../../../services/layout/browser-storage.service';
+import {SidebarService} from '../../../../services/layout/sidebar.service';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,7 @@ export class LoginComponent {
   constructor(
     private authenticationService: AuthenticationService,
     private browserStorageService: BrowserStorageService,
+    private sidebarService: SidebarService,
     private formBuilder: FormBuilder,
     private router: Router) {
     if (this.browserStorageService.getToken()) {
@@ -50,6 +52,7 @@ export class LoginComponent {
         .pipe(
           tap(loginResponse => {
             this.browserStorageService.setToken(loginResponse.accessToken);
+            this.sidebarService.showHideElementLoginLogout();
           })
         )
         .subscribe({

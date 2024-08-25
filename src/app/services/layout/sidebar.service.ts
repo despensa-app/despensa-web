@@ -18,4 +18,19 @@ export class SidebarService {
   getElements() {
     return this.elements();
   }
+
+  showHideElementLoginLogout() {
+    this.elements.update(value => {
+      value.forEach(element => {
+        if (element.id === 'login') {
+          element.hide = !element.hide;
+        }
+
+        if (element.id === 'logout') {
+          element.hide = !element.hide;
+        }
+      });
+      return value;
+    });
+  }
 }

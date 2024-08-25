@@ -44,6 +44,7 @@ export class AppComponent {
 
   private logout(): void {
     this.browserStorageService.clear();
+    this.sidebarService.showHideElementLoginLogout();
     this.router.navigate(['auth/login'])
         .then();
   }
