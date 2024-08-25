@@ -17,16 +17,20 @@ export class AppComponent {
 
   private readonly _sidebar: DataSidebar[] = [
     {
+      id: 'shopping-list',
       path: '/',
       text: 'Listas de la compra'
     },
     {
+      id: 'login',
       path: '/auth/login',
       text: 'Iniciar sesión'
     },
     {
+      id: 'logout',
       click: () => this.logout(),
-      text: 'Cerrar sesión'
+      text: 'Cerrar sesión',
+      hide: true
     }
   ];
 
