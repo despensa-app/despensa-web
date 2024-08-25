@@ -20,7 +20,13 @@ export class ShoppingListsService {
   }
 
   findAll() {
-    return this.httpClient.get<FindAllShoppingListRes>(this._shoppingListsURI);
+    const baseParams = {
+      sort: 'id,desc'
+    };
+
+    return this.httpClient.get<FindAllShoppingListRes>(this._shoppingListsURI, {
+      params: baseParams
+    });
   }
 
   findById(id: number) {
