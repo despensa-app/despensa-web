@@ -28,4 +28,8 @@ export class BrowserStorageService {
   set(key: string, value: string) {
     this.storage.setItem(key, value);
   }
+
+  clear() {
+    this.storage.clear();
+  }
 }
