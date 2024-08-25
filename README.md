@@ -21,7 +21,7 @@ No disponible.
 
 ### Requisitos
 
-* [Angular 18](https://angular.dev)
+* [Angular 17](https://angular.dev)
 * [Node.js 20](https://nodejs.org)
   * [Node para windows](https://github.com/coreybutler/nvm-windows/releases) (Opcional)
 
