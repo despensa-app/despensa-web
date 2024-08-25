@@ -28,9 +28,9 @@
               "src/styles.css"
             ],
             "scripts": [
-              "node_modules/admin-lte/plugins/jquery/jquery.min.js",
-              "node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js",
-              "node_modules/admin-lte/dist/js/adminlte.min.js"
+              "src/assets/admin-lte/plugins/jquery/jquery.min.js",
+              "src/assets/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js",
+              "src/assets/admin-lte/dist/js/adminlte.min.js"
             ]
           },
           "configurations": {
