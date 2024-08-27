@@ -11,6 +11,34 @@ export class SidebarService {
   constructor() {
   }
 
+  showLoginAndHideLogout() {
+    this.elements.update(value => {
+      value.forEach(element => {
+        if (element.id === 'login') {
+          element.hide = false;
+        }
+        if (element.id === 'logout') {
+          element.hide = true;
+        }
+      });
+      return value;
+    });
+  }
+
+  showLogoutAndHideLogin() {
+    this.elements.update(value => {
+      value.forEach(element => {
+        if (element.id === 'logout') {
+          element.hide = false;
+        }
+        if (element.id === 'login') {
+          element.hide = true;
+        }
+      });
+      return value;
+    });
+  }
+
   setElements(elements: DataSidebar[]) {
     this.elements.set(elements);
   }
@@ -19,18 +47,4 @@ export class SidebarService {
     return this.elements();
   }
 
-  showHideElementLoginLogout() {
-    this.elements.update(value => {
-      value.forEach(element => {
-        if (element.id === 'login') {
-          element.hide = !element.hide;
-        }
-
-        if (element.id === 'logout') {
-          element.hide = !element.hide;
-        }
-      });
-      return value;
-    });
-  }
 }

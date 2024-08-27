@@ -52,7 +52,7 @@ export class LoginComponent {
         .pipe(
           tap(loginResponse => {
             this.browserStorageService.setToken(loginResponse.accessToken);
-            this.sidebarService.showHideElementLoginLogout();
+            this.sidebarService.showLogoutAndHideLogin();
           })
         )
         .subscribe({

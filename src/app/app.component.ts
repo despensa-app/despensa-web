@@ -40,11 +40,15 @@ export class AppComponent {
     private router: Router
   ) {
     this.sidebarService.setElements(this._sidebar);
+
+    if (this.browserStorageService.getToken()) {
+      this.sidebarService.showLogoutAndHideLogin();
+    }
   }
 
   private logout(): void {
     this.browserStorageService.clear();
-    this.sidebarService.showHideElementLoginLogout();
+    this.sidebarService.showLoginAndHideLogout();
     this.router.navigate(['auth/login'])
         .then();
   }
