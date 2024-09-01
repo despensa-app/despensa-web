@@ -25,12 +25,12 @@ import {InputIconModule} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
 import {NgClass} from '@angular/common';
 import {AlgoliaService} from '../../../../services/external/algolia.service';
-import {connectHits, connectSearchBox} from 'instantsearch.js/es/connectors';
+import {connectInfiniteHits, connectSearchBox} from 'instantsearch.js/es/connectors';
 import {SearchBoxRenderState} from 'instantsearch.js/es/connectors/search-box/connectSearchBox';
-import {HitsRenderState} from 'instantsearch.js/es/connectors/hits/connectHits';
 import {configure} from 'instantsearch.js/es/widgets';
 import {ProductInstantSearch} from '../../models/product-instant-search';
 import {FindAllShoppingListProductsRes} from '../../../../models/find-all-shopping-list-products-res';
+import {InfiniteHitsRenderState} from 'instantsearch.js/es/connectors/infinite-hits/connectInfiniteHits';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -109,6 +109,13 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
   });
 
   nameProductFormControl = new FormControl('', {nonNullable: true});
+
+  showMoreButton = {
+    disabled: signal(false),
+    render: signal(false),
+    click: () => {
+    }
+  };
 
   constructor(
     private productsService: ProductsService,
@@ -233,8 +240,12 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
             refine(value);
           });
     };
-    const hits = (renderOptions: HitsRenderState): void => {
-      const {items} = renderOptions;
+    const infiniteHits = (renderOptions: InfiniteHitsRenderState, isFirstRender: boolean): void => {
+      const {
+        items,
+        showMore,
+        isLastPage
+      } = renderOptions;
       const itemsMap = items.map((item: any) => ({
         id: item.id,
         name: item.name,
@@ -243,12 +254,21 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
         nameHighlight: item._highlightResult.name.value
       }));
 
+      if (isFirstRender) {
+        this.showMoreButton.click = showMore;
+
+        //En la doc cuando usan "isFirstRender" siempre hacen el "return".
+        return;
+      }
+
+      this.showMoreButton.disabled.set(isLastPage);
+      this.showMoreButton.render.set(itemsMap.length > 0);
       this.products.set(itemsMap);
     };
 
     this.algoliaService.productsAddWidgets([
       connectSearchBox(searchBox)({}),
-      connectHits(hits)({
+      connectInfiniteHits(infiniteHits)({
         escapeHTML: false
       })
     ]);
