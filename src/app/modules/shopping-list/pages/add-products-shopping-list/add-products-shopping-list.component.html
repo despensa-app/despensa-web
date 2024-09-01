@@ -21,15 +21,15 @@
              [innerHTML]="product.nameHighlight">
         </div>
       }
-      @if (showMoreButton.render()) {
-        <br>
-        <p-button icon="fas fa-spinner"
-                  [disabled]="showMoreButton.disabled()"
-                  styleClass="btn btn-default btn-block"
-                  label="Cargar más"
-                  (click)="showMoreButton.click()"/>
-      }
     </div>
+    @if (showMoreButton.render()) {
+      <br>
+      <p-button icon="fas fa-spinner"
+                [disabled]="showMoreButton.disabled()"
+                styleClass="btn btn-default btn-block"
+                label="Cargar más"
+                (click)="showMoreButton.click()"/>
+    }
   </ng-container>
 </app-page>
 
