@@ -1,64 +1,94 @@
 <app-page>
   <ng-container navbar>
-    <app-add-products-navbar-shopping-list [idShoppingList]="idShoppingList"/>
+    <app-add-products-navbar-shopping-list [idShoppingList]="idShoppingList" />
   </ng-container>
   <ng-container header>
-    <app-add-product-header-shopping-list/>
+    <app-add-product-header-shopping-list />
   </ng-container>
   <ng-container content>
     <p-iconField iconPosition="left">
-      <p-inputIcon styleClass="fas fa-search"/>
-      <input type="text"
-             [formControl]="nameProductFormControl"
-             pInputText
-             class="w-100 d-block mb-3"
-             placeholder="Nombre del producto"/>
+      <p-inputIcon styleClass="fas fa-search" />
+      <input
+        type="text"
+        [formControl]="nameProductFormControl"
+        pInputText
+        class="w-100 d-block mb-3"
+        placeholder="Nombre del producto"
+      />
     </p-iconField>
+    <div>
+      <p-toggleButton
+        styleClass="btn btn-primary"
+        onLabel="Solo texto"
+        offLabel="Con imagen"
+        onIcon="fas fa-redo"
+        offIcon="far fa-image"
+      />
+    </div>
+    <br />
+    <div class="row">
+      @for (product of products(); track product.id) {
+      <div class="col-6 col-sm-4 col-lg-2">
+        <div class="card" (click)="showDialogSelectProductEvent(product)">
+          <img src="{{ product.imgUrl }}" alt="{{ product.name }}" />
+          <div class="card-footer">
+            <h5 class="card-title" [innerHTML]="product.nameHighlight"></h5>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
     <div class="list-group">
       @for (product of products(); track product.id) {
-        <div class="list-group-item text-truncate"
-             (click)="showDialogSelectProductEvent(product)"
-             [innerHTML]="product.nameHighlight">
-        </div>
+      <div
+        class="list-group-item text-truncate"
+        (click)="showDialogSelectProductEvent(product)"
+        [innerHTML]="product.nameHighlight"
+      ></div>
       }
     </div>
     @if (showMoreButton.render()) {
-      <br>
-      <p-button icon="fas fa-spinner"
-                [disabled]="showMoreButton.disabled()"
-                styleClass="btn btn-default btn-block"
-                label="Cargar más"
-                (click)="showMoreButton.click()"/>
+    <br />
+    <p-button
+      icon="fas fa-spinner"
+      [disabled]="showMoreButton.disabled()"
+      styleClass="btn btn-default btn-block"
+      label="Cargar más"
+      (click)="showMoreButton.click()"
+    />
     }
   </ng-container>
 </app-page>
 
-<p-dialog [header]="selectedProduct().name"
-          [modal]="true"
-          [(visible)]="visibleProductDialog"
-          [draggable]="false"
-          [resizable]="false"
-          closeIcon="fas fa-times"
-          [breakpoints]="{ '575px': '90vw' }">
-  <form [formGroup]="saveShoppingListProductForm"
-        (ngSubmit)="addProductsSubmit()">
+<p-dialog
+  [header]="selectedProduct().name"
+  [modal]="true"
+  [(visible)]="visibleProductDialog"
+  [draggable]="false"
+  [resizable]="false"
+  closeIcon="fas fa-times"
+  [breakpoints]="{ '575px': '90vw' }"
+>
+  <form
+    [formGroup]="saveShoppingListProductForm"
+    (ngSubmit)="addProductsSubmit()"
+  >
     <div class="row">
       <div class="col-sm-3">
-        <label for="units"
-               class="d-block">Unidades</label>
+        <label for="units" class="d-block">Unidades</label>
         <p-inputNumber
-          [ngClass]="{'d-block': true}"
+          [ngClass]="{ 'd-block': true }"
           styleClass="w-100"
           inputStyleClass="w-100"
           formControlName="unitsPerProduct"
           mode="decimal"
           min="1"
           inputId="units"
-          [useGrouping]="false"/>
+          [useGrouping]="false"
+        />
       </div>
       <div class="col-sm-8">
-        <label for="unitType"
-               class="d-block">Tipo de unidades</label>
+        <label for="unitType" class="d-block">Tipo de unidades</label>
         <p-autoComplete
           formControlName="unitType"
           styleClass="w-100"
@@ -66,20 +96,18 @@
           [dropdown]="true"
           [suggestions]="findAllUnityTypesRes().content"
           (completeMethod)="autoCompleteUnitTypeEvent($event)"
-          optionLabel="name"/>
+          optionLabel="name"
+        />
       </div>
-      <input type="hidden"
-             name="shoppingListId"
-             formControlName="shoppingListId">
-      <input type="hidden"
-             name="productId"
-             formControlName="productId">
-      <input type="hidden"
-             name="unitTypeId"
-             formControlName="unitTypeId">
+      <input
+        type="hidden"
+        name="shoppingListId"
+        formControlName="shoppingListId"
+      />
+      <input type="hidden" name="productId" formControlName="productId" />
+      <input type="hidden" name="unitTypeId" formControlName="unitTypeId" />
     </div>
-    <button type="submit"
-            class="btn btn-success btn-block mt-3">
+    <button type="submit" class="btn btn-success btn-block mt-3">
       <i class="fas fa-plus pr-1"></i>
       Agregar
     </button>
@@ -90,6 +118,7 @@
       [alt]="selectedProduct().name"
       imageClass="img-fluid img-rounded img-fluid"
       styleClass="mt-3 mb-3"
-      [preview]="true"/>
+      [preview]="true"
+    />
   </form>
 </p-dialog>
