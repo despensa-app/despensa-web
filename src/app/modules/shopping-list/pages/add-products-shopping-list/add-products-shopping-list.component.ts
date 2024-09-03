@@ -31,6 +31,7 @@ import {configure} from 'instantsearch.js/es/widgets';
 import {ProductInstantSearch} from '../../models/product-instant-search';
 import {FindAllShoppingListProductsRes} from '../../../../models/find-all-shopping-list-products-res';
 import {InfiniteHitsRenderState} from 'instantsearch.js/es/connectors/infinite-hits/connectInfiniteHits';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -52,7 +53,8 @@ import {InfiniteHitsRenderState} from 'instantsearch.js/es/connectors/infinite-h
     InputTextModule,
     IconFieldModule,
     InputIconModule,
-    NgClass
+    NgClass,
+    ToggleButtonModule
   ],
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'
@@ -116,6 +118,8 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     click: () => {
     }
   };
+
+  toggleProductsView = signal(false);
 
   constructor(
     private productsService: ProductsService,
@@ -276,4 +280,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     this.addOrUpdateConfigureAlgolia(shoppingListProductsRes);
   }
 
+  onToggleProductsViewChange() {
+    this.toggleProductsView.set(!this.toggleProductsView());
+  }
 }

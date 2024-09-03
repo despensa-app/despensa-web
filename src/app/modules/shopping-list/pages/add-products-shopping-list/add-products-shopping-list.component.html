@@ -14,14 +14,42 @@
              class="w-100 d-block mb-3"
              placeholder="Nombre del producto"/>
     </p-iconField>
-    <div class="list-group">
-      @for (product of products(); track product.id) {
-        <div class="list-group-item text-truncate"
-             (click)="showDialogSelectProductEvent(product)"
-             [innerHTML]="product.nameHighlight">
-        </div>
-      }
+    <div>
+      <p-toggleButton
+        styleClass="btn btn-primary"
+        onLabel="Solo texto"
+        offLabel="Con imagen"
+        onIcon="fas fa-redo"
+        offIcon="far fa-image"
+        (onChange)="onToggleProductsViewChange()"/>
     </div>
+    <br>
+    @if (toggleProductsView()) {
+      <div class="row">
+        @for (product of products(); track product.id) {
+          <div class="col-6 col-sm-4 col-lg-2">
+            <div class="card"
+                 (click)="showDialogSelectProductEvent(product)">
+              <img src="{{product.imgUrl}}"
+                   alt="{{product.name}}">
+              <div class="card-footer">
+                <h5 class="card-title"
+                    [innerHTML]="product.nameHighlight"></h5>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="list-group">
+        @for (product of products(); track product.id) {
+          <div class="list-group-item text-truncate"
+               (click)="showDialogSelectProductEvent(product)"
+               [innerHTML]="product.nameHighlight">
+          </div>
+        }
+      </div>
+    }
     @if (showMoreButton.render()) {
       <br>
       <p-button icon="fas fa-spinner"
