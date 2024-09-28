@@ -16,7 +16,10 @@ import {ImageModule} from 'primeng/image';
 import {UpdateShoppingListReq} from '../../../../models/update-shopping-list-req';
 import {DeleteProductsShoppingListReq} from '../../../../models/delete-products-shopping-list-req';
 import {SaveShoppingListReq} from '../../../../models/save-shopping-list-req';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {
+  ProductModalShoppingListComponent
+} from '../../layout/product-modal-shopping-list/product-modal-shopping-list.component';
 
 @Component({
   selector: 'app-shopping-list',
@@ -33,7 +36,9 @@ import {Router} from '@angular/router';
     ButtonGroupModule,
     DialogModule,
     ImageModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink,
+    ProductModalShoppingListComponent
   ],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css'
@@ -73,8 +78,6 @@ export class ShoppingListComponent {
   isNameChanged = signal(false);
 
   selectedProduct = signal<ProductShoppingList>(this._initProduct);
-
-  visibleProductDetails = false;
 
   productShoppingListForm = this.formBuilder.nonNullable.group({
     productsShoppingListForm: this.formBuilder.array<FormGroup<{
@@ -150,7 +153,6 @@ export class ShoppingListComponent {
 
   showProductDetailsEvent(product: ProductShoppingList) {
     this.selectedProduct.set(product);
-    this.visibleProductDetails = !this.visibleProductDetails;
   }
 
   saveEvent() {

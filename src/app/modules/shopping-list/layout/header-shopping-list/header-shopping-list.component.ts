@@ -22,6 +22,10 @@ import {TabViewModule} from 'primeng/tabview';
 })
 export class HeaderShoppingListComponent {
 
+  @Output() editEvent = new EventEmitter<void>();
+
+  @Output() saveEvent = new EventEmitter<void>();
+
   @Input() isEditOrNew: boolean = false;
 
   @Input({required: true})
@@ -31,11 +35,7 @@ export class HeaderShoppingListComponent {
 
   @Output() nameShoppingListChange = new EventEmitter<string>();
 
-  @Output() deleteShoppingList = new EventEmitter<void>();
-
   nameShoppingListFormControl = new FormControl('', {nonNullable: true});
-
-  visibleOptionsDialog: boolean = false;
 
   constructor() {
     this.nameShoppingListFormControl
@@ -45,11 +45,11 @@ export class HeaderShoppingListComponent {
         });
   }
 
-  showOptionsDialog() {
-    this.visibleOptionsDialog = !this.visibleOptionsDialog;
+  editClickEvent() {
+    this.editEvent.emit();
   }
 
-  deleteEvent() {
-    this.deleteShoppingList.emit();
+  saveClickEvent() {
+    this.saveEvent.emit();
   }
 }

@@ -1,0 +1,67 @@
+<div class="modal fade"
+     id="product-info-modal"
+     tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ selectedProduct().product.name }}</h5>
+        <button type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="d-flex py-3 pl-3 align-items-center">
+          <div class="mr-3">
+            {{ selectedProduct().totalPrice }} €
+            <small class="text-muted">
+              {{ selectedProduct().product.price }} €
+            </small>
+          </div>
+          <div class="mr-3">
+            {{ selectedProduct().unitsPerProduct }}
+            <small class="text-muted">Unidades</small>
+          </div>
+          <div class="flex-grow-1">
+            <span class="badge badge-info">{{ selectedProduct().unitType.name }}</span>
+          </div>
+          <div class="dropdown">
+            <button type="button"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    class="btn text-body">
+              <i class="fas fa-ellipsis-v w-25px"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <button class="dropdown-item"
+                      data-dismiss="modal"
+                      data-toggle="modal"
+                      data-target="#product-edit-modal"
+                      disabled
+                      type="button">
+                <i class="fas fa-edit w-25px"></i>
+                <span>Editar</span>
+              </button>
+              <button type="button"
+                      data-dismiss="modal"
+                      (click)="deleteEvent(selectedProduct())"
+                      class="dropdown-item text-danger">
+                <i class="fas fa-trash w-25px"></i>
+                <span>Eliminar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <p-image
+          width="500"
+          appendTo="body"
+          [src]="selectedProduct().product.imgUrl"
+          [alt]="selectedProduct().product.name"
+          imageClass="img-fluid img-rounded"
+          [preview]="true"/>
+      </div>
+    </div>
+  </div>
+</div>

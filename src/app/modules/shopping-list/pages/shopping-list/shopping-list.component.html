@@ -1,28 +1,32 @@
 <app-page>
   <ng-container navbar>
-    <app-navbar-shopping-list [isEditOrNew]="isEditOrNew()"
-                              (editEvent)="editEvent()"
-                              (saveEvent)="saveEvent()"
-                              [idShoppingList]="shoppingListRes().id"
-                              (goToAddProductsLink)="goToAddProductsEvent()"/>
+    <app-navbar-shopping-list [isNew]="isNew()"
+                              (deleteShoppingList)="deleteShoppingListEvent()"/>
   </ng-container>
   <ng-container header>
     <app-header-shopping-list [isEditOrNew]="isEditOrNew()"
                               [nameShoppingList]="shoppingListRes().name"
                               (nameShoppingListChange)="nameShoppingListChangeEvent($event)"
-                              (deleteShoppingList)="deleteShoppingListEvent()"
-    />
+                              (editEvent)="editEvent()"
+                              (saveEvent)="saveEvent()"/>
   </ng-container>
   <ng-container content>
+    @if (isEditOrNew()) {
+      <a class="btn btn-success btn-block mb-3"
+         (click)="goToAddProductsEvent()">
+        <i class="fas fa-plus w-25px"></i>
+        Agregar producto
+      </a>
+    }
     <form [formGroup]="productShoppingListForm">
-      <div class="list-group mb-3"
+      <div class="list-group"
            formArrayName="productsShoppingListForm">
         @for (response of shoppingListRes().products; track response.product.id) {
-          <li class="list-group-item"
-              [formGroupName]="$index">
+          <div class="list-group-item pr-1"
+               [formGroupName]="$index">
             <div class="d-flex justify-content-between">
               <div class="list-group-item-content flex-grow-1">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center py-2">
                   <p-checkbox styleClass="mr-2"
                               [binary]="true"
                               checkboxIcon="fas fa-check"
@@ -30,56 +34,51 @@
                   <div class="flex-grow-1 text-truncate">
                     {{ response.product.name }}
                   </div>
-                  <p-button icon="fas fa-expand-alt"
-                            [text]="true"
-                            (onClick)="showProductDetailsEvent(response)"/>
                 </div>
               </div>
-              <p-button icon="fas fa-trash"
-                        (onClick)="deleteEvent(response)"
-                        [disabled]="!isEdit()"
-                        [text]="true"
-                        severity="danger"/>
+              <div class="dropdown">
+                <button type="button"
+                        data-toggle="dropdown"
+                        aria-expanded="false"
+                        class="btn text-body">
+                  <i class="fas fa-ellipsis-v w-25px"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <button class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#product-info-modal"
+                          (click)="showProductDetailsEvent(response)"
+                          type="button">
+                    <i class="fas fa-expand-alt w-25px"></i>
+                    <span>Ver</span>
+                  </button>
+                  <button class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#product-edit-modal"
+                          disabled
+                          type="button">
+                    <i class="fas fa-edit w-25px"></i>
+                    <span>Editar</span>
+                  </button>
+                  <button type="button"
+                          (click)="deleteEvent(response)"
+                          class="dropdown-item text-danger">
+                    <i class="fas fa-trash w-25px"></i>
+                    <span>Eliminar</span>
+                  </button>
+                </div>
+              </div>
             </div>
             <input type="hidden"
                    formControlName="productId">
             <input type="hidden"
                    formControlName="unitTypeId">
-          </li>
+          </div>
         }
       </div>
     </form>
+
+    <app-product-modal-shopping-list [selectedProduct]="selectedProduct()"
+                                     (deleteProduct)="deleteEvent($event)"/>
   </ng-container>
 </app-page>
-
-<p-dialog [header]="selectedProduct().product.name"
-          [modal]="true"
-          [(visible)]="visibleProductDetails"
-          [draggable]="false"
-          [resizable]="false"
-          closeIcon="fas fa-times"
-          [breakpoints]="{ '575px': '90vw' }">
-  <div class="row">
-    <div class="col-6 col-sm-4">
-      {{ selectedProduct().totalPrice }} €
-      <small class="text-muted">{{ selectedProduct().product.price }} €</small>
-    </div>
-    <div class="col-6 col-sm-4">
-      {{ selectedProduct().unitsPerProduct }}
-      <small class="text-muted"> Unidades</small>
-    </div>
-    <div class="col-12 col-sm-4">
-      <span class="badge badge-info">
-        {{ selectedProduct().unitType.name }}
-      </span>
-    </div>
-  </div>
-  <p-image
-    width="600"
-    appendTo="body"
-    [src]="selectedProduct().product.imgUrl"
-    [alt]="selectedProduct().product.name"
-    imageClass="img-fluid img-rounded img-fluid"
-    styleClass="mt-3"
-    [preview]="true"/>
-</p-dialog>
