@@ -1,6 +1,6 @@
 export interface IconActionModal {
   left?: string;
-  right: string;
+  right?: string;
 }
 
 export interface TabActionModal {
@@ -14,6 +14,9 @@ export interface ContentActionModal {
   icon: IconActionModal;
   title: string;
   disabled?: boolean;
+  clickButton?: () => void;
+  classButton?: string;
+  dataDismiss?: boolean;
 }
 
 export interface ActionModal {

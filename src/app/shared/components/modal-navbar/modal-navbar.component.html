@@ -43,7 +43,10 @@
                 @for (contentAction of action.content; track contentAction) {
                   <button type="button"
                           [attr.disabled]="contentAction.disabled"
-                          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                          [attr.data-dismiss]="contentAction.dataDismiss ? 'modal' : null"
+                          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                          [class]="contentAction.classButton"
+                          (click)="contentAction.clickButton ? contentAction.clickButton() : null">
                     @if (contentAction.icon.left) {
                       <i class="w-25px"
                          [class]="contentAction.icon.left"></i>
