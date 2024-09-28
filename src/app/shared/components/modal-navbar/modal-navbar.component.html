@@ -15,75 +15,48 @@
       <div class="modal-body p-0">
         <ul class="nav nav-tabs"
             role="tablist">
-          <li class="nav-item"
-              role="presentation">
-            <a class="nav-link active rounded-0 border-top-0 border-left-0"
-               id="filter-action-modal-tab"
-               data-toggle="tab"
-               href="#filter-action-modal"
-               role="tab"
-               aria-controls="filter-action-modal"
-               aria-selected="true">
-              <i class="fas fa-filter"></i>
-              Filtrar
-            </a>
-          </li>
-          <li class="nav-item"
-              role="presentation">
-            <a class="nav-link border-top-0 rounded-0"
-               id="sort-action-modal-tab"
-               data-toggle="tab"
-               href="#sort-action-modal"
-               role="tab"
-               aria-controls="sort-action-modal"
-               aria-selected="false">
-              <i class="fas fa-sort"></i>
-              Ordenar
-            </a>
-          </li>
+          @for (action of actionsModal(); track action.id; let first = $first) {
+            <li class="nav-item"
+                role="presentation">
+              <a class="nav-link rounded-0 border-top-0"
+                 [class]="{'border-left-0': first, active: action.tab.default}"
+                 [class.disabled]="action.tab.disabled"
+                 [id]="getIdTabModal(action.id)"
+                 data-toggle="tab"
+                 [href]="'#' + getIdContentTabModal(action.id)"
+                 role="tab">
+                @if (action.tab.icon) {
+                  <i [class]="action.tab.icon"></i>
+                }
+                {{ action.tab.title }}
+              </a>
+            </li>
+          }
         </ul>
         <div class="tab-content">
-          <div class="tab-pane fade show active"
-               id="filter-action-modal"
-               role="tabpanel"
-               aria-labelledby="filter-action-modal-tab">
-            <div class="list-group list-group-flush rounded-bottom">
-              <button type="button"
-                      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <i class="fas fa-calendar-alt w-25px"></i>
-                <span class="flex-grow-1">Fecha</span>
-                <i class="fas fa-angle-right"></i>
-              </button>
-              <button type="button"
-                      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <i class="fas fa-star w-25px"></i>
-                <span class="flex-grow-1">Favoritos</span>
-                <i class="fas fa-angle-right"></i>
-              </button>
+          @for (action of actionsModal(); track action.id) {
+            <div class="tab-pane fade"
+                 [class]="getClassesFirstContentTabModal(action.tab.default)"
+                 [id]="getIdContentTabModal(action.id)"
+                 role="tabpanel">
+              <div class="list-group list-group-flush rounded-bottom">
+                @for (contentAction of action.content; track contentAction) {
+                  <button type="button"
+                          [attr.disabled]="contentAction.disabled"
+                          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    @if (contentAction.icon.left) {
+                      <i class="w-25px"
+                         [class]="contentAction.icon.left"></i>
+                    }
+                    <span class="flex-grow-1">{{ contentAction.title }}</span>
+                    @if (contentAction.icon.right) {
+                      <i [class]="contentAction.icon.right"></i>
+                    }
+                  </button>
+                }
+              </div>
             </div>
-          </div>
-          <div class="tab-pane fade"
-               id="sort-action-modal"
-               role="tabpanel"
-               aria-labelledby="sort-action-modal-tab">
-            <div class="list-group list-group-flush rounded-bottom">
-              <button type="button"
-                      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                Fecha de actualización
-                <i class="fas fa-long-arrow-alt-down"></i>
-              </button>
-              <button type="button"
-                      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                Fecha de creación
-                <i class="fas fa-long-arrow-alt-down"></i>
-              </button>
-              <button type="button"
-                      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                Título
-                <i class="fas fa-long-arrow-alt-down"></i>
-              </button>
-            </div>
-          </div>
+          }
         </div>
       </div>
     </div>
