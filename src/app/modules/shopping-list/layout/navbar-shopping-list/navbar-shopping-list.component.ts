@@ -103,7 +103,10 @@ export class NavbarShoppingListComponent {
           icon: {
             left: 'fas fa-trash'
           },
-          title: 'Eliminar lista'
+          title: 'Eliminar lista',
+          classButton: 'text-danger',
+          clickButton: () => this.deleteShoppingList.emit(),
+          dataDismiss: true
         }
       ]
     }
