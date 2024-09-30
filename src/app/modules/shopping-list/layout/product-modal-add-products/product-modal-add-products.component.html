@@ -1,0 +1,70 @@
+<div class="modal fade"
+     id="product-modal-add-products"
+     tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ selectedProduct().name }}</h5>
+        <button type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <form class="p-3"
+              [formGroup]="saveShoppingListProductForm">
+          <div class="d-flex">
+            <div class="mr-1">
+              <label for="units">Unidades</label>
+              <p-inputNumber
+                [ngClass]="{'d-block': true}"
+                styleClass="w-100"
+                inputStyleClass="w-100"
+                formControlName="unitsPerProduct"
+                mode="decimal"
+                min="1"
+                inputId="units"
+                [useGrouping]="false"/>
+            </div>
+            <div class="flex-grow-1">
+              <label for="unit_type_name">Tipo de unidades</label>
+              <p-autoComplete
+                formControlName="unitType"
+                styleClass="w-100"
+                inputId="unit_type_name"
+                [dropdown]="true"
+                [suggestions]="findAllUnityTypesRes().content"
+                (completeMethod)="autoCompleteUnitType($event)"
+                optionLabel="name"/>
+            </div>
+          </div>
+          <button type="button"
+                  data-dismiss="modal"
+                  (click)="addProductsSubmit()"
+                  class="btn btn-success btn-block mt-3">
+            <i class="fas fa-plus"></i>
+            Agregar
+          </button>
+          <input type="hidden"
+                 name="shoppingListId"
+                 formControlName="shoppingListId">
+          <input type="hidden"
+                 name="productId"
+                 formControlName="productId">
+          <input type="hidden"
+                 name="unitTypeId"
+                 formControlName="unitTypeId">
+        </form>
+        <p-image
+          width="500"
+          appendTo="body"
+          [src]="selectedProduct().imgUrl"
+          [alt]="selectedProduct().name"
+          imageClass="img-fluid img-rounded"
+          [preview]="true"/>
+      </div>
+    </div>
+  </div>
+</div>

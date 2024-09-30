@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {ButtonModule} from 'primeng/button';
 import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 import {RouterLink} from '@angular/router';
+import {ActionModal} from '../../../../shared/models/action-modal.model';
 
 @Component({
   selector: 'app-add-products-navbar-shopping-list',
@@ -16,6 +17,64 @@ import {RouterLink} from '@angular/router';
 })
 export class AddProductsNavbarShoppingListComponent {
 
-  @Input() idShoppingList!: number;
+  actionsModal: ActionModal[] = [
+    {
+      id: 'filter',
+      tab: {
+        icon: 'fas fa-filter',
+        title: 'Filtrar',
+        default: true
+      },
+      content: [
+        {
+          icon: {
+            left: 'fas fa-dollar-sign',
+            right: 'fas fa-angle-right'
+          },
+          title: 'Precio',
+          disabled: true
+        },
+        {
+          icon: {
+            left: 'fas fa-tags',
+            right: 'fas fa-angle-right'
+          },
+          title: 'Categoría',
+          disabled: true
+        },
+        {
+          icon: {
+            left: 'fas fa-star',
+            right: 'fas fa-angle-right'
+          },
+          title: 'Favoritos',
+          disabled: true
+        }
+      ]
+    },
+    {
+      id: 'sort',
+      tab: {
+        icon: 'fas fa-sort',
+        title: 'Ordenar'
+      },
+      content: [
+        {
+          icon: {
+            right: 'fas fa-long-arrow-alt-down'
+          },
+          title: 'Título',
+          disabled: true
+        },
+        {
+          icon: {
+            right: 'fas fa-long-arrow-alt-down'
+          },
+          title: 'Precio',
+          disabled: true
+        }
+      ]
+    }
+  ];
 
 }

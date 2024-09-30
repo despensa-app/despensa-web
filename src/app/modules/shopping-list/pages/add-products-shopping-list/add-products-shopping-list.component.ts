@@ -13,7 +13,7 @@ import {
   AddProductHeaderShoppingListComponent
 } from '../../layout/add-product-header-shopping-list/add-product-header-shopping-list.component';
 import {ProductsService} from '../../../../services/pages/products.service';
-import {map, tap} from 'rxjs';
+import {tap} from 'rxjs';
 import {UnitTypesService} from '../../../../services/pages/unit-types.service';
 import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
 import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
@@ -32,6 +32,9 @@ import {ProductInstantSearch} from '../../models/product-instant-search';
 import {FindAllShoppingListProductsRes} from '../../../../models/find-all-shopping-list-products-res';
 import {InfiniteHitsRenderState} from 'instantsearch.js/es/connectors/infinite-hits/connectInfiniteHits';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import {
+  ProductModalAddProductsComponent
+} from '../../layout/product-modal-add-products/product-modal-add-products.component';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -54,7 +57,8 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
     IconFieldModule,
     InputIconModule,
     NgClass,
-    ToggleButtonModule
+    ToggleButtonModule,
+    ProductModalAddProductsComponent
   ],
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'
@@ -95,21 +99,6 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
 
   @Input('id') idShoppingList: number = 0;
 
-  visibleProductDialog: boolean = false;
-
-  saveShoppingListProductForm = this.formBuilder.nonNullable.group({
-    productId: [0],
-    shoppingListId: [0],
-    unitsPerProduct: [0],
-    unitType: [
-      {
-        id: 0,
-        name: ''
-      }
-    ],
-    unitTypeId: [0]
-  });
-
   nameProductFormControl = new FormControl('', {nonNullable: true});
 
   showMoreButton = {
@@ -130,19 +119,6 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
   }
 
   ngOnInit(): void {
-    this.saveShoppingListProductForm.get('unitType')!
-      .valueChanges
-      .pipe(
-        map(value => value.id),
-        tap(value => {
-          this.saveShoppingListProductForm.get('unitTypeId')!
-            .setValue(value, {emitEvent: false});
-        })
-      )
-      .subscribe();
-    //TODO: Implementación temporal
-    this.saveShoppingListProductForm.get('unitType')!
-      .disable({onlySelf: true});
     this.unitTypesService.findAll()
         .pipe(
           tap(unitTypes => this.findAllUnityTypesRes.set(unitTypes))
@@ -162,18 +138,6 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
 
   showDialogSelectProductEvent(product: ProductInstantSearch) {
     this.selectedProduct.set(product);
-    this.visibleProductDialog = true;
-    const unitType = this.findAllUnityTypesRes().content[0];//TODO: ver ngOnInit()
-    this.saveShoppingListProductForm.setValue({
-      productId: product.id,
-      shoppingListId: Number(this.idShoppingList),
-      unitsPerProduct: 1,
-      unitTypeId: unitType.id,
-      unitType: {
-        id: unitType.id,
-        name: unitType.name
-      }
-    }, {emitEvent: false});
   }
 
   autoCompleteUnitTypeEvent($event: AutoCompleteCompleteEvent) {
@@ -184,15 +148,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
         .subscribe();
   }
 
-  addProductsSubmit() {
-    this.visibleProductDialog = false;
-    const request: SaveShoppingListProductReq = {
-      productId: this.saveShoppingListProductForm.value.productId!,
-      shoppingListId: this.saveShoppingListProductForm.value.shoppingListId!,
-      unitsPerProduct: this.saveShoppingListProductForm.value.unitsPerProduct!,
-      unitTypeId: this.saveShoppingListProductForm.value.unitTypeId!
-    };
-
+  addProductsSubmit(request: SaveShoppingListProductReq) {
     this.productsService.saveShoppingList(request)
         .pipe(
           tap(() => {
