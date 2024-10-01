@@ -1,9 +1,9 @@
 <app-page>
   <ng-container navbar>
-    <app-add-products-navbar-shopping-list [idShoppingList]="idShoppingList"/>
+    <app-add-products-navbar-shopping-list/>
   </ng-container>
   <ng-container header>
-    <app-add-product-header-shopping-list/>
+    <app-add-product-header-shopping-list [idShoppingList]="idShoppingList"/>
   </ng-container>
   <ng-container content>
     <p-iconField iconPosition="left">
@@ -14,110 +14,150 @@
              class="w-100 d-block mb-3"
              placeholder="Nombre del producto"/>
     </p-iconField>
-    <div>
-      <p-toggleButton
-        styleClass="btn btn-primary"
-        onLabel="Solo texto"
-        offLabel="Con imagen"
-        onIcon="fas fa-redo"
-        offIcon="far fa-image"
-        (onChange)="onToggleProductsViewChange()"/>
+    <div class="mb-3">
+      <p-checkbox styleClass="mr-2"
+                  [binary]="true"
+                  checkboxIcon="fas fa-check"
+                  (onChange)="onToggleProductsViewChange()"/>
+      <label class="m-0">Con imágen</label>
     </div>
-    <br>
     @if (toggleProductsView()) {
       <div class="row">
         @for (product of products(); track product.id) {
-          <div class="col-6 col-sm-4 col-lg-2">
-            <div class="card"
-                 (click)="showDialogSelectProductEvent(product)">
-              <img src="{{product.imgUrl}}"
-                   alt="{{product.name}}">
-              <div class="card-footer">
-                <h5 class="card-title"
-                    [innerHTML]="product.nameHighlight"></h5>
+          <div class="col-6 col-sm-4 col-lg-3">
+            <div class="card">
+              <p-image
+                [src]="product.imgUrl"
+                [alt]="product.name"
+                imageClass="img-fluid rounded-top"/>
+              <div class="btn-group"
+                   role="group">
+                <button type="button"
+                        disabled
+                        class="btn btn-success rounded-0 border-0">
+                  <i class="fas fa-cart-arrow-down"></i>
+                </button>
+                <div class="btn-group">
+                  <button type="button"
+                          class="btn btn-default rounded-0 border-0"
+                          data-toggle="dropdown"
+                          aria-expanded="false">
+                    <i class="fa fa-angle-down w-25px"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <button class="dropdown-item"
+                            disabled
+                            type="button">
+                      <i class="fas fa-cart-arrow-down w-25px"></i>
+                      +2
+                    </button>
+                    <button class="dropdown-item"
+                            disabled
+                            type="button">
+                      <i class="fas fa-cart-arrow-down w-25px"></i>
+                      +3
+                    </button>
+                    <button class="dropdown-item"
+                            disabled
+                            type="button">
+                      <i class="fas fa-cart-arrow-down w-25px"></i>
+                      +4
+                    </button>
+                    <button class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#product-modal-add-products"
+                            (click)="showDialogSelectProductEvent(product)"
+                            type="button">
+                      <i class="fas fa-cart-plus w-25px"></i>
+                      Más
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer border-top p-0">
+                <button class="text-truncate btn py-3 btn-block"
+                        data-toggle="modal"
+                        data-target="#product-modal-add-products"
+                        (click)="showDialogSelectProductEvent(product)"
+                        [innerHTML]="product.nameHighlight">
+                </button>
               </div>
             </div>
           </div>
         }
       </div>
     } @else {
-      <div class="list-group">
+      <div class="list-group mb-3">
         @for (product of products(); track product.id) {
-          <div class="list-group-item text-truncate"
-               (click)="showDialogSelectProductEvent(product)"
-               [innerHTML]="product.nameHighlight">
+          <div class="list-group-item">
+            <div class="d-flex align-items-center">
+              <button type="button"
+                      class="btn text-truncate pl-0 flex-grow-1 text-left"
+                      data-toggle="modal"
+                      data-target="#product-modal-add-products"
+                      (click)="showDialogSelectProductEvent(product)"
+                      [innerHTML]="product.nameHighlight">
+              </button>
+              <div class="btn-group"
+                   role="group">
+                <button type="button"
+                        disabled
+                        class="btn btn-success">
+                  <i class="fas fa-cart-arrow-down"></i>
+                </button>
+                <div class="btn-group">
+                  <button type="button"
+                          class="btn btn-default dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-expanded="false">
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <button class="dropdown-item"
+                            disabled
+                            type="button">
+                      <i class="fas fa-cart-arrow-down w-25px"></i>
+                      +2
+                    </button>
+                    <button class="dropdown-item"
+                            disabled
+                            type="button">
+                      <i class="fas fa-cart-arrow-down w-25px"></i>
+                      +3
+                    </button>
+                    <button class="dropdown-item"
+                            disabled
+                            type="button">
+                      <i class="fas fa-cart-arrow-down w-25px"></i>
+                      +4
+                    </button>
+                    <button class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#product-modal-add-products"
+                            (click)="showDialogSelectProductEvent(product)"
+                            type="button">
+                      <i class="fas fa-cart-plus w-25px"></i>
+                      Más
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         }
       </div>
     }
     @if (showMoreButton.render()) {
-      <br>
       <p-button icon="fas fa-spinner"
                 [disabled]="showMoreButton.disabled()"
                 styleClass="btn btn-default btn-block"
                 label="Cargar más"
                 (click)="showMoreButton.click()"/>
     }
+
+    <app-product-modal-add-products [selectedProduct]="selectedProduct()"
+                                    (addProductsEvent)="addProductsSubmit($event)"
+                                    (autoCompleteUnitTypeEvent)="autoCompleteUnitTypeEvent($event)"
+                                    [findAllUnityTypesRes]="findAllUnityTypesRes()"
+                                    [idShoppingList]="idShoppingList"/>
   </ng-container>
 </app-page>
-
-<p-dialog [header]="selectedProduct().name"
-          [modal]="true"
-          [(visible)]="visibleProductDialog"
-          [draggable]="false"
-          [resizable]="false"
-          closeIcon="fas fa-times"
-          [breakpoints]="{ '575px': '90vw' }">
-  <form [formGroup]="saveShoppingListProductForm"
-        (ngSubmit)="addProductsSubmit()">
-    <div class="row">
-      <div class="col-sm-3">
-        <label for="units"
-               class="d-block">Unidades</label>
-        <p-inputNumber
-          [ngClass]="{'d-block': true}"
-          styleClass="w-100"
-          inputStyleClass="w-100"
-          formControlName="unitsPerProduct"
-          mode="decimal"
-          min="1"
-          inputId="units"
-          [useGrouping]="false"/>
-      </div>
-      <div class="col-sm-8">
-        <label for="unitType"
-               class="d-block">Tipo de unidades</label>
-        <p-autoComplete
-          formControlName="unitType"
-          styleClass="w-100"
-          inputId="unitType"
-          [dropdown]="true"
-          [suggestions]="findAllUnityTypesRes().content"
-          (completeMethod)="autoCompleteUnitTypeEvent($event)"
-          optionLabel="name"/>
-      </div>
-      <input type="hidden"
-             name="shoppingListId"
-             formControlName="shoppingListId">
-      <input type="hidden"
-             name="productId"
-             formControlName="productId">
-      <input type="hidden"
-             name="unitTypeId"
-             formControlName="unitTypeId">
-    </div>
-    <button type="submit"
-            class="btn btn-success btn-block mt-3">
-      <i class="fas fa-plus pr-1"></i>
-      Agregar
-    </button>
-    <p-image
-      width="600"
-      appendTo="body"
-      [src]="selectedProduct().imgUrl"
-      [alt]="selectedProduct().name"
-      imageClass="img-fluid img-rounded img-fluid"
-      styleClass="mt-3 mb-3"
-      [preview]="true"/>
-  </form>
-</p-dialog>

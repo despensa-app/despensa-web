@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, input, Output} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 import {ButtonModule} from 'primeng/button';
+import {ActionModal} from '../../../../shared/models/action-modal.model';
 
 @Component({
   selector: 'app-navbar-shopping-list',
@@ -16,25 +17,99 @@ import {ButtonModule} from 'primeng/button';
 })
 export class NavbarShoppingListComponent {
 
-  @Input() isEditOrNew: boolean = false;
+  isNew = input.required<boolean>();
 
-  @Input() idShoppingList: number = 0;
+  @Output() deleteShoppingList = new EventEmitter<void>();
 
-  @Output() editEvent = new EventEmitter<void>();
+  actionsModal: ActionModal[] = [
+    {
+      id: 'filter',
+      tab: {
+        icon: 'fas fa-filter',
+        title: 'Filtrar'
+      },
+      content: [
+        {
+          icon: {
+            left: 'fas fa-tags',
+            right: 'fas fa-angle-right'
+          },
+          title: 'Categorías',
+          disabled: true
+        },
+        {
+          icon: {
+            left: 'fas fa-star',
+            right: 'fas fa-angle-right'
+          },
+          title: 'Favoritos',
+          disabled: true
+        }
+      ]
+    },
+    {
+      id: 'sort',
+      tab: {
+        icon: 'fas fa-sort',
+        title: 'Ordenar'
+      },
+      content: [
+        {
+          icon: {
+            right: 'fas fa-long-arrow-alt-down'
+          },
+          title: 'Fecha',
+          disabled: true
+        },
+        {
+          icon: {
+            right: 'fas fa-long-arrow-alt-down'
+          },
+          title: 'Título',
+          disabled: true
+        },
+        {
+          icon: {
+            right: 'fas fa-long-arrow-alt-down'
+          },
+          title: 'Precio',
+          disabled: true
+        },
+        {
+          icon: {
+            right: 'fas fa-long-arrow-alt-down'
+          },
+          title: 'Marcados',
+          disabled: true
+        }
+      ]
+    },
+    {
+      id: 'more',
+      tab: {
+        icon: 'fas fa-th-large',
+        title: 'Más',
+        default: true
+      },
+      content: [
+        {
+          icon: {
+            left: 'fas fa-clone'
+          },
+          title: 'Duplicar lista',
+          disabled: true
+        },
+        {
+          icon: {
+            left: 'fas fa-trash'
+          },
+          title: 'Eliminar lista',
+          classButton: 'text-danger',
+          clickButton: () => this.deleteShoppingList.emit(),
+          dataDismiss: true
+        }
+      ]
+    }
+  ];
 
-  @Output() saveEvent = new EventEmitter<void>();
-
-  @Output() goToAddProductsLink = new EventEmitter<void>();
-
-  editClickEvent() {
-    this.editEvent.emit();
-  }
-
-  saveClickEvent() {
-    this.saveEvent.emit();
-  }
-
-  goToAddProducts() {
-    this.goToAddProductsLink.emit();
-  }
 }

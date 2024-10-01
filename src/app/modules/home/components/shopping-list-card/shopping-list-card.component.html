@@ -1,19 +1,45 @@
 <div class="card card-primary card-outline">
-  <div class="card-body">
-    <div class="d-flex">
-      <div class="flex-grow-1">
-        <h3 class="card-title">{{ response().name }}</h3>
-        <br/>
-        <span class="text-muted">{{ response().totalProducts }} Productos</span>
-        <br/>
-        <small class="text-muted">{{ response().createdAt }}</small>
-      </div>
-      <div>
-        <a class="btn stretched-link"
-           routerLink="/shopping-list/{{response().id}}">
-          <i class="fas fa-chevron-right"></i>
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="card-header border-bottom-0 flex-grow-1 pt-4">
+      <h3 class="card-title">
+        <a routerLink="/shopping-list/{{response().id}}"
+           class="text-body stretched-link">
+          {{ response().name }}
         </a>
+      </h3>
+    </div>
+    <div class="dropdown">
+      <button type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+              class="btn text-body pt-4 px-4">
+        <i class="fas fa-ellipsis-v w-25px"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <button class="dropdown-item"
+                disabled>
+          <i class="far fa-star w-25px"></i>
+          <span>Favorito</span>
+        </button>
+        <a class="dropdown-item disabled">
+          <i class="fas fa-edit w-25px"></i>
+          <span>Editar</span>
+        </a>
+        <button type="button"
+                disabled
+                class="dropdown-item">
+          <i class="fas fa-trash w-25px"></i>
+          <span>Eliminar</span>
+        </button>
       </div>
     </div>
+  </div>
+  <div class="card-body position-relative pt-0">
+    <span class="text-muted d-block">{{ response().totalProducts }} Productos</span>
+    <small class="text-muted d-block">{{ response().createdAt }}</small>
+    <a class="stretched-link"
+       routerLink="/shopping-list/{{response().id}}">
+      <span class="sr-only">Ver detalles</span>
+    </a>
   </div>
 </div>

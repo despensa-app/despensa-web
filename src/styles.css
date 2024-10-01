@@ -4,19 +4,6 @@
 @import "primeng/resources/themes/bootstrap4-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
-.layout-bottom-navbar-fixed .wrapper .content-wrapper {
-  padding-bottom: calc(3.5rem + 1px);
-}
-
-.layout-bottom-navbar-fixed .wrapper .main-header {
-  border-top: 1px solid #dee2e6;
-  border-bottom: 0;
-}
-
-.main-sidebar .brand-link > img {
-  opacity: 0.8;
-}
-
-.border-radius-0 {
-  border-radius: 0 !important;
+.w-25px {
+  width: 25px;
 }

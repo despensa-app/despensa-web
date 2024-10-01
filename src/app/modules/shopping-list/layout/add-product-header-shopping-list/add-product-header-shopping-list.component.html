@@ -3,9 +3,10 @@
     <h1>Seleccionar productos</h1>
   </ng-container>
   <ng-container header-right>
-    <button class="btn" type="button"
-            disabled>
-      <i class="fas fa-filter"></i>
-    </button>
+    <a class="btn btn-success"
+       [routerLink]="['/shopping-list', idShoppingList]">
+      <i class="fas fa-save w-25px"></i>
+      Terminar
+    </a>
   </ng-container>
 </app-header>

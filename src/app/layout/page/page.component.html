@@ -1,18 +1,13 @@
 <div class="wrapper">
   <ng-content select="[navbar]"/>
-  <app-sidebar/>
   <div class="content-wrapper">
-    <div class="content">
-      <div class="callout callout-info mt-2">
-        <p>
-          GitHub: <a href="https://github.com/despensa-app"
-                     target="_blank">https://github.com/despensa-app</a>
-        </p>
+    <section class="content-header">
+      <div class="container">
+        <ng-content select="[header]"/>
       </div>
-    </div>
-    <ng-content select="[header]"/>
+    </section>
     <section class="content">
-      <div class="container-fluid">
+      <div class="container">
         <ng-content select="[content]"/>
       </div>
     </section>

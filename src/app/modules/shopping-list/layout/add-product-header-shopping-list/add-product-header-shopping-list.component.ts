@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {HeaderComponent} from '../../../../layout/header/header.component';
 import {RouterLink} from '@angular/router';
 
@@ -13,5 +13,7 @@ import {RouterLink} from '@angular/router';
   styleUrl: './add-product-header-shopping-list.component.css'
 })
 export class AddProductHeaderShoppingListComponent {
+
+  @Input() idShoppingList!: number;
 
 }

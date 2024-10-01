@@ -1,12 +1,32 @@
 <nav
-  class="main-header navbar navbar-expand fixed-bottom navbar-white navbar-light d-flex justify-content-between border-top">
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <button class="btn" data-widget="pushmenu" type="button">
-        <i class="fas fa-bars"></i>
-      </button>
-    </li>
-  </ul>
-  <ng-content select="[navbar-center]"/>
-  <ng-content select="[navbar-right]"/>
+  class="main-header fixed-bottom navbar-white navbar-light border-top border-bottom-0">
+  <div class="container">
+    <ul class="navbar-nav d-flex flex-row justify-content-around">
+      <li class="nav-item">
+        <a routerLink="/"
+           class="btn">
+          <i class="fas fa-home"></i>
+          <span class="d-block">Inicio</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <button type="button"
+                [attr.disabled]="disableActionsButton()"
+                data-target="#actions-modal-navbar"
+                data-toggle="modal"
+                class="btn">
+          <i class="fas fa-bars"></i>
+          <span class="d-block">Acciones</span>
+        </button>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/auth/login"
+           class="btn">
+          <i class="fas fa-user"></i>
+          <span class="d-block">Iniciar sesión</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>
+<app-modal-navbar [actionsModal]="actionsModal()"/>

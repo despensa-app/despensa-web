@@ -1,108 +1,35 @@
 <app-header>
   <ng-container header-left>
-    <div class="flex-grow-1">
-      <a routerLink="/" class="btn pl-0">
-        <i class="fas fa-arrow-left"></i>
-      </a>
-    </div>
-  </ng-container>
-  <ng-container header-right>
-    <p-button icon="fas fa-ellipsis-h"
-              [text]="true"
-              (onClick)="showOptionsDialog()"/>
-  </ng-container>
-  <div class="d-flex justify-content-between mt-2">
     @if (isEditOrNew) {
-      <div class="flex-grow-1">
-        <label class="sr-only" for="name">Nombre</label>
+      <form class="flex-grow-1 mr-1">
+        <label class="sr-only"
+               for="name">Nombre</label>
         <input type="text"
                class="form-control"
                [formControl]="nameShoppingListFormControl"
                placeholder="Nombre de la lista"
                id="name"
                name="name">
-      </div>
+      </form>
     } @else {
-      <h1 class="flex-grow-1">{{ nameShoppingListFormControl.value }}</h1>
+      <h1>{{ nameShoppingListFormControl.value }}</h1>
     }
-  </div>
+  </ng-container>
+  <ng-container header-right>
+    @if (isEditOrNew) {
+      <button class="btn btn-primary"
+              (click)="saveClickEvent()"
+              type="button">
+        <i class="fas fa-save w-25px"></i>
+        Guardar
+      </button>
+    } @else {
+      <button class="btn btn-primary"
+              (click)="editClickEvent()"
+              type="button">
+        <i class="fas fa-edit w-25px"></i>
+        Editar
+      </button>
+    }
+  </ng-container>
 </app-header>
-
-<p-dialog [modal]="true"
-          position="top"
-          [(visible)]="visibleOptionsDialog"
-          [draggable]="false"
-          [resizable]="false"
-          [showHeader]="false"
-          [breakpoints]="{ '575px': '90vw' }">
-  <p-tabView [scrollable]="true"
-             [controlClose]="true"
-             (onClose)="showOptionsDialog()">
-    <p-tabPanel header="Filtar"
-                headerStyleClass="d-none"
-                [disabled]="true">
-      <div class="list-group list-group-flush">
-        <button
-          class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          <i class="fas fa-tags w-fixed-25"></i>
-          <span class="flex-grow-1">Categorías</span>
-          <i class="fas fa-angle-right"></i>
-        </button>
-        <button
-          class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          <i class="fas fa-calendar-alt w-fixed-25"></i>
-          <span class="flex-grow-1">Fecha de creación</span>
-          <i class="fas fa-angle-right"></i>
-        </button>
-        <button
-          class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          <i class="fas fa-calendar-alt w-fixed-25"></i>
-          <span class="flex-grow-1">Fecha de actualización</span>
-          <i class="fas fa-angle-right"></i>
-        </button>
-        <button
-          class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          <i class="fas fa-star w-fixed-25"></i>
-          <span class="flex-grow-1">Favoritos</span>
-          <i class="fas fa-angle-right"></i>
-        </button>
-      </div>
-    </p-tabPanel>
-    <p-tabPanel header="Ordenar"
-                headerStyleClass="d-none"
-                [disabled]="true">
-      <div class="list-group list-group-flush">
-        <button
-          class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          Fecha de actualización
-          <i class="fas fa-long-arrow-alt-down"></i>
-        </button>
-        <button
-          class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          Fecha de creación
-          <i class="fas fa-long-arrow-alt-down"></i>
-        </button>
-        <button
-          class="btn list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-          Título
-          <i class="fas fa-long-arrow-alt-down"></i>
-        </button>
-      </div>
-    </p-tabPanel>
-    <p-tabPanel header="Opciones"
-                [selected]="true">
-      <div class="list-group list-group-flush">
-        <button class="btn list-group-item list-group-item-action">
-          <i class="fas fa-clone w-fixed-25"></i>
-          Duplicar lista
-        </button>
-        <p-button styleClass="btn list-group-item list-group-item-action text-danger border-top"
-                  icon="fas fa-trash"
-                  (onClick)="deleteEvent()"
-                  label="Eliminar lista"
-                  severity="danger"/>
-      </div>
-    </p-tabPanel>
-    <p-tabPanel [closable]="true"/>
-  </p-tabView>
-</p-dialog>
