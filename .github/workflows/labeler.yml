@@ -1,0 +1,27 @@
+name: labeler
+on: [ pull_request ]
+
+jobs:
+  labeler:
+    permissions:
+      pull-requests: write
+      contents: read
+      issues: write
+    runs-on: ubuntu-latest
+    name: Labels PR based on size of changes (i.e. addition, modifications, deletion)
+    steps:
+      - uses: codelytv/pr-size-labeler@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          xs_label: 'Size: Tiny'
+          xs_max_size: '10'
+          s_label: 'Size: Small'
+          s_max_size: '100'
+          m_label: 'Size: Medium'
+          m_max_size: '500'
+          l_label: 'Size: Large'
+          l_max_size: '1000'
+          xl_label: 'Size: Very Large'
+          message_if_xl: >
+            This pull request is categorized as Very Large, since it contains more than 1000 lines.
+            Please try to downsize the pull request by breaking it down to multiple, smaller ones.
