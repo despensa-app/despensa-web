@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  backend:
+    image: nmarulo/despensa-app:0.0.1-test
+    container_name: despensa-backend
+    ports:
+      - "8080:8080"
+    environment:
+
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: despensa_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      DATASOURCE_MYSQL_URL: jdbc:mysql://mysql:3306/despensa_db 
+      APP_SECURITY_JWT_SECRET: jJNJ9TgONU5eJ2/xDpNoQT85RKnRTamN+uvjv0i5/bvYXLjWerIIPKecA73EKoorOGzar758QXvVoCrMlB9waQ== 
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0.33
+    container_name: despensa-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password 
+      MYSQL_DATABASE: despensa_db  
+      MYSQL_PASSWORD: password  
+    volumes:
+      - mysql-data:/var/lib/mysql  
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -ppassword"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s  
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge
