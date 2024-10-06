@@ -239,4 +239,16 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
   onToggleProductsViewChange() {
     this.toggleProductsView.set(!this.toggleProductsView());
   }
+
+  addProduct(product: ProductInstantSearch, unitsPerProduct: number) {
+    const request: SaveShoppingListProductReq = {
+      productId: product.id,
+      shoppingListId: this.idShoppingList,
+      unitsPerProduct: unitsPerProduct,
+      unitTypeId: this.findAllUnityTypesRes().content[0].id
+    };
+  
+    this.showDialogSelectProductEvent(product);
+    this.addProductsSubmit(request);
+  }
 }
