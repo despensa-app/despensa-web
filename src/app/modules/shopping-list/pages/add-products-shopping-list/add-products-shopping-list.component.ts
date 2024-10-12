@@ -105,6 +105,10 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     disabled: signal(false),
     render: signal(false),
     click: () => {
+      if (!this.showMoreButton.disabled()) {
+        // Call the showMore method to load additional products
+        this.showMoreButton.click();
+      }
     }
   };
 
@@ -153,9 +157,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
         .pipe(
           tap(() => {
             this.shoppingListProductsRes.update(value => {
-              value.content
-                   .push(this.selectedProduct());
-
+              value.content.push(this.selectedProduct());
               return value;
             });
 
@@ -217,7 +219,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
       if (isFirstRender) {
         this.showMoreButton.click = showMore;
 
-        //En la doc cuando usan "isFirstRender" siempre hacen el "return".
+        // When "isFirstRender" is true, we should return early to avoid unnecessary re-renders.
         return;
       }
 
