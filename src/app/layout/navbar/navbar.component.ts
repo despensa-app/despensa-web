@@ -19,6 +19,4 @@ export class NavbarComponent {
   disableActions = input<boolean>();
   disableActionsButton = computed(() => this.disableActions() || this.actionsModal().length === 0 ? true : null);
 
-  constructor() {
-  }
 }
