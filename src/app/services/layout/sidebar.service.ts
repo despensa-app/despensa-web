@@ -8,8 +8,6 @@ export class SidebarService {
 
   private elements = signal<DataSidebar[]>([]);
 
-  constructor() {
-  }
 
   showLoginAndHideLogout() {
     this.elements.update(value => {
