@@ -107,13 +107,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     showMoreButton = {
   disabled: signal(false),
   render: signal(false),
-  click: () => {
-    // Ensure that the click logic is not called recursively
-    if (!this.showMoreButton.disabled()) {
-      // Call the showMore method (without recursive calling)
-      this.algoliaService.showMoreProducts();
-    }
-  }
+  click: null
 };
 
   toggleProductsView = signal(false);
