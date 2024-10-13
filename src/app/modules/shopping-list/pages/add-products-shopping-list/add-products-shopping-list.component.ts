@@ -104,9 +104,6 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
   showMoreButton = {
     disabled: signal(false),
     render: signal(false),
-    showMoreButton = {
-  disabled: signal(false),
-  render: signal(false),
   click: null
 };
 
