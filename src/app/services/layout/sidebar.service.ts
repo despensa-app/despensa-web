@@ -9,6 +9,7 @@ export class SidebarService {
   private elements = signal<DataSidebar[]>([]);
 
   constructor() {
+    // Constructor is empty because no dependencies or initialization are needed yet
   }
 
   showLoginAndHideLogout() {
