@@ -105,6 +105,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     disabled: signal(false),
     render: signal(false),
     click: () => {
+      // The click() function in the showMoreButton object serves as an event handler for when the button is clicked.
     }
   };
 
