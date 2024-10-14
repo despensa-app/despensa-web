@@ -104,7 +104,12 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
   showMoreButton = {
     disabled: signal(false),
     render: signal(false),
-  click: null
+  click: () => {
+    // The click function can check if it's disabled or not before proceeding.
+    if (!this.showMoreButton.disabled()) {
+      this.showMore();
+    }
+  }
 };
 
   toggleProductsView = signal(false);
@@ -212,7 +217,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
       }));
 
       if (isFirstRender) {
-        this.showMoreButton.click = showMore;
+        this.showMore = showMore;
 
         // When "isFirstRender" is true, we should return early to avoid unnecessary re-renders.
         return;
