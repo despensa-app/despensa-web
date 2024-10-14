@@ -26,7 +26,7 @@ export class HeaderShoppingListComponent {
 
   @Output() saveEvent = new EventEmitter<void>();
 
-  @Input() isEditorOrNew = false;
+  @Input() isEditOrNew = false;
 
   @Input({required: true})
   set nameShoppingList(value: string) {
