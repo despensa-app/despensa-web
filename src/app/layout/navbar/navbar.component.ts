@@ -20,5 +20,6 @@ export class NavbarComponent {
   disableActionsButton = computed(() => this.disableActions() || this.actionsModal().length === 0 ? true : null);
 
   constructor() {
+    // this constructor is currently empty you might plan to initialize properties or inject dependencies
   }
 }
