@@ -97,7 +97,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
 
   products = signal<Array<ProductInstantSearch>>([]);
 
-  @Input('id') idShoppingList: number = 0;
+  @Input('id') idShoppingList = 0;
 
   nameProductFormControl = new FormControl('', {nonNullable: true});
 
