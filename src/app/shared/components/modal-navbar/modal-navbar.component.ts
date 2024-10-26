@@ -12,15 +12,15 @@ export class ModalNavbarComponent {
 
   actionsModal = input.required<ActionModal[]>();
 
-  getIdTabModal(value: string): string {
+  static getIdTabModal(value: string): string {
     return value + '-action-modal-tab';
   }
 
-  getIdContentTabModal(value: string): string {
+  static getIdContentTabModal(value: string): string {
     return value + '-action-modal-content';
   }
 
-  getClassesFirstContentTabModal(first?: boolean) {
+  static getClassesFirstContentTabModal(first?: boolean) {
     return first ? 'show active' : '';
   }
 }
