@@ -1,26 +1,17 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {tap} from 'rxjs';
 import {ShoppingListsService} from '../../../../services/pages/shopping-lists.service';
-import {AsyncPipe} from '@angular/common';
-import {RouterLink} from '@angular/router';
-import {FindAllShoppingListRes} from '../../../../models/find-all-shopping-list-res';
-import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
-import {SidebarComponent} from '../../../../layout/sidebar/sidebar.component';
-import {HeaderComponent} from '../../../../layout/header/header.component';
+import {FindAllShoppingListRes, ShoppingList} from '../../../../models/find-all-shopping-list-res';
 import {ShoppingListCardComponent} from '../../components/shopping-list-card/shopping-list-card.component';
 import {NavbarHomeComponent} from '../../layout/navbar-home/navbar-home.component';
 import {HeaderHomeComponent} from '../../layout/header-home/header-home.component';
 import {PageComponent} from '../../../../layout/page/page.component';
+import {UpdateShoppingListReq} from '@app/models/update-shopping-list-req';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    AsyncPipe,
-    RouterLink,
-    NavbarComponent,
-    SidebarComponent,
-    HeaderComponent,
     ShoppingListCardComponent,
     NavbarHomeComponent,
     HeaderHomeComponent,
@@ -51,6 +42,23 @@ export class HomeComponent implements OnInit {
         .pipe(
           tap(shoppingLists => this.shoppingListsRes.set(shoppingLists))
         )
+        .subscribe();
+  }
+
+  public updateShoppingListEvent(response: ShoppingList) {
+    const request: UpdateShoppingListReq = {
+      name: response.name
+    };
+
+    this.shoppingListsRes.update(shoppingLists => {
+      const index = shoppingLists.content.findIndex(shoppingList => shoppingList.id === response.id);
+
+      shoppingLists.content[index] = response;
+
+      return shoppingLists;
+    });
+
+    this.shoppingListsService.update(response.id, request)
         .subscribe();
   }
 
