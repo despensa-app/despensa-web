@@ -7,6 +7,7 @@ import {NavbarHomeComponent} from '../../layout/navbar-home/navbar-home.componen
 import {HeaderHomeComponent} from '../../layout/header-home/header-home.component';
 import {PageComponent} from '../../../../layout/page/page.component';
 import {UpdateShoppingListReq} from '@app/models/update-shopping-list-req';
+import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import {UpdateShoppingListReq} from '@app/models/update-shopping-list-req';
     ShoppingListCardComponent,
     NavbarHomeComponent,
     HeaderHomeComponent,
-    PageComponent
+    PageComponent,
+    Button
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -32,17 +34,32 @@ export class HomeComponent implements OnInit {
 
   shoppingListsRes = signal<FindAllShoppingListRes>(this._initShoppingList);
 
+  showMoreButton = signal({
+    disabled: false,
+    render: false,
+    click: () => {
+    }
+  });
+
   constructor(
     private shoppingListsService: ShoppingListsService
   ) {
   }
 
   ngOnInit() {
-    this.shoppingListsService.findAll()
+    this.shoppingListsService.findAll({sort: 'id,desc'})
         .pipe(
           tap(shoppingLists => this.shoppingListsRes.set(shoppingLists))
         )
-        .subscribe();
+        .subscribe({
+          complete: () => {
+            this.showMoreButton.update(value => ({
+              ...value,
+              render: this.shoppingListsRes().totalPages > 1,
+              click: () => this.nextFindAllShoppingListEvent()
+            }));
+          }
+        });
   }
 
   public updateShoppingListEvent(response: ShoppingList) {
@@ -70,6 +87,32 @@ export class HomeComponent implements OnInit {
     );
 
     this.shoppingListsService.delete(id)
+        .subscribe();
+  }
+
+  nextFindAllShoppingListEvent() {
+    this.shoppingListsService.findAll({
+      page: this.shoppingListsRes().currentPage + 1,
+      sort: 'id,desc'
+    })
+        .pipe(
+          tap(response => {
+            this.shoppingListsRes.update(value => ({
+              ...value,
+              ...response,
+              content: [
+                ...value.content,
+                ...response.content
+              ]
+            }));
+          }),
+          tap((response) => {
+            this.showMoreButton.update(value => ({
+              ...value,
+              disabled: response.currentPage + 1 >= response.totalPages
+            }));
+          })
+        )
         .subscribe();
   }
 

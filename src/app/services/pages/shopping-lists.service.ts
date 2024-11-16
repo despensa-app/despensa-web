@@ -8,6 +8,7 @@ import {UpdateShoppingListRes} from '../../models/update-shopping-list-res';
 import {DeleteProductsShoppingListReq} from '../../models/delete-products-shopping-list-req';
 import {SaveShoppingListReq} from '../../models/save-shopping-list-req';
 import {SaveShoppingListRes} from '../../models/save-shopping-list-res';
+import {PagingAndSortingReq} from '@app/models/paging-and-sorting-req';
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +20,11 @@ export class ShoppingListsService {
   constructor(private httpClient: HttpClient) {
   }
 
-  findAll() {
-    const baseParams = {
-      sort: 'id,desc'
-    };
-
+  findAll(request: PagingAndSortingReq) {
     return this.httpClient.get<FindAllShoppingListRes>(this._shoppingListsURI, {
-      params: baseParams
+      params: {
+        ...request
+      }
     });
   }
 
