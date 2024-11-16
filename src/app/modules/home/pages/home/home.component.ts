@@ -62,4 +62,15 @@ export class HomeComponent implements OnInit {
         .subscribe();
   }
 
+  deleteShoppingListEvent(id: number) {
+    this.shoppingListsRes.update(shoppingLists => ({
+        ...shoppingLists,
+        content: shoppingLists.content.filter(shoppingList => shoppingList.id !== id)
+      })
+    );
+
+    this.shoppingListsService.delete(id)
+        .subscribe();
+  }
+
 }

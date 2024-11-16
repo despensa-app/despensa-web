@@ -8,7 +8,8 @@
   <ng-container content>
     @for (response of shoppingListsRes().content; track response.id) {
       <app-shopping-list-card [response]="response"
-                              (updateShoppingList)="updateShoppingListEvent($event)"/>
+                              (updateShoppingList)="updateShoppingListEvent($event)"
+                              (deleteShoppingList)="deleteShoppingListEvent($event)"/>
     }
   </ng-container>
 </app-page>

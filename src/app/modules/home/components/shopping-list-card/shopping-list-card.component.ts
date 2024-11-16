@@ -27,6 +27,8 @@ export class ShoppingListCardComponent {
     id: [0]
   });
 
+  @Output() deleteShoppingList = new EventEmitter<number>();
+
   constructor(private formBuilder: FormBuilder) {
   }
 
@@ -54,5 +56,9 @@ export class ShoppingListCardComponent {
 
     this.updateShoppingList.emit(response);
     this.showEdit.set(null);
+  }
+
+  deleteShoppingListEvent() {
+    this.deleteShoppingList.emit(this.response().id);
   }
 }
