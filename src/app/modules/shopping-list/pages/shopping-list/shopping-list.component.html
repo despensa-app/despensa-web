@@ -11,6 +11,9 @@
                               (saveEvent)="saveEvent()"/>
   </ng-container>
   <ng-container content>
+
+    <app-totals-summary [shoppingList]="shoppingListRes()"/>
+
     @if (isEditOrNew()) {
       <a class="btn btn-success btn-block mb-3"
          (click)="goToAddProductsEvent()">
