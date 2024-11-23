@@ -10,73 +10,16 @@
   </ng-container>
   <ng-container content>
 
-    <app-totals-summary [shoppingList]="shoppingListRes()"/>
     <a class="btn btn-success btn-block mb-3"
        (click)="goToAddProductsEvent()">
       <i class="fas fa-plus w-25px"></i>
       Agregar producto
     </a>
-    <form [formGroup]="productShoppingListForm">
-      <div class="list-group"
-           formArrayName="productsShoppingListForm">
-        @for (response of shoppingListRes().products; track response.product.id) {
-          <div class="list-group-item pr-1"
-               [formGroupName]="$index">
-            <div class="d-flex justify-content-between">
-              <div class="list-group-item-content flex-grow-1">
-                <div class="d-flex justify-content-between align-items-center py-2">
-                  <p-checkbox styleClass="mr-2"
-                              [binary]="true"
-                              checkboxIcon="fas fa-check"
-                              formControlName="selected"/>
-                  <div class="flex-grow-1 text-truncate">
-                    {{ response.product.name }}
-                  </div>
-                </div>
-              </div>
-              <div class="dropdown">
-                <button type="button"
-                        data-toggle="dropdown"
-                        aria-expanded="false"
-                        class="btn text-body">
-                  <i class="fas fa-ellipsis-v w-25px"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <button class="dropdown-item"
-                          data-toggle="modal"
-                          data-target="#product-info-modal"
-                          (click)="showProductDetailsEvent(response)"
-                          type="button">
-                    <i class="fas fa-expand-alt w-25px"></i>
-                    <span>Ver</span>
-                  </button>
-                  <button class="dropdown-item"
-                          data-toggle="modal"
-                          data-target="#product-edit-modal"
-                          disabled
-                          type="button">
-                    <i class="fas fa-edit w-25px"></i>
-                    <span>Editar</span>
-                  </button>
-                  <button type="button"
-                          (click)="deleteEvent(response)"
-                          class="dropdown-item text-danger">
-                    <i class="fas fa-trash w-25px"></i>
-                    <span>Eliminar</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <input type="hidden"
-                   formControlName="productId">
-            <input type="hidden"
-                   formControlName="unitTypeId">
-          </div>
-        }
-      </div>
-    </form>
+    <app-totals-summary [shoppingList]="shoppingListRes()"/>
 
-    <app-product-modal-shopping-list [selectedProduct]="selectedProduct()"
-                                     (deleteProduct)="deleteEvent($event)"/>
+    <app-product-list [shoppingList]="shoppingListRes()"
+                      (updateProduct)="updateProductEvent($event)"
+                      (deleteProduct)="deleteProductEvent($event)"/>
+
   </ng-container>
 </app-page>
