@@ -1,4 +1,4 @@
-import {Component, effect, Input, signal} from '@angular/core';
+import {Component, Input, signal} from '@angular/core';
 import {tap} from 'rxjs';
 import {FindByIdShoppingListRes, ProductShoppingList} from '../../../../models/find-by-id-shopping-list-res';
 import {ShoppingListsService} from '../../../../services/pages/shopping-lists.service';
@@ -6,7 +6,7 @@ import {NavbarShoppingListComponent} from '../../layout/navbar-shopping-list/nav
 import {HeaderShoppingListComponent} from '../../layout/header-shopping-list/header-shopping-list.component';
 import {PageComponent} from '../../../../layout/page/page.component';
 import {CheckboxModule} from 'primeng/checkbox';
-import {FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {ButtonGroupModule} from 'primeng/buttongroup';
 import {DialogModule} from 'primeng/dialog';
@@ -19,11 +19,11 @@ import {DeleteProductsShoppingListReq} from '../../../../models/delete-products-
 import {SaveShoppingListReq} from '../../../../models/save-shopping-list-req';
 import {Router} from '@angular/router';
 import {
-  ProductModalShoppingListComponent
-} from '../../layout/product-modal-shopping-list/product-modal-shopping-list.component';
-import {
   TotalsSummaryComponent
 } from '@app/modules/shopping-list/layout/shopping-list/totals-summary/totals-summary.component';
+import {
+  ProductListComponent
+} from '@app/modules/shopping-list/layout/shopping-list/product-list/product-list.component';
 
 @Component({
   selector: 'app-shopping-list',
@@ -39,8 +39,8 @@ import {
     DialogModule,
     ImageModule,
     ReactiveFormsModule,
-    ProductModalShoppingListComponent,
-    TotalsSummaryComponent
+    TotalsSummaryComponent,
+    ProductListComponent
   ],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css'
@@ -58,35 +58,9 @@ export class ShoppingListComponent {
     products: []
   };
 
-  private readonly _initProduct: ProductShoppingList = {
-    product: {
-      id: 0,
-      name: '',
-      price: 0,
-      imgUrl: ''
-    },
-    unitType: {
-      id: 0,
-      name: ''
-    },
-    unitsPerProduct: 0,
-    totalPrice: 0,
-    selected: false
-  };
-
   shoppingListRes = signal(this._initShoppingList);
 
   isNew = signal(false);
-
-  selectedProduct = signal<ProductShoppingList>(this._initProduct);
-
-  productShoppingListForm = this.formBuilder.nonNullable.group({
-    productsShoppingListForm: this.formBuilder.array<FormGroup<{
-      selected: FormControl<boolean>;
-      productId: FormControl<number>;
-      unitTypeId: FormControl<number>;
-    }>>([])
-  });
 
   @Input()
   set id(id: number) {
@@ -103,48 +77,11 @@ export class ShoppingListComponent {
 
   constructor(
     private shoppingListsService: ShoppingListsService,
-    private formBuilder: FormBuilder,
     private router: Router
   ) {
-    effect(() => {
-      this.shoppingListRes()
-          .products
-          .forEach(productShoppingList => {
-            const control = this.formBuilder.nonNullable.group({
-              selected: productShoppingList.selected,
-              productId: productShoppingList.product.id,
-              unitTypeId: productShoppingList.unitType.id
-            });
-
-            control.valueChanges
-                   .pipe(
-                     tap(value => {
-                       const productReq: ProductUpdateShoppingListReq = {
-                         selected: value.selected!,
-                         productId: value.productId!,
-                         unitTypeId: value.unitTypeId!
-                       };
-
-                       this.updateShoppingListRes(productReq);
-                       this.updateShoppingList([productReq]);
-                     })
-                   )
-                   .subscribe();
-
-            this.productsShoppingListForm.push(control, {emitEvent: false});
-          });
-    });
   }
 
-  get productsShoppingListForm() {
-    return this.productShoppingListForm.get('productsShoppingListForm') as FormArray;
-  }
-
-  showProductDetailsEvent(product: ProductShoppingList) {
-    this.selectedProduct.set(product);
-  }
-
-  deleteEvent(response: ProductShoppingList) {
+  deleteProductEvent(response: ProductShoppingList) {
     const request: DeleteProductsShoppingListReq = {
       productsId: [
         response.product.id
@@ -173,7 +110,7 @@ export class ShoppingListComponent {
         .subscribe();
   }
 
-  private updateShoppingListRes(productReq: ProductUpdateShoppingListReq) {
+  updateProductEvent(productReq: ProductUpdateShoppingListReq) {
     this.shoppingListRes.update(value => {
       const products = value.products
                             .map(product => {
@@ -198,6 +135,8 @@ export class ShoppingListComponent {
         products
       };
     });
+
+    this.updateShoppingList([productReq]);
   }
 
   goToAddProductsEvent() {
