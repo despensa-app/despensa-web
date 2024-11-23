@@ -1,0 +1,90 @@
+<div id="total-summary-shopping-list-collapse">
+  <div class="mb-3 d-flex">
+    <ul class="nav nav-pills flex-grow-1 align-content-center"
+        role="tablist">
+      <li class="nav-item">
+        <button class="nav-link btn btn-xs text-sm"
+                type="button"
+                data-toggle="collapse"
+                data-target="#totals-total-summary-shopping-list-collapse"
+                aria-expanded="false"
+                aria-controls="totals-total-summary-shopping-list-collapse">
+          Totales
+          <i class="fas fa-angle-down w-25px"></i>
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link btn btn-xs text-sm"
+                type="button"
+                data-toggle="collapse"
+                data-target="#summary-total-summary-shopping-list-collapse"
+                aria-expanded="false"
+                aria-controls="summary-total-summary-shopping-list-collapse">
+          Resumen
+          <i class="fas fa-angle-down w-25px"></i>
+        </button>
+      </li>
+    </ul>
+    <button class="btn btn-default text-primary border-primary mr-1"
+            disabled
+            type="button">
+      <i class="fas fa-bars text-lg"></i>
+    </button>
+    <button class="btn btn-default"
+            disabled
+            type="button">
+      <i class="fas fa-th-large text-lg"></i>
+    </button>
+  </div>
+  <div class="collapse"
+       data-parent="#total-summary-shopping-list-collapse"
+       id="totals-total-summary-shopping-list-collapse">
+    <div class="card card-body">
+      <div class="row">
+        <div class="col-sm-4 col-6">
+          <div class="description-block border-right">
+            <h5 class="description-header">{{ shoppingList().totalProducts }}</h5>
+            <span class="description-text">Productos</span>
+          </div>
+        </div>
+        <div class="col-sm-4 col-6">
+          <div class="description-block border-right">
+            <h5 class="description-header">{{ shoppingList().totalPrice }} €</h5>
+            <span class="description-text">Importe</span>
+          </div>
+        </div>
+        <div class="col-sm-4 col-6">
+          <div class="description-block">
+            <h5 class="description-header">{{ shoppingList().totalUnitsPerProducts }}</h5>
+            <span class="description-text">Unidades</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="collapse"
+       data-parent="#total-summary-shopping-list-collapse"
+       id="summary-total-summary-shopping-list-collapse">
+    <div class="card card-body">
+      <div class="progress-group">
+        Productos marcados
+        <span class="float-right">
+          <b>{{ shoppingList().totalSelectedProducts }}</b> / {{ shoppingList().totalProducts }}
+        </span>
+        <div class="progress progress-sm">
+          <div class="progress-bar bg-primary"
+               style="{{ 'width:' + totalSelectedProductPercent() + '%' }}"></div>
+        </div>
+      </div>
+      <div class="progress-group">
+        Importe restante
+        <span class="float-right">
+          <b>{{ shoppingList().totalPriceSelectedProducts }} €</b> / {{ shoppingList().totalPrice }} €</span>
+        <div class="progress progress-sm">
+          <div class="progress-bar bg-success"
+               style="{{ 'width:' + totalPriceSelectedProductPercent() + '%' }}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

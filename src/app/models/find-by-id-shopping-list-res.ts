@@ -3,6 +3,9 @@ export interface FindByIdShoppingListRes {
   name: string;
   totalProducts: number;
   totalPrice: number;
+  totalUnitsPerProducts: number;
+  totalSelectedProducts: number;
+  totalPriceSelectedProducts: number;
   products: ProductShoppingList[];
 }
 

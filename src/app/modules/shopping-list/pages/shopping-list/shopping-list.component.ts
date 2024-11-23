@@ -2,8 +2,6 @@ import {Component, effect, Input, signal} from '@angular/core';
 import {tap} from 'rxjs';
 import {FindByIdShoppingListRes, ProductShoppingList} from '../../../../models/find-by-id-shopping-list-res';
 import {ShoppingListsService} from '../../../../services/pages/shopping-lists.service';
-import {AsyncPipe} from '@angular/common';
-import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 import {NavbarShoppingListComponent} from '../../layout/navbar-shopping-list/navbar-shopping-list.component';
 import {HeaderShoppingListComponent} from '../../layout/header-shopping-list/header-shopping-list.component';
 import {PageComponent} from '../../../../layout/page/page.component';
@@ -13,20 +11,24 @@ import {ButtonModule} from 'primeng/button';
 import {ButtonGroupModule} from 'primeng/buttongroup';
 import {DialogModule} from 'primeng/dialog';
 import {ImageModule} from 'primeng/image';
-import {UpdateShoppingListReq} from '../../../../models/update-shopping-list-req';
+import {
+  ProductShoppingList as ProductUpdateShoppingListReq,
+  UpdateShoppingListReq
+} from '../../../../models/update-shopping-list-req';
 import {DeleteProductsShoppingListReq} from '../../../../models/delete-products-shopping-list-req';
 import {SaveShoppingListReq} from '../../../../models/save-shopping-list-req';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 import {
   ProductModalShoppingListComponent
 } from '../../layout/product-modal-shopping-list/product-modal-shopping-list.component';
+import {
+  TotalsSummaryComponent
+} from '@app/modules/shopping-list/layout/shopping-list/totals-summary/totals-summary.component';
 
 @Component({
   selector: 'app-shopping-list',
   standalone: true,
   imports: [
-    AsyncPipe,
-    NavbarComponent,
     NavbarShoppingListComponent,
     HeaderShoppingListComponent,
     PageComponent,
@@ -37,8 +39,8 @@ import {
     DialogModule,
     ImageModule,
     ReactiveFormsModule,
-    RouterLink,
-    ProductModalShoppingListComponent
+    ProductModalShoppingListComponent,
+    TotalsSummaryComponent
   ],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css'
@@ -50,6 +52,9 @@ export class ShoppingListComponent {
     name: '',
     totalProducts: 0,
     totalPrice: 0,
+    totalUnitsPerProducts: 0,
+    totalPriceSelectedProducts: 0,
+    totalSelectedProducts: 0,
     products: []
   };
 
@@ -118,18 +123,14 @@ export class ShoppingListComponent {
             control.valueChanges
                    .pipe(
                      tap(value => {
-                       const request: UpdateShoppingListReq = {
-                         name: this.shoppingListRes().name,
-                         products: [
-                           {
-                             selected: value.selected!,
-                             productId: value.productId!,
-                             unitTypeId: value.unitTypeId!
-                           }
-                         ]
+                       const productReq: ProductUpdateShoppingListReq = {
+                         selected: value.selected!,
+                         productId: value.productId!,
+                         unitTypeId: value.unitTypeId!
                        };
 
-                       this.updateShoppingList(request);
+                       this.updateShoppingListRes(productReq);
+                       this.updateShoppingList([productReq]);
                      })
                    )
                    .subscribe();
@@ -227,9 +228,41 @@ export class ShoppingListComponent {
         .subscribe();
   }
 
-  private updateShoppingList(request: UpdateShoppingListReq) {
+  private updateShoppingList(products: ProductUpdateShoppingListReq[]) {
+    const request: UpdateShoppingListReq = {
+      name: this.shoppingListRes().name,
+      products
+    };
+
     this.shoppingListsService.update(this.shoppingListRes().id, request)
         .subscribe();
+  }
+
+  private updateShoppingListRes(productReq: ProductUpdateShoppingListReq) {
+    this.shoppingListRes.update(value => {
+      const products = value.products
+                            .map(product => {
+                              if (product.product.id === productReq.productId) {
+                                return {
+                                  ...product,
+                                  selected: productReq.selected!
+                                };
+                              }
+
+                              return product;
+                            });
+      const selectedProducts = products.filter(product => product.selected);
+      const totalPriceSelectedProducts = selectedProducts
+        .map(product => product.totalPrice)
+        .reduce((totalPrice, currentPrice) => totalPrice + currentPrice, 0);
+
+      return {
+        ...value,
+        totalSelectedProducts: selectedProducts.length,
+        totalPriceSelectedProducts,
+        products
+      };
+    });
   }
 
   goToAddProductsEvent() {
