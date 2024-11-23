@@ -1,6 +1,6 @@
 <app-header>
   <ng-container header>
-    @if (showEdit()) {
+    @if (showEdit() || isNew()) {
       <form class="flex-grow-1 mr-1"
             [formGroup]="shoppingListForm"
             (submit)="saveShoppingListEvent()">

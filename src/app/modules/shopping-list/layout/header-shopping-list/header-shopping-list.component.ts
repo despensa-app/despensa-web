@@ -1,6 +1,6 @@
-import {Component, EventEmitter, input, Input, Output, signal} from '@angular/core';
+import {Component, EventEmitter, input, Output, signal} from '@angular/core';
 import {HeaderComponent} from '../../../../layout/header/header.component';
-import {FormBuilder, FormControl, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {TabViewModule} from 'primeng/tabview';
@@ -21,13 +21,7 @@ import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res'
 })
 export class HeaderShoppingListComponent {
 
-  @Output() saveEvent = new EventEmitter<void>();
-
-  @Input() isEditOrNew = false;
-
-  @Output() nameShoppingListChange = new EventEmitter<string>();
-
-  nameShoppingListFormControl = new FormControl('', {nonNullable: true});
+  isNew = input<boolean>();
 
   shoppingList = input.required<FindByIdShoppingListRes>();
 
@@ -41,11 +35,6 @@ export class HeaderShoppingListComponent {
   });
 
   constructor(private formBuilder: FormBuilder) {
-    this.nameShoppingListFormControl
-        .valueChanges
-        .subscribe(value => {
-          this.nameShoppingListChange.emit(value);
-        });
   }
 
   editEvent() {
@@ -73,5 +62,5 @@ export class HeaderShoppingListComponent {
     this.updateShoppingList.emit(response);
     this.showEdit.set(null);
   }
-  
+
 }

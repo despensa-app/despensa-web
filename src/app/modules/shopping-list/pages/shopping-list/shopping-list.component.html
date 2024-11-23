@@ -5,7 +5,8 @@
   </ng-container>
   <ng-container header>
     <app-header-shopping-list [shoppingList]="shoppingListRes()"
-                              (updateShoppingList)="updateShoppingListEvent($event)"/>
+                              (updateShoppingList)="updateShoppingListEvent($event)"
+                              [isNew]="isNew()"/>
   </ng-container>
   <ng-container content>
 
