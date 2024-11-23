@@ -1,16 +1,15 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Component, EventEmitter, input, Input, Output, signal} from '@angular/core';
 import {HeaderComponent} from '../../../../layout/header/header.component';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormControl, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {TabViewModule} from 'primeng/tabview';
+import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
 
 @Component({
   selector: 'app-header-shopping-list',
   standalone: true,
   imports: [
-    RouterLink,
     HeaderComponent,
     ReactiveFormsModule,
     ButtonModule,
@@ -22,22 +21,26 @@ import {TabViewModule} from 'primeng/tabview';
 })
 export class HeaderShoppingListComponent {
 
-  @Output() editEvent = new EventEmitter<void>();
-
   @Output() saveEvent = new EventEmitter<void>();
 
   @Input() isEditOrNew = false;
-
-  @Input({required: true})
-  set nameShoppingList(value: string) {
-    this.nameShoppingListFormControl.setValue(value, {emitEvent: false});
-  };
 
   @Output() nameShoppingListChange = new EventEmitter<string>();
 
   nameShoppingListFormControl = new FormControl('', {nonNullable: true});
 
-  constructor() {
+  shoppingList = input.required<FindByIdShoppingListRes>();
+
+  showEdit = signal<boolean | null>(null);
+
+  @Output() updateShoppingList = new EventEmitter<FindByIdShoppingListRes>();
+
+  shoppingListForm = this.formBuilder.nonNullable.group({
+    name: [''],
+    id: [0]
+  });
+
+  constructor(private formBuilder: FormBuilder) {
     this.nameShoppingListFormControl
         .valueChanges
         .subscribe(value => {
@@ -45,11 +48,30 @@ export class HeaderShoppingListComponent {
         });
   }
 
-  editClickEvent() {
-    this.editEvent.emit();
+  editEvent() {
+    //Comprueba el ID para conservar el valor anterior, en caso de cancelar.
+    if (this.shoppingListForm.value.id != this.shoppingList().id) {
+      this.shoppingListForm.setValue({
+        name: this.shoppingList().name,
+        id: this.shoppingList().id
+      });
+    }
+
+    this.showEdit.set(true);
   }
 
-  saveClickEvent() {
-    this.saveEvent.emit();
+  cancelEditEvent() {
+    this.showEdit.set(false);
   }
+
+  saveShoppingListEvent() {
+    const response: FindByIdShoppingListRes = {
+      ...this.shoppingList(),
+      name: this.shoppingListForm.value.name!
+    };
+
+    this.updateShoppingList.emit(response);
+    this.showEdit.set(null);
+  }
+  
 }

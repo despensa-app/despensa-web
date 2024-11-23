@@ -1,34 +1,39 @@
 <app-header>
-  <ng-container header-left>
-    @if (isEditOrNew) {
-      <form class="flex-grow-1 mr-1">
-        <label class="sr-only"
-               for="name">Nombre</label>
-        <input type="text"
-               class="form-control"
-               [formControl]="nameShoppingListFormControl"
-               placeholder="Nombre de la lista"
-               id="name"
-               name="name">
+  <ng-container header>
+    @if (showEdit()) {
+      <form class="flex-grow-1 mr-1"
+            [formGroup]="shoppingListForm"
+            (submit)="saveShoppingListEvent()">
+        <div class="input-group">
+          <input type="text"
+                 class="form-control"
+                 formControlName="name"
+                 placeholder="Nombre de la lista"
+                 id="name"
+                 name="name">
+          <input type="hidden"
+                 formControlName="id">
+          <label class="sr-only"
+                 for="name">Nombre</label>
+          <div class="input-group-append">
+            <button class="btn btn-success"
+                    type="submit">
+              <i class="fas fa-save w-25px"></i>
+            </button>
+            <button class="btn btn-default"
+                    (click)="cancelEditEvent()"
+                    type="button">
+              <i class="fas fa-times w-25px"></i>
+            </button>
+          </div>
+        </div>
       </form>
     } @else {
-      <h1>{{ nameShoppingListFormControl.value }}</h1>
-    }
-  </ng-container>
-  <ng-container header-right>
-    @if (isEditOrNew) {
-      <button class="btn btn-primary"
-              (click)="saveClickEvent()"
-              type="button">
-        <i class="fas fa-save w-25px"></i>
-        Guardar
-      </button>
-    } @else {
-      <button class="btn btn-primary"
-              (click)="editClickEvent()"
+      <h1 class="text-break">{{ shoppingList().name }}</h1>
+      <button class="btn text-primary text-lg"
+              (click)="editEvent()"
               type="button">
         <i class="fas fa-edit w-25px"></i>
-        Editar
       </button>
     }
   </ng-container>
