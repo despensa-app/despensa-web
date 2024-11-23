@@ -76,11 +76,7 @@ export class ShoppingListComponent {
 
   shoppingListRes = signal(this._initShoppingList);
 
-  isEdit = signal(false);
-
   isNew = signal(false);
-
-  isNameChanged = signal(false);
 
   selectedProduct = signal<ProductShoppingList>(this._initProduct);
 
@@ -144,69 +140,8 @@ export class ShoppingListComponent {
     return this.productShoppingListForm.get('productsShoppingListForm') as FormArray;
   }
 
-  isEditOrNew() {
-    return this.isEdit() || this.isNew();
-  }
-
-  editEvent() {
-    this.isEdit.set(!this.isEdit());
-  }
-
   showProductDetailsEvent(product: ProductShoppingList) {
     this.selectedProduct.set(product);
-  }
-
-  saveEvent() {
-    this.isEdit.set(!this.isEditOrNew());
-
-    /*
-     * Por el momento el único valor que necesita actualizarse es el nombre.
-     * Si no ha cambiado, no es necesario realizar una petición a la API.
-     */
-    if (this.shoppingListRes().id && this.isNameChanged()) {
-      const request: UpdateShoppingListReq = {
-        name: this.shoppingListRes().name
-      };
-
-      this.isNameChanged.set(false);
-
-      this.shoppingListsService.update(this.shoppingListRes().id, request)
-          .subscribe({
-            error: error => {
-              console.log(error);
-            }
-          });
-    }
-
-    if (this.isNew()) {
-      const request: SaveShoppingListReq = {
-        name: this.shoppingListRes().name
-      };
-
-      this.isNew.set(false);
-
-      this.shoppingListsService.save(request)
-          .pipe(
-            tap(shoppingList => this.shoppingListRes.set({
-              ...this._initShoppingList,
-              id: shoppingList.id,
-              name: shoppingList.name
-            })),
-            tap(shoppingList => {
-              this.router.navigate(['shopping-list', shoppingList.id]);
-            })
-          )
-          .subscribe();
-    }
-  }
-
-  nameShoppingListChangeEvent($event: string) {
-    this.isNameChanged.set(true);
-    this.shoppingListRes.update(value => ({
-        ...value,
-        name: $event
-      })
-    );
   }
 
   deleteEvent(response: ProductShoppingList) {
@@ -295,6 +230,33 @@ export class ShoppingListComponent {
     this.shoppingListsService.delete(this.shoppingListRes().id)
         .pipe(
           tap(() => this.router.navigate(['']))
+        )
+        .subscribe();
+  }
+
+  updateShoppingListEvent($event: FindByIdShoppingListRes) {
+    this.shoppingListRes.update(value => ({
+        ...value,
+        ...$event
+      })
+    );
+
+    if (this.shoppingListRes().id) {
+      this.updateShoppingList([]);
+
+      return;
+    }
+
+    const request: SaveShoppingListReq = {
+      name: this.shoppingListRes().name
+    };
+
+    this.shoppingListsService.save(request)
+        .pipe(
+          tap(shoppingList => {
+            this.router.navigate(['shopping-list', shoppingList.id])
+                .then();
+          })
         )
         .subscribe();
   }

@@ -4,23 +4,17 @@
                               (deleteShoppingList)="deleteShoppingListEvent()"/>
   </ng-container>
   <ng-container header>
-    <app-header-shopping-list [isEditOrNew]="isEditOrNew()"
-                              [nameShoppingList]="shoppingListRes().name"
-                              (nameShoppingListChange)="nameShoppingListChangeEvent($event)"
-                              (editEvent)="editEvent()"
-                              (saveEvent)="saveEvent()"/>
+    <app-header-shopping-list [shoppingList]="shoppingListRes()"
+                              (updateShoppingList)="updateShoppingListEvent($event)"/>
   </ng-container>
   <ng-container content>
 
     <app-totals-summary [shoppingList]="shoppingListRes()"/>
-
-    @if (isEditOrNew()) {
-      <a class="btn btn-success btn-block mb-3"
-         (click)="goToAddProductsEvent()">
-        <i class="fas fa-plus w-25px"></i>
-        Agregar producto
-      </a>
-    }
+    <a class="btn btn-success btn-block mb-3"
+       (click)="goToAddProductsEvent()">
+      <i class="fas fa-plus w-25px"></i>
+      Agregar producto
+    </a>
     <form [formGroup]="productShoppingListForm">
       <div class="list-group"
            formArrayName="productsShoppingListForm">
