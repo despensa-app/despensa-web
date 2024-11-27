@@ -1,5 +1,5 @@
 import {Component, EventEmitter, input, OnChanges, Output, signal, SimpleChanges} from '@angular/core';
-import {FindByIdShoppingListRes, ProductShoppingList} from '@app/models/find-by-id-shopping-list-res';
+import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
 import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CheckboxModule} from 'primeng/checkbox';
 import {ProductShoppingList as ProductUpdateShoppingListReq} from '@app/models/update-shopping-list-req';
@@ -7,6 +7,7 @@ import {
   ProductModalShoppingListComponent
 } from '@app/modules/shopping-list/layout/product-modal-shopping-list/product-modal-shopping-list.component';
 import {tap} from 'rxjs';
+import {ProductShoppingList} from '@app/models/find-by-id-product-list-res';
 
 @Component({
   selector: 'app-product-list',
@@ -62,7 +63,8 @@ export class ProductListComponent implements OnChanges {
     }
 
     this.shoppingList()
-        .products
+        .productList
+        .content
         .forEach(productShoppingList => {
           const control = this.formBuilder.nonNullable.group({
             selected: productShoppingList.selected,

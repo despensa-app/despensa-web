@@ -1,6 +1,6 @@
 import {Component, Input, signal} from '@angular/core';
 import {tap} from 'rxjs';
-import {FindByIdShoppingListRes, ProductShoppingList} from '../../../../models/find-by-id-shopping-list-res';
+import {FindByIdShoppingListRes} from '../../../../models/find-by-id-shopping-list-res';
 import {ShoppingListsService} from '../../../../services/pages/shopping-lists.service';
 import {NavbarShoppingListComponent} from '../../layout/navbar-shopping-list/navbar-shopping-list.component';
 import {HeaderShoppingListComponent} from '../../layout/header-shopping-list/header-shopping-list.component';
@@ -24,6 +24,7 @@ import {
 import {
   ProductListComponent
 } from '@app/modules/shopping-list/layout/shopping-list/product-list/product-list.component';
+import {ProductShoppingList} from '@app/models/find-by-id-product-list-res';
 
 @Component({
   selector: 'app-shopping-list',
@@ -55,7 +56,13 @@ export class ShoppingListComponent {
     totalUnitsPerProducts: 0,
     totalPriceSelectedProducts: 0,
     totalSelectedProducts: 0,
-    products: []
+    productList: {
+      content: [],
+      currentPage: 0,
+      pageSize: 0,
+      totalPages: 0,
+      total: 0
+    }
   };
 
   shoppingListRes = signal(this._initShoppingList);
@@ -92,8 +99,12 @@ export class ShoppingListComponent {
         .pipe(
           tap(() => this.shoppingListRes.update(value => ({
               ...value,
-              products: value.products
-                             .filter(product => product.product.id !== response.product.id)
+              productList: {
+                ...value.productList,
+                content: value.productList
+                              .content
+                              .filter(product => product.product.id !== response.product.id)
+              }
             })
           ))
         )
@@ -112,7 +123,8 @@ export class ShoppingListComponent {
 
   updateProductEvent(productReq: ProductUpdateShoppingListReq) {
     this.shoppingListRes.update(value => {
-      const products = value.products
+      const products = value.productList
+                            .content
                             .map(product => {
                               if (product.product.id === productReq.productId) {
                                 return {
@@ -132,7 +144,10 @@ export class ShoppingListComponent {
         ...value,
         totalSelectedProducts: selectedProducts.length,
         totalPriceSelectedProducts,
-        products
+        productList: {
+          ...value.productList,
+          content: products
+        }
       };
     });
 

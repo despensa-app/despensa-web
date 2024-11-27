@@ -1,7 +1,7 @@
 <form [formGroup]="productListForm">
   <div class="list-group mb-3"
        formArrayName="productsForm">
-    @for (response of shoppingList().products; track response.product.id) {
+    @for (response of shoppingList().productList.content; track response.product.id) {
       <div class="list-group-item pr-0"
            [formGroupName]="$index">
         <div class="d-flex">

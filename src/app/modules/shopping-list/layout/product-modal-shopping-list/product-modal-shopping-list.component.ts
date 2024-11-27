@@ -1,6 +1,6 @@
 import {Component, EventEmitter, input, Output} from '@angular/core';
-import {ProductShoppingList} from '../../../../models/find-by-id-shopping-list-res';
 import {ImageModule} from 'primeng/image';
+import {ProductShoppingList} from '@app/models/find-by-id-product-list-res';
 
 @Component({
   selector: 'app-product-modal-shopping-list',
