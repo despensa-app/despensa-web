@@ -17,6 +17,9 @@
     </a>
     <app-totals-summary [shoppingList]="shoppingListRes()"/>
 
+    <app-selected-products [shoppingList]="shoppingListRes()"
+                           (selectProductOption)="selectedProductOptionEvent($event)"/>
+
     <app-product-list [shoppingList]="shoppingListRes()"
                       (updateProduct)="updateProductEvent($event)"
                       (deleteProduct)="deleteProductEvent($event)"/>

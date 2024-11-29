@@ -58,10 +58,7 @@ export class ProductListComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.shoppingList().id || this.productsForm.length > 0) {
-      return;
-    }
-
+    this.productsForm.clear({emitEvent: false});
     this.shoppingList()
         .productList
         .content

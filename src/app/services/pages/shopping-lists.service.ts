@@ -9,6 +9,8 @@ import {DeleteProductsShoppingListReq} from '../../models/delete-products-shoppi
 import {SaveShoppingListReq} from '../../models/save-shopping-list-req';
 import {SaveShoppingListRes} from '../../models/save-shopping-list-res';
 import {PagingAndSortingReq} from '@app/models/paging-and-sorting-req';
+import {FindByIdProductListReq} from '@app/models/find-by-id-product-list-req';
+import {FindByIdProductListRes} from '@app/models/find-by-id-product-list-res';
 
 @Injectable({
   providedIn: 'root'
@@ -47,4 +49,13 @@ export class ShoppingListsService {
   delete(id: number) {
     return this.httpClient.delete<void>(`${this._shoppingListsURI}/${id}`);
   }
+
+  findAllProducts(id: number, request: FindByIdProductListReq) {
+    return this.httpClient.get<FindByIdProductListRes>(`${this._shoppingListsURI}/${id}/products`, {
+      params: {
+        ...request
+      }
+    });
+  }
+
 }

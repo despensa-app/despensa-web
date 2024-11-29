@@ -25,6 +25,10 @@ import {
   ProductListComponent
 } from '@app/modules/shopping-list/layout/shopping-list/product-list/product-list.component';
 import {ProductShoppingList} from '@app/models/find-by-id-product-list-res';
+import {
+  SelectedProductsComponent
+} from '@app/modules/shopping-list/layout/shopping-list/selected-products/selected-products.component';
+import {FindByIdProductListReq} from '@app/models/find-by-id-product-list-req';
 
 @Component({
   selector: 'app-shopping-list',
@@ -41,7 +45,8 @@ import {ProductShoppingList} from '@app/models/find-by-id-product-list-res';
     ImageModule,
     ReactiveFormsModule,
     TotalsSummaryComponent,
-    ProductListComponent
+    ProductListComponent,
+    SelectedProductsComponent
   ],
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css'
@@ -62,7 +67,8 @@ export class ShoppingListComponent {
       pageSize: 0,
       totalPages: 0,
       total: 0
-    }
+    },
+    selectProductOption: []
   };
 
   shoppingListRes = signal(this._initShoppingList);
@@ -210,6 +216,27 @@ export class ShoppingListComponent {
           tap(shoppingList => {
             this.router.navigate(['shopping-list', shoppingList.id])
                 .then();
+          })
+        )
+        .subscribe();
+  }
+
+  selectedProductOptionEvent($event: string) {
+    const request: FindByIdProductListReq = {
+      selected: $event
+    };
+
+    this.shoppingListsService.findAllProducts(this.shoppingListRes().id, request)
+        .pipe(
+          tap(shoppingList => {
+            this.shoppingListRes.update(value => ({
+                ...value,
+                productList: {
+                  ...value.productList,
+                  content: shoppingList.content
+                }
+              })
+            );
           })
         )
         .subscribe();
