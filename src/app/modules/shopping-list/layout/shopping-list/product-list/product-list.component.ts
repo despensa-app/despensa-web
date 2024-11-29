@@ -46,6 +46,8 @@ export class ProductListComponent implements OnChanges {
 
   @Output() deleteProduct = new EventEmitter<ProductShoppingList>();
 
+  @Output() removeProductList = new EventEmitter<ProductShoppingList>();
+
   productListForm = this.formBuilder.nonNullable.group({
     productsForm: this.formBuilder.array<FormGroup<{
       selected: FormControl<boolean>;
@@ -99,4 +101,7 @@ export class ProductListComponent implements OnChanges {
     this.deleteProduct.emit(response);
   }
 
+  selectedEvent(response: ProductShoppingList) {
+    this.removeProductList.emit(response);
+  }
 }

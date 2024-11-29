@@ -9,6 +9,7 @@
             <div class="d-flex py-2">
               <p-checkbox styleClass="mr-2"
                           [binary]="true"
+                          (onChange)="selectedEvent(response)"
                           checkboxIcon="fas fa-check"
                           formControlName="selected"/>
               <div class="text-truncate">

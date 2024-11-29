@@ -75,6 +75,8 @@ export class ShoppingListComponent {
 
   isNew = signal(false);
 
+  private currentSelectedProductOption = signal<string>('');
+
   @Input()
   set id(id: number) {
     if (id) {
@@ -226,6 +228,8 @@ export class ShoppingListComponent {
       selected: $event
     };
 
+    this.currentSelectedProductOption.set($event);
+
     this.shoppingListsService.findAllProducts(this.shoppingListRes().id, request)
         .pipe(
           tap(shoppingList => {
@@ -240,5 +244,22 @@ export class ShoppingListComponent {
           })
         )
         .subscribe();
+  }
+
+  removeProductListEvent($event: ProductShoppingList) {
+    if (this.currentSelectedProductOption() === 'ALL') {
+      return;
+    }
+
+    this.shoppingListRes.update(value => ({
+        ...value,
+        productList: {
+          ...value.productList,
+          content: value.productList
+                        .content
+                        .filter(product => product.product.id !== $event.product.id)
+        }
+      })
+    );
   }
 }
