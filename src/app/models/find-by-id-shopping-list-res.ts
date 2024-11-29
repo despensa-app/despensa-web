@@ -9,4 +9,11 @@ export interface FindByIdShoppingListRes {
   totalSelectedProducts: number;
   totalPriceSelectedProducts: number;
   productList: FindByIdProductListRes;
+  selectProductOption: SelectProductOption[];
+}
+
+export interface SelectProductOption {
+  value: string;
+  label: string;
+  selected: boolean;
 }

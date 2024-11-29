@@ -1,0 +1,17 @@
+<form [formGroup]="productOptionForm">
+  <div class="form-group row">
+    <label for="product-content-select"
+           class="col-form-label col-4">Productos</label>
+    <div class="col-8">
+      <select id="product-content-select"
+              formControlName="productContentSelect"
+              name="productContentSelect"
+              class="form-control">
+        @for (item of shoppingList().selectProductOption; track item.value) {
+          <option [value]="item.value">{{ item.label }}
+          </option>
+        }
+      </select>
+    </div>
+  </div>
+</form>
