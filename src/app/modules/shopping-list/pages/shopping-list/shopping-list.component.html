@@ -25,7 +25,8 @@
       <app-product-list [shoppingList]="shoppingListRes()"
                         (updateProduct)="updateProductEvent($event)"
                         (deleteProduct)="deleteProductEvent($event)"
-                        (removeProductList)="removeProductListEvent($event)"/>
+                        (removeProductList)="removeProductListEvent($event)"
+                        (deselectAllProducts)="deselectAllProductsEvent()"/>
     }
   </ng-container>
 </app-page>

@@ -1,3 +1,10 @@
+<button class="btn text-danger mb-3"
+        [attr.disabled]="deselectAllDisabled()"
+        (click)="deselectAllEvent()"
+        type="button">
+  <i class="fas fa-undo w-25px"></i>
+  Desmarcar todo
+</button>
 <form [formGroup]="productListForm">
   <div class="list-group mb-3"
        formArrayName="productsForm">

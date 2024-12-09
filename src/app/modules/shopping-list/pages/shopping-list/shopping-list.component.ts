@@ -130,36 +130,7 @@ export class ShoppingListComponent {
   }
 
   updateProductEvent(productReq: ProductUpdateShoppingListReq) {
-    this.shoppingListRes.update(value => {
-      const products = value.productList
-                            .content
-                            .map(product => {
-                              if (product.product.id === productReq.productId) {
-                                return {
-                                  ...product,
-                                  selected: productReq.selected!
-                                };
-                              }
-
-                              return product;
-                            });
-      const selectedProducts = products.filter(product => product.selected);
-      const totalPriceSelectedProducts = selectedProducts
-        .map(product => product.totalPrice)
-        .reduce((totalPrice, currentPrice) => totalPrice + currentPrice, 0);
-
-      return {
-        ...value,
-        totalSelectedProducts: selectedProducts.length,
-        totalPriceSelectedProducts,
-        productList: {
-          ...value.productList,
-          content: products
-        }
-      };
-    });
-
-    this.updateShoppingList([productReq]);
+    this.updateProducts([productReq]);
   }
 
   goToAddProductsEvent() {
@@ -247,9 +218,67 @@ export class ShoppingListComponent {
   }
 
   removeProductListEvent($event: ProductShoppingList) {
+    this.removeAllProducts([$event.product.id]);
+  }
+
+  deselectAllProductsEvent() {
+    const selectedProducts: ProductUpdateShoppingListReq[] = this.shoppingListRes()
+                                                                 .productList
+                                                                 .content
+                                                                 .filter(product => product.selected)
+                                                                 .map(product => ({
+                                                                   selected: !product.selected,
+                                                                   productId: product.product.id,
+                                                                   unitTypeId: product.unitType.id
+                                                                 }));
+
+    this.removeAllProducts(selectedProducts.map(product => product.productId));
+    this.updateProducts(selectedProducts);
+  }
+
+  updateProducts(productsReq: ProductUpdateShoppingListReq[]) {
+    this.shoppingListRes.update(value => {
+      const products = value.productList
+                            .content
+                            .map(product => {
+
+                              const findProduct = productsReq.find(productReq => productReq.productId === product.product.id);
+
+                              if (findProduct) {
+                                return {
+                                  ...product,
+                                  selected: findProduct.selected!
+                                };
+                              }
+
+                              return product;
+                            });
+
+      const selectedProducts = products.filter(product => product.selected);
+      const totalPriceSelectedProducts = selectedProducts
+        .map(product => product.totalPrice)
+        .reduce((totalPrice, currentPrice) => totalPrice + currentPrice, 0);
+
+      return {
+        ...value,
+        totalSelectedProducts: selectedProducts.length,
+        totalPriceSelectedProducts,
+        productList: {
+          ...value.productList,
+          content: products
+        }
+      };
+    });
+
+    this.updateShoppingList(productsReq);
+  }
+
+  removeAllProducts(productsId: number[]) {
     if (this.currentSelectedProductOption() === 'ALL') {
       return;
     }
+
+    const some = (id: number) => productsId.some(productId => productId === id);
 
     this.shoppingListRes.update(value => ({
         ...value,
@@ -257,9 +286,10 @@ export class ShoppingListComponent {
           ...value.productList,
           content: value.productList
                         .content
-                        .filter(product => product.product.id !== $event.product.id)
+                        .filter(product => !some(product.product.id))
         }
       })
     );
   }
+
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, input, OnChanges, Output, signal, SimpleChanges} from '@angular/core';
+import {Component, computed, EventEmitter, input, OnChanges, Output, signal, SimpleChanges} from '@angular/core';
 import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
 import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CheckboxModule} from 'primeng/checkbox';
@@ -47,6 +47,17 @@ export class ProductListComponent implements OnChanges {
   @Output() deleteProduct = new EventEmitter<ProductShoppingList>();
 
   @Output() removeProductList = new EventEmitter<ProductShoppingList>();
+
+  @Output() deselectAllProducts = new EventEmitter<void>();
+
+  deselectAllDisabled = computed<boolean | null>(() => {
+    const some = this.shoppingList()
+                     .productList
+                     .content
+                     .some(product => product.selected);
+
+    return some ? null : true;
+  });
 
   productListForm = this.formBuilder.nonNullable.group({
     productsForm: this.formBuilder.array<FormGroup<{
@@ -104,4 +115,15 @@ export class ProductListComponent implements OnChanges {
   selectedEvent(response: ProductShoppingList) {
     this.removeProductList.emit(response);
   }
+
+  deselectAllEvent() {
+    this.deselectAllProducts.emit();
+    this.productsForm.controls.forEach(control => {
+      control.setValue({
+        ...control.value,
+        selected: false
+      }, {emitEvent: false});
+    });
+  }
+
 }
