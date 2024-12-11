@@ -29,6 +29,7 @@ import {
   SelectedProductsComponent
 } from '@app/modules/shopping-list/layout/shopping-list/selected-products/selected-products.component';
 import {FindByIdProductListReq} from '@app/models/find-by-id-product-list-req';
+import {ProductsSelectedReq} from '@app/models/products-selected-req';
 
 @Component({
   selector: 'app-shopping-list',
@@ -222,6 +223,9 @@ export class ShoppingListComponent {
   }
 
   deselectAllProductsEvent() {
+    const request: ProductsSelectedReq = {
+      action: 'DESELECT'
+    };
     const selectedProducts: ProductUpdateShoppingListReq[] = this.shoppingListRes()
                                                                  .productList
                                                                  .content
@@ -233,10 +237,17 @@ export class ShoppingListComponent {
                                                                  }));
 
     this.removeAllProducts(selectedProducts.map(product => product.productId));
-    this.updateProducts(selectedProducts);
+    this.updateProductsView(selectedProducts);
+    this.shoppingListsService.updateSelectedProducts(this.shoppingListRes().id, request)
+        .subscribe();
   }
 
   updateProducts(productsReq: ProductUpdateShoppingListReq[]) {
+    this.updateProductsView(productsReq);
+    this.updateShoppingList(productsReq);
+  }
+
+  private updateProductsView(productsReq: ProductUpdateShoppingListReq[]) {
     this.shoppingListRes.update(value => {
       const products = value.productList
                             .content
@@ -269,8 +280,6 @@ export class ShoppingListComponent {
         }
       };
     });
-
-    this.updateShoppingList(productsReq);
   }
 
   removeAllProducts(productsId: number[]) {

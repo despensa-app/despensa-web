@@ -11,6 +11,7 @@ import {SaveShoppingListRes} from '../../models/save-shopping-list-res';
 import {PagingAndSortingReq} from '@app/models/paging-and-sorting-req';
 import {FindByIdProductListReq} from '@app/models/find-by-id-product-list-req';
 import {FindByIdProductListRes} from '@app/models/find-by-id-product-list-res';
+import {ProductsSelectedReq} from '@app/models/products-selected-req';
 
 @Injectable({
   providedIn: 'root'
@@ -58,4 +59,7 @@ export class ShoppingListsService {
     });
   }
 
+  updateSelectedProducts(id: number, request: ProductsSelectedReq) {
+    return this.httpClient.put<UpdateShoppingListRes>(`${this._shoppingListsURI}/${id}/products-selected`, request);
+  }
 }
