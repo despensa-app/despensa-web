@@ -1,5 +1,4 @@
 import {Component, computed, EventEmitter, input, OnChanges, Output, signal, SimpleChanges} from '@angular/core';
-import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
 import {FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CheckboxModule} from 'primeng/checkbox';
 import {ProductShoppingList as ProductUpdateShoppingListReq} from '@app/models/update-shopping-list-req';
@@ -8,6 +7,7 @@ import {
 } from '@app/modules/shopping-list/layout/product-modal-shopping-list/product-modal-shopping-list.component';
 import {tap} from 'rxjs';
 import {ProductShoppingList} from '@app/models/find-by-id-product-list-res';
+import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
 
 @Component({
   selector: 'app-product-list',
@@ -71,32 +71,17 @@ export class ProductListComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.productsForm.clear({emitEvent: false});
+    this.removeNotExistingControls();
+
     this.shoppingList()
         .productList
         .content
         .forEach(productShoppingList => {
-          const control = this.formBuilder.nonNullable.group({
-            selected: productShoppingList.selected,
-            productId: productShoppingList.product.id,
-            unitTypeId: productShoppingList.unitType.id
-          });
+          if (this.updateExistingControl(productShoppingList)) {
+            return;
+          }
 
-          control.valueChanges
-                 .pipe(
-                   tap(value => {
-                     const productReq: ProductUpdateShoppingListReq = {
-                       selected: value.selected!,
-                       productId: value.productId!,
-                       unitTypeId: value.unitTypeId!
-                     };
-
-                     this.updateProduct.emit(productReq);
-                   })
-                 )
-                 .subscribe();
-
-          this.productsForm.push(control, {emitEvent: false});
+          this.pushNewControl(productShoppingList);
         });
   }
 
@@ -118,12 +103,65 @@ export class ProductListComponent implements OnChanges {
 
   deselectAllEvent() {
     this.deselectAllProducts.emit();
-    this.productsForm.controls.forEach(control => {
-      control.setValue({
-        ...control.value,
-        selected: false
-      }, {emitEvent: false});
+  }
+
+  private removeNotExistingControls() {
+    const notExist = this.productsForm.controls
+                         .filter(control =>
+                           !this.shoppingList()
+                                .productList
+                                .content
+                                .some(product => product.product.id === control.value.productId)
+                         );
+
+    notExist.forEach(control => {
+      const index = this.productsForm.controls.indexOf(control);
+
+      if (index !== -1) {
+        this.productsForm.removeAt(index, {emitEvent: false});
+      }
     });
+  }
+
+  private updateExistingControl(productShoppingList: ProductShoppingList) {
+    const existingControl = this.productsForm.controls.find(
+      control => control.value.productId === productShoppingList.product.id
+    );
+
+    if (existingControl) {
+      existingControl.setValue({
+        ...existingControl.value,
+        selected: productShoppingList.selected
+      }, {emitEvent: false});
+
+      return true;
+    }
+
+    return false;
+  }
+
+  private pushNewControl(productShoppingList: ProductShoppingList) {
+    const control = this.formBuilder.nonNullable.group({
+      selected: productShoppingList.selected,
+      productId: productShoppingList.product.id,
+      unitTypeId: productShoppingList.unitType.id
+    });
+
+    control.valueChanges
+           .pipe(
+             tap(value => {
+               const productReq: ProductUpdateShoppingListReq = {
+                 selected: value.selected!,
+                 productId: value.productId!,
+                 unitTypeId: value.unitTypeId!
+               };
+
+               this.updateProduct.emit(productReq);
+             })
+           )
+           .subscribe();
+
+    this.productsForm.push(control, {emitEvent: false});
   }
 
 }
