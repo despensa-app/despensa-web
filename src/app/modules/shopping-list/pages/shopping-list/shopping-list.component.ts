@@ -24,7 +24,7 @@ import {
 import {
   ProductListComponent
 } from '@app/modules/shopping-list/layout/shopping-list/product-list/product-list.component';
-import {ProductShoppingList} from '@app/models/find-by-id-product-list-res';
+import {FindByIdProductListRes, ProductShoppingList} from '@app/models/find-by-id-product-list-res';
 import {
   SelectedProductsComponent
 } from '@app/modules/shopping-list/layout/shopping-list/selected-products/selected-products.component';
@@ -292,4 +292,32 @@ export class ShoppingListComponent {
     );
   }
 
+  nextFindAllProductsEvent($event: FindByIdProductListRes) {
+    const request: FindByIdProductListReq = {
+      page: $event.currentPage + 1,
+      sort: 'product_id,desc',
+      selected: this.currentSelectedProductOption()
+    };
+
+    console.log('next', request, this.shoppingListRes());
+
+    this.shoppingListsService.findAllProducts(this.shoppingListRes().id, request)
+        .pipe(
+          tap(response => {
+            this.shoppingListRes.update(value => ({
+              ...value,
+              productList: {
+                ...value.productList,
+                ...response,
+                content: [
+                  ...value.productList.content,
+                  ...response.content
+                ]
+              }
+            }));
+            console.log('next2', this.shoppingListRes());
+          })
+        )
+        .subscribe();
+  }
 }

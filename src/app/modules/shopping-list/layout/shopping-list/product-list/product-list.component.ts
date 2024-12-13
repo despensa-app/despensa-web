@@ -6,8 +6,9 @@ import {
   ProductModalShoppingListComponent
 } from '@app/modules/shopping-list/layout/product-modal-shopping-list/product-modal-shopping-list.component';
 import {tap} from 'rxjs';
-import {ProductShoppingList} from '@app/models/find-by-id-product-list-res';
+import {FindByIdProductListRes, ProductShoppingList} from '@app/models/find-by-id-product-list-res';
 import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
+import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-product-list',
@@ -15,7 +16,8 @@ import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res'
   imports: [
     CheckboxModule,
     ReactiveFormsModule,
-    ProductModalShoppingListComponent
+    ProductModalShoppingListComponent,
+    Button
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
@@ -48,6 +50,8 @@ export class ProductListComponent implements OnChanges {
 
   @Output() deselectAllProducts = new EventEmitter<void>();
 
+  @Output() nextFindAllProducts = new EventEmitter<FindByIdProductListRes>();
+
   deselectAllDisabled = computed<boolean | null>(() => {
     const some = this.shoppingList()
                      .productList
@@ -63,6 +67,16 @@ export class ProductListComponent implements OnChanges {
       productId: FormControl<number>;
       unitTypeId: FormControl<number>;
     }>>([])
+  });
+
+  showMoreButton = computed(() => {
+    const productList = this.shoppingList().productList;
+
+    return {
+      disabled: productList.currentPage + 1 >= productList.totalPages,
+      render: productList.totalPages > 1,
+      click: () => this.nextFindAllProducts.emit(productList)
+    };
   });
 
   constructor(private formBuilder: FormBuilder) {

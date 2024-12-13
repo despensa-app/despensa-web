@@ -64,6 +64,12 @@
     }
   </div>
 </form>
+@if (showMoreButton().render) {
+  <p-button [disabled]="showMoreButton().disabled"
+            styleClass="btn btn-default btn-block"
+            label="Mostrar más"
+            (click)="showMoreButton().click()"/>
+}
 
 <app-product-modal-shopping-list [selectedProduct]="selectedProduct()"
                                  (deleteProduct)="deleteProductEvent($event)"/>
