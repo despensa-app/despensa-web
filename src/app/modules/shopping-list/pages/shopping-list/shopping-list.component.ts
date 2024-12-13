@@ -336,8 +336,6 @@ export class ShoppingListComponent {
       selected: this.currentSelectedProductOption()
     };
 
-    console.log('next', request, this.shoppingListRes());
-
     this.shoppingListsService.findAllProducts(this.shoppingListRes().id, request)
         .pipe(
           tap(response => {
@@ -352,7 +350,6 @@ export class ShoppingListComponent {
                 ]
               }
             }));
-            console.log('next2', this.shoppingListRes());
           })
         )
         .subscribe();
