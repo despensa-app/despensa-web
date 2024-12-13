@@ -136,11 +136,7 @@ export class ShoppingListComponent {
 
     this.shoppingListsService.update(this.shoppingListRes().id, request)
         .subscribe({
-          complete: () => {
-            if (!this.shoppingListRes().productList.content.length) {
-              this.updateProductsView();
-            }
-          }
+          complete: () => this.updateProductsView(products)
         });
   }
 
@@ -248,13 +244,19 @@ export class ShoppingListComponent {
     this.removeAllProducts(selectedProducts.map(product => product.productId));
     this.shoppingListsService.updateSelectedProducts(this.shoppingListRes().id, request)
         .subscribe({
-          complete: () => {
-            this.updateProductsView();
-          }
+          complete: () => this.updateProductsView(selectedProducts)
         });
   }
 
-  private updateProductsView() {
+  private updateProductsView(productUpdate: ProductUpdateShoppingListReq[]) {
+    //Si hay registros solo actualizo visualmente la lista
+    if (this.shoppingListRes().productList.content.length) {
+      this.updateShoppingListResView(productUpdate);
+
+      return;
+    }
+
+    //Si no hay registros, obtengo nuevos productos.
     const request: FindByIdProductListReq = {
       selected: this.currentSelectedProductOption(),
       sort: 'product_id,desc'
@@ -271,6 +273,41 @@ export class ShoppingListComponent {
           })
         )
         .subscribe();
+  }
+
+  private updateShoppingListResView(productsReq: ProductUpdateShoppingListReq[]) {
+    this.shoppingListRes.update(value => {
+      const products = value.productList
+                            .content
+                            .map(product => {
+
+                              const findProduct = productsReq.find(productReq => productReq.productId === product.product.id);
+
+                              if (findProduct) {
+                                return {
+                                  ...product,
+                                  selected: findProduct.selected!
+                                };
+                              }
+
+                              return product;
+                            });
+
+      const selectedProducts = products.filter(product => product.selected);
+      const totalPriceSelectedProducts = selectedProducts
+        .map(product => product.totalPrice)
+        .reduce((totalPrice, currentPrice) => totalPrice + currentPrice, 0);
+
+      return {
+        ...value,
+        totalSelectedProducts: selectedProducts.length,
+        totalPriceSelectedProducts,
+        productList: {
+          ...value.productList,
+          content: products
+        }
+      };
+    });
   }
 
   removeAllProducts(productsId: number[]) {
