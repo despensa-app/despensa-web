@@ -42,11 +42,9 @@ export class ProductListComponent implements OnChanges {
 
   selectedProduct = signal<ProductShoppingList>(this._initProduct);
 
-  @Output() updateProduct = new EventEmitter<ProductUpdateShoppingListReq>();
-
   @Output() deleteProduct = new EventEmitter<ProductShoppingList>();
 
-  @Output() removeProductList = new EventEmitter<ProductShoppingList>();
+  @Output() removeUpdateProductList = new EventEmitter<ProductUpdateShoppingListReq>();
 
   @Output() deselectAllProducts = new EventEmitter<void>();
 
@@ -95,10 +93,6 @@ export class ProductListComponent implements OnChanges {
 
   deleteProductEvent(response: ProductShoppingList) {
     this.deleteProduct.emit(response);
-  }
-
-  selectedEvent(response: ProductShoppingList) {
-    this.removeProductList.emit(response);
   }
 
   deselectAllEvent() {
@@ -156,7 +150,7 @@ export class ProductListComponent implements OnChanges {
                  unitTypeId: value.unitTypeId!
                };
 
-               this.updateProduct.emit(productReq);
+               this.removeUpdateProductList.emit(productReq);
              })
            )
            .subscribe();

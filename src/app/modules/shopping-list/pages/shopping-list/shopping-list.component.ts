@@ -83,7 +83,12 @@ export class ShoppingListComponent {
     if (id) {
       this.shoppingListsService.findById(id)
           .pipe(
-            tap(shoppingList => this.shoppingListRes.set(shoppingList))
+            tap(shoppingList => {
+              const selectedOption = shoppingList.selectProductOption.find(value => value.selected);
+
+              this.currentSelectedProductOption.set(selectedOption!.value);
+              this.shoppingListRes.set(shoppingList);
+            })
           )
           .subscribe();
     }
@@ -127,11 +132,13 @@ export class ShoppingListComponent {
     };
 
     this.shoppingListsService.update(this.shoppingListRes().id, request)
-        .subscribe();
-  }
-
-  updateProductEvent(productReq: ProductUpdateShoppingListReq) {
-    this.updateProducts([productReq]);
+        .subscribe({
+          complete: () => {
+            if (!this.shoppingListRes().productList.content.length) {
+              this.updateProductsView();
+            }
+          }
+        });
   }
 
   goToAddProductsEvent() {
@@ -207,10 +214,7 @@ export class ShoppingListComponent {
           tap(shoppingList => {
             this.shoppingListRes.update(value => ({
                 ...value,
-                productList: {
-                  ...value.productList,
-                  content: shoppingList.content
-                }
+                productList: shoppingList
               })
             );
           })
@@ -218,8 +222,9 @@ export class ShoppingListComponent {
         .subscribe();
   }
 
-  removeProductListEvent($event: ProductShoppingList) {
-    this.removeAllProducts([$event.product.id]);
+  removeUpdateProductListEvent($event: ProductUpdateShoppingListReq) {
+    this.removeAllProducts([$event.productId]);
+    this.updateShoppingList([$event]);
   }
 
   deselectAllProductsEvent() {
@@ -237,49 +242,30 @@ export class ShoppingListComponent {
                                                                  }));
 
     this.removeAllProducts(selectedProducts.map(product => product.productId));
-    this.updateProductsView(selectedProducts);
     this.shoppingListsService.updateSelectedProducts(this.shoppingListRes().id, request)
+        .subscribe({
+          complete: () => {
+            this.updateProductsView();
+          }
+        });
+  }
+
+  private updateProductsView() {
+    const request: FindByIdProductListReq = {
+      selected: this.currentSelectedProductOption()
+    };
+
+    this.shoppingListsService.findAllProducts(this.shoppingListRes().id, request)
+        .pipe(
+          tap(shoppingList => {
+            this.shoppingListRes.update(value => ({
+                ...value,
+                productList: shoppingList
+              })
+            );
+          })
+        )
         .subscribe();
-  }
-
-  updateProducts(productsReq: ProductUpdateShoppingListReq[]) {
-    this.updateProductsView(productsReq);
-    this.updateShoppingList(productsReq);
-  }
-
-  private updateProductsView(productsReq: ProductUpdateShoppingListReq[]) {
-    this.shoppingListRes.update(value => {
-      const products = value.productList
-                            .content
-                            .map(product => {
-
-                              const findProduct = productsReq.find(productReq => productReq.productId === product.product.id);
-
-                              if (findProduct) {
-                                return {
-                                  ...product,
-                                  selected: findProduct.selected!
-                                };
-                              }
-
-                              return product;
-                            });
-
-      const selectedProducts = products.filter(product => product.selected);
-      const totalPriceSelectedProducts = selectedProducts
-        .map(product => product.totalPrice)
-        .reduce((totalPrice, currentPrice) => totalPrice + currentPrice, 0);
-
-      return {
-        ...value,
-        totalSelectedProducts: selectedProducts.length,
-        totalPriceSelectedProducts,
-        productList: {
-          ...value.productList,
-          content: products
-        }
-      };
-    });
   }
 
   removeAllProducts(productsId: number[]) {
