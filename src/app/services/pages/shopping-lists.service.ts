@@ -31,8 +31,12 @@ export class ShoppingListsService {
     });
   }
 
-  findById(id: number) {
-    return this.httpClient.get<FindByIdShoppingListRes>(`${this._shoppingListsURI}/${id}`);
+  findById(id: number, request?: FindByIdProductListReq) {
+    return this.httpClient.get<FindByIdShoppingListRes>(`${this._shoppingListsURI}/${id}`, {
+      params: {
+        ...request
+      }
+    });
   }
 
   update(id: number, request: UpdateShoppingListReq) {

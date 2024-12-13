@@ -76,12 +76,15 @@ export class ShoppingListComponent {
 
   isNew = signal(false);
 
-  private currentSelectedProductOption = signal<string>('');
+  private currentSelectedProductOption = signal<string>('NO');
 
   @Input()
   set id(id: number) {
     if (id) {
-      this.shoppingListsService.findById(id)
+      this.shoppingListsService.findById(id, {
+        selected: this.currentSelectedProductOption(),
+        sort: 'product_id,desc'
+      })
           .pipe(
             tap(shoppingList => {
               const selectedOption = shoppingList.selectProductOption.find(value => value.selected);
@@ -204,7 +207,8 @@ export class ShoppingListComponent {
 
   selectedProductOptionEvent($event: string) {
     const request: FindByIdProductListReq = {
-      selected: $event
+      selected: $event,
+      sort: 'product_id,desc'
     };
 
     this.currentSelectedProductOption.set($event);
@@ -252,7 +256,8 @@ export class ShoppingListComponent {
 
   private updateProductsView() {
     const request: FindByIdProductListReq = {
-      selected: this.currentSelectedProductOption()
+      selected: this.currentSelectedProductOption(),
+      sort: 'product_id,desc'
     };
 
     this.shoppingListsService.findAllProducts(this.shoppingListRes().id, request)
