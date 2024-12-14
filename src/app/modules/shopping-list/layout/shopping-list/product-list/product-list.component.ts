@@ -101,7 +101,7 @@ export class ProductListComponent implements OnChanges {
     return this.productListForm.get('productsForm') as FormArray;
   }
 
-  showProductDetailsEvent(product: ProductShoppingList) {
+  selectProductEvent(product: ProductShoppingList) {
     this.selectedProduct.set(product);
   }
 
