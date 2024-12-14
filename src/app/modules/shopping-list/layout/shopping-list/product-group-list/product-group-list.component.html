@@ -1,0 +1,59 @@
+<form [formGroup]="productListForm()">
+  <div class="list-group mb-3"
+       formArrayName="productsForm">
+    @for (response of shoppingList().productList.content; track response.product.id) {
+      <div class="list-group-item pr-0"
+           [formGroupName]="$index">
+        <div class="d-flex">
+          <div class="list-group-item-content flex-grow-1 text-truncate">
+            <div class="d-flex py-2">
+              <p-checkbox styleClass="mr-2"
+                          [binary]="true"
+                          checkboxIcon="fas fa-check"
+                          formControlName="selected"/>
+              <div class="text-truncate">
+                {{ response.product.name }}
+              </div>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button type="button"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                    class="btn text-body">
+              <i class="fas fa-ellipsis-v w-25px"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <button class="dropdown-item"
+                      data-toggle="modal"
+                      data-target="#product-info-modal"
+                      (click)="selectProductEvent(response)"
+                      type="button">
+                <i class="fas fa-expand-alt w-25px"></i>
+                <span>Ver</span>
+              </button>
+              <button class="dropdown-item"
+                      data-toggle="modal"
+                      data-target="#product-edit-modal"
+                      disabled
+                      type="button">
+                <i class="fas fa-edit w-25px"></i>
+                <span>Editar</span>
+              </button>
+              <button type="button"
+                      (click)="deleteProductEvent(response)"
+                      class="dropdown-item text-danger">
+                <i class="fas fa-trash w-25px"></i>
+                <span>Eliminar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <input type="hidden"
+               formControlName="productId">
+        <input type="hidden"
+               formControlName="unitTypeId">
+      </div>
+    }
+  </div>
+</form>
