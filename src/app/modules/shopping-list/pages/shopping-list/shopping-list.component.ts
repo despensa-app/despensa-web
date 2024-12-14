@@ -169,7 +169,8 @@ export class ShoppingListComponent {
   private goToAddProducts(id: number) {
     this.router.navigate([
       'shopping-list', id, 'add-products'
-    ]);
+    ])
+        .then();
   }
 
   deleteShoppingListEvent() {
