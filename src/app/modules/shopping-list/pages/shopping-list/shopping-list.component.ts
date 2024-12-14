@@ -114,16 +114,19 @@ export class ShoppingListComponent {
 
     this.shoppingListsService.deleteProducts(this.shoppingListRes().id, request)
         .pipe(
-          tap(() => this.shoppingListRes.update(value => ({
-              ...value,
-              productList: {
-                ...value.productList,
-                content: value.productList
-                              .content
-                              .filter(product => product.product.id !== response.product.id)
-              }
-            })
-          ))
+          tap(() => {
+            this.shoppingListRes.update(value => ({
+                ...value,
+                productList: {
+                  ...value.productList,
+                  content: value.productList
+                                .content
+                                .filter(product => product.product.id !== response.product.id)
+                }
+              })
+            );
+            this.updateProductsView([]);
+          })
         )
         .subscribe();
   }
@@ -276,6 +279,10 @@ export class ShoppingListComponent {
   }
 
   private updateShoppingListResView(productsReq: ProductUpdateShoppingListReq[]) {
+    if (!productsReq.length) {
+      return;
+    }
+
     this.shoppingListRes.update(value => {
       const products = value.productList
                             .content
