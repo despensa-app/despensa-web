@@ -5,7 +5,6 @@ import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-list-card',
-  standalone: true,
   imports: [
     RouterLink,
     FormsModule,

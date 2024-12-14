@@ -35,7 +35,6 @@ import {
 
 @Component({
   selector: 'app-add-products-shopping-list',
-  standalone: true,
   imports: [
     ButtonModule,
     CheckboxModule,

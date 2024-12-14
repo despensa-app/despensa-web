@@ -4,7 +4,6 @@ import {ActionModal} from '@app/shared/models/action-modal.model';
 
 @Component({
   selector: 'app-navbar-home',
-  standalone: true,
   imports: [
     NavbarComponent
   ],

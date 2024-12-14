@@ -5,7 +5,6 @@ import {ActionModal} from '@app/shared/models/action-modal.model';
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,
   imports: [
     RouterLink,
     ModalNavbarComponent

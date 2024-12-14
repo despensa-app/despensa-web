@@ -11,7 +11,6 @@ import {FindAllUnitTypesRes} from '@app/models/find-all-unit-types-res';
 
 @Component({
   selector: 'app-product-modal-add-products',
-  standalone: true,
   imports: [
     InputNumberModule,
     NgClass,

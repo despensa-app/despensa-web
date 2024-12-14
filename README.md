@@ -47,8 +47,8 @@ Este proyecto es la interfaz grafica que consume los recursos del [proyecto rest
 
 ### Requisitos
 
-* [Angular 17](https://angular.dev)
-* [Node.js 20](https://nodejs.org)
+* [Angular 19](https://angular.dev)
+* [Node.js 22](https://nodejs.org)
   * [Node para windows](https://github.com/coreybutler/nvm-windows/releases) (Opcional)
 
 ### Empezar a trabajar

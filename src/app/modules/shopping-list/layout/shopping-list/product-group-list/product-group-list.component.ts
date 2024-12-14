@@ -7,7 +7,6 @@ import {ProductShoppingList} from '@app/models/find-by-id-product-list-res';
 
 @Component({
   selector: 'app-product-group-list',
-  standalone: true,
   imports: [
     CheckboxModule,
     PaginatorModule,

@@ -5,7 +5,6 @@ import {ViewTypeProductList} from '@app/modules/shopping-list/models/view-type-p
 
 @Component({
   selector: 'app-totals-summary',
-  standalone: true,
   imports: [
     NgClass
   ],

@@ -3,7 +3,6 @@ import {ActionModal} from '../../models/action-modal.model';
 
 @Component({
   selector: 'app-modal-navbar',
-  standalone: true,
   imports: [],
   templateUrl: './modal-navbar.component.html',
   styleUrl: './modal-navbar.component.css'

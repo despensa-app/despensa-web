@@ -5,7 +5,6 @@ import {ActionModal} from '@app/shared/models/action-modal.model';
 
 @Component({
   selector: 'app-add-products-navbar-shopping-list',
-  standalone: true,
   imports: [
     ButtonModule,
     NavbarComponent

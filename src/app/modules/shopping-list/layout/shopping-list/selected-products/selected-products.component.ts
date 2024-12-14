@@ -5,7 +5,6 @@ import {tap} from 'rxjs';
 
 @Component({
   selector: 'app-selected-products',
-  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule

@@ -4,7 +4,6 @@ import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-add-product-header-shopping-list',
-  standalone: true,
   imports: [
     HeaderComponent,
     RouterLink

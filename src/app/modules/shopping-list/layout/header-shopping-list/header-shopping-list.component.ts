@@ -8,7 +8,6 @@ import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res'
 
 @Component({
   selector: 'app-header-shopping-list',
-  standalone: true,
   imports: [
     HeaderComponent,
     ReactiveFormsModule,

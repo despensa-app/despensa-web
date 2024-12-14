@@ -19,7 +19,6 @@ import {
 
 @Component({
   selector: 'app-product-list',
-  standalone: true,
   imports: [
     CheckboxModule,
     ReactiveFormsModule,

@@ -11,7 +11,6 @@ import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
   imports: [
     ShoppingListCardComponent,
     NavbarHomeComponent,

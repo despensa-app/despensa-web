@@ -6,7 +6,6 @@ import {BrowserStorageService} from './services/layout/browser-storage.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [
     RouterOutlet
   ],

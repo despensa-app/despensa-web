@@ -34,7 +34,6 @@ import {ViewTypeProductList} from '@app/modules/shopping-list/models/view-type-p
 
 @Component({
   selector: 'app-shopping-list',
-  standalone: true,
   imports: [
     NavbarShoppingListComponent,
     HeaderShoppingListComponent,

@@ -9,7 +9,6 @@ import {SidebarService} from '@app/services/layout/sidebar.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [
     RouterLink,
     ReactiveFormsModule
