@@ -30,6 +30,7 @@ import {
 } from '@app/modules/shopping-list/layout/shopping-list/selected-products/selected-products.component';
 import {FindByIdProductListReq} from '@app/models/find-by-id-product-list-req';
 import {ProductsSelectedReq} from '@app/models/products-selected-req';
+import {ViewTypeProductList} from '@app/modules/shopping-list/models/view-type-product-list';
 
 @Component({
   selector: 'app-shopping-list',
@@ -77,6 +78,8 @@ export class ShoppingListComponent {
   isNew = signal(false);
 
   private currentSelectedProductOption = signal<string>('NO');
+
+  viewTypeProductListSelected = signal<ViewTypeProductList>(ViewTypeProductList.PRODUCT_LIST);
 
   @Input()
   set id(id: number) {
@@ -360,5 +363,9 @@ export class ShoppingListComponent {
           })
         )
         .subscribe();
+  }
+
+  viewTypeProductListSelectEvent($event: ViewTypeProductList) {
+    this.viewTypeProductListSelected.set($event);
   }
 }

@@ -17,7 +17,9 @@
     </a>
 
     @defer (when shoppingListRes().id) {
-      <app-totals-summary [shoppingList]="shoppingListRes()"/>
+      <app-totals-summary [shoppingList]="shoppingListRes()"
+                          (viewTypeProductListSelect)="viewTypeProductListSelectEvent($event)"
+                          [viewTypeProductListSelected]="viewTypeProductListSelected()"/>
 
       <app-selected-products [shoppingList]="shoppingListRes()"
                              (selectProductOption)="selectedProductOptionEvent($event)"/>
@@ -26,7 +28,8 @@
                         (deleteProduct)="deleteProductEvent($event)"
                         (removeUpdateProductList)="removeUpdateProductListEvent($event)"
                         (deselectAllProducts)="deselectAllProductsEvent()"
-                        (nextFindAllProducts)="nextFindAllProductsEvent($event)"/>
+                        (nextFindAllProducts)="nextFindAllProductsEvent($event)"
+                        [viewTypeProductList]="viewTypeProductListSelected()"/>
     }
   </ng-container>
 </app-page>

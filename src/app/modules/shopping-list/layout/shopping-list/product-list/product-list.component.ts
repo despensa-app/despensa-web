@@ -9,6 +9,13 @@ import {tap} from 'rxjs';
 import {FindByIdProductListRes, ProductShoppingList} from '@app/models/find-by-id-product-list-res';
 import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
 import {Button} from 'primeng/button';
+import {ViewTypeProductList} from '@app/modules/shopping-list/models/view-type-product-list';
+import {
+  ProductImageListComponent
+} from '@app/modules/shopping-list/layout/shopping-list/product-image-list/product-image-list.component';
+import {
+  ProductGroupListComponent
+} from '@app/modules/shopping-list/layout/shopping-list/product-group-list/product-group-list.component';
 
 @Component({
   selector: 'app-product-list',
@@ -17,7 +24,9 @@ import {Button} from 'primeng/button';
     CheckboxModule,
     ReactiveFormsModule,
     ProductModalShoppingListComponent,
-    Button
+    Button,
+    ProductImageListComponent,
+    ProductGroupListComponent
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
@@ -51,6 +60,10 @@ export class ProductListComponent implements OnChanges {
   @Output() deselectAllProducts = new EventEmitter<void>();
 
   @Output() nextFindAllProducts = new EventEmitter<FindByIdProductListRes>();
+
+  viewTypeProductList = input<ViewTypeProductList>();
+
+  viewTypeProductListEnum = ViewTypeProductList;
 
   deselectAllDisabled = computed<boolean | null>(() => {
     const some = this.shoppingList()

@@ -25,13 +25,15 @@
         </button>
       </li>
     </ul>
-    <button class="btn btn-default text-primary border-primary mr-1"
-            disabled
+    <button class="btn btn-default mr-1"
+            [ngClass]="{ 'text-primary border-primary': isViewTypeProductList(viewTypeProductListEnum.PRODUCT_LIST) }"
+            (click)="viewProductListEvent(viewTypeProductListEnum.PRODUCT_LIST)"
             type="button">
       <i class="fas fa-bars text-lg"></i>
     </button>
     <button class="btn btn-default"
-            disabled
+            [ngClass]="{ 'text-primary border-primary': isViewTypeProductList(viewTypeProductListEnum.PRODUCT_IMAGE_LIST) }"
+            (click)="viewProductListEvent(viewTypeProductListEnum.PRODUCT_IMAGE_LIST)"
             type="button">
       <i class="fas fa-th-large text-lg"></i>
     </button>
