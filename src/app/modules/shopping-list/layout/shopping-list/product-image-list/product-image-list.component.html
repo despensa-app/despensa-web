@@ -1,0 +1,68 @@
+<form [formGroup]="productListForm()">
+  <div class="row"
+       formArrayName="productsForm">
+    @for (response of shoppingList().productList.content; track response.product.id) {
+      <div class="col-6 col-sm-4 col-lg-3"
+           [formGroupName]="$index">
+        <div class="card">
+          <div class="card-header p-0">
+            <img [src]="response.product.imgUrl"
+                 alt="image-product"
+                 class="img-fluid rounded-top">
+          </div>
+          <div class="card-footer py-0 pr-0">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1 text-truncate">
+                <div class="d-flex py-3">
+                  <p-checkbox styleClass="mr-2"
+                              [binary]="true"
+                              checkboxIcon="fas fa-check"
+                              formControlName="selected"/>
+                  <div class="text-truncate">
+                    {{ response.product.name }}
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown">
+                <button type="button"
+                        data-toggle="dropdown"
+                        aria-expanded="false"
+                        class="btn text-body">
+                  <i class="fas fa-ellipsis-v w-25px"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <button class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#product-info-modal"
+                          (click)="selectProductEvent(response)"
+                          type="button">
+                    <i class="fas fa-expand-alt w-25px"></i>
+                    <span>Ver</span>
+                  </button>
+                  <button class="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#product-edit-modal"
+                          disabled
+                          type="button">
+                    <i class="fas fa-edit w-25px"></i>
+                    <span>Editar</span>
+                  </button>
+                  <button type="button"
+                          (click)="deleteProductEvent(response)"
+                          class="dropdown-item text-danger">
+                    <i class="fas fa-trash w-25px"></i>
+                    <span>Eliminar</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden"
+               formControlName="productId">
+        <input type="hidden"
+               formControlName="unitTypeId">
+      </div>
+    }
+  </div>
+</form>
