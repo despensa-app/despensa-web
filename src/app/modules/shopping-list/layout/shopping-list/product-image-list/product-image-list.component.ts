@@ -22,7 +22,7 @@ export class ProductImageListComponent {
   @Output() selectProduct = new EventEmitter<ProductShoppingList>();
 
   @Output() deleteProduct = new EventEmitter<ProductShoppingList>();
-  
+
   productListForm = input.required<FormGroup<{
     productsForm: FormArray<FormGroup<{
       selected: FormControl<boolean>
