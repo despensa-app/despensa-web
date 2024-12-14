@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
-import {LoginAuthenticationReq} from '../../models/login-authentication-req';
-import {LoginAuthenticationRes} from '../../models/login-authentication-res';
+import {environment} from '@env/environment';
+import {LoginAuthenticationReq} from '@app/models/login-authentication-req';
+import {LoginAuthenticationRes} from '@app/models/login-authentication-res';
 
 @Injectable({
   providedIn: 'root'

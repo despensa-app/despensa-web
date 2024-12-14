@@ -1,14 +1,12 @@
 import {Component, EventEmitter, input, Output} from '@angular/core';
-import {RouterLink} from '@angular/router';
-import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
+import {NavbarComponent} from '@app/layout/navbar/navbar.component';
 import {ButtonModule} from 'primeng/button';
-import {ActionModal} from '../../../../shared/models/action-modal.model';
+import {ActionModal} from '@app/shared/models/action-modal.model';
 
 @Component({
   selector: 'app-navbar-shopping-list',
   standalone: true,
   imports: [
-    RouterLink,
     NavbarComponent,
     ButtonModule
   ],

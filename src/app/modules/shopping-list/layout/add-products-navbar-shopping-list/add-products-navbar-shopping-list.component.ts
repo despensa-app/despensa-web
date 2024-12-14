@@ -1,16 +1,14 @@
 import {Component} from '@angular/core';
 import {ButtonModule} from 'primeng/button';
-import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
-import {RouterLink} from '@angular/router';
-import {ActionModal} from '../../../../shared/models/action-modal.model';
+import {NavbarComponent} from '@app/layout/navbar/navbar.component';
+import {ActionModal} from '@app/shared/models/action-modal.model';
 
 @Component({
   selector: 'app-add-products-navbar-shopping-list',
   standalone: true,
   imports: [
     ButtonModule,
-    NavbarComponent,
-    RouterLink
+    NavbarComponent
   ],
   templateUrl: './add-products-navbar-shopping-list.component.html',
   styleUrl: './add-products-navbar-shopping-list.component.css'

@@ -1,13 +1,13 @@
 import {Component, effect, EventEmitter, input, OnInit, Output} from '@angular/core';
-import {ProductInstantSearch} from '../../models/product-instant-search';
+import {ProductInstantSearch} from '@app/modules/shopping-list/models/product-instant-search';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {NgClass} from '@angular/common';
 import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {ImageModule} from 'primeng/image';
-import {SaveShoppingListProductReq} from '../../../../models/save-shopping-list-product-req';
+import {SaveShoppingListProductReq} from '@app/models/save-shopping-list-product-req';
 import {map, tap} from 'rxjs';
-import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
+import {FindAllUnitTypesRes} from '@app/models/find-all-unit-types-res';
 
 @Component({
   selector: 'app-product-modal-add-products',

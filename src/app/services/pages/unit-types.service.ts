@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
+import {environment} from '@env/environment';
 import {HttpClient} from '@angular/common/http';
-import {FindAllUnitTypesRes} from '../../models/find-all-unit-types-res';
+import {FindAllUnitTypesRes} from '@app/models/find-all-unit-types-res';
 
 @Injectable({
   providedIn: 'root'

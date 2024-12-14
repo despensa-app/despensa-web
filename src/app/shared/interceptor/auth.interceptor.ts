@@ -1,5 +1,5 @@
 import {HttpInterceptorFn} from '@angular/common/http';
-import {BrowserStorageService} from '../../services/layout/browser-storage.service';
+import {BrowserStorageService} from '@app/services/layout/browser-storage.service';
 import {inject} from '@angular/core';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {

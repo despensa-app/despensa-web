@@ -2,34 +2,31 @@ import {AfterContentInit, Component, Input, OnDestroy, OnInit, signal} from '@an
 import {ButtonModule} from 'primeng/button';
 import {CheckboxModule} from 'primeng/checkbox';
 import {DialogModule} from 'primeng/dialog';
-import {HeaderShoppingListComponent} from '../../layout/header-shopping-list/header-shopping-list.component';
 import {ImageModule} from 'primeng/image';
-import {NavbarShoppingListComponent} from '../../layout/navbar-shopping-list/navbar-shopping-list.component';
-import {PageComponent} from '../../../../layout/page/page.component';
+import {PageComponent} from '@app/layout/page/page.component';
 import {
   AddProductsNavbarShoppingListComponent
 } from '../../layout/add-products-navbar-shopping-list/add-products-navbar-shopping-list.component';
 import {
   AddProductHeaderShoppingListComponent
 } from '../../layout/add-product-header-shopping-list/add-product-header-shopping-list.component';
-import {ProductsService} from '../../../../services/pages/products.service';
+import {ProductsService} from '@app/services/pages/products.service';
 import {tap} from 'rxjs';
-import {UnitTypesService} from '../../../../services/pages/unit-types.service';
-import {FindAllUnitTypesRes} from '../../../../models/find-all-unit-types-res';
+import {UnitTypesService} from '@app/services/pages/unit-types.service';
+import {FindAllUnitTypesRes} from '@app/models/find-all-unit-types-res';
 import {AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {SaveShoppingListProductReq} from '../../../../models/save-shopping-list-product-req';
+import {SaveShoppingListProductReq} from '@app/models/save-shopping-list-product-req';
 import {IconFieldModule} from 'primeng/iconfield';
 import {InputIconModule} from 'primeng/inputicon';
 import {InputTextModule} from 'primeng/inputtext';
-import {NgClass} from '@angular/common';
-import {AlgoliaService} from '../../../../services/external/algolia.service';
+import {AlgoliaService} from '@app/services/external/algolia.service';
 import {connectInfiniteHits, connectSearchBox} from 'instantsearch.js/es/connectors';
 import {SearchBoxRenderState} from 'instantsearch.js/es/connectors/search-box/connectSearchBox';
 import {configure} from 'instantsearch.js/es/widgets';
 import {ProductInstantSearch} from '../../models/product-instant-search';
-import {FindAllShoppingListProductsRes} from '../../../../models/find-all-shopping-list-products-res';
+import {FindAllShoppingListProductsRes} from '@app/models/find-all-shopping-list-products-res';
 import {InfiniteHitsRenderState} from 'instantsearch.js/es/connectors/infinite-hits/connectInfiniteHits';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {
@@ -43,9 +40,7 @@ import {
     ButtonModule,
     CheckboxModule,
     DialogModule,
-    HeaderShoppingListComponent,
     ImageModule,
-    NavbarShoppingListComponent,
     PageComponent,
     AddProductsNavbarShoppingListComponent,
     AddProductHeaderShoppingListComponent,
@@ -56,7 +51,6 @@ import {
     InputTextModule,
     IconFieldModule,
     InputIconModule,
-    NgClass,
     ToggleButtonModule,
     ProductModalAddProductsComponent
   ],
@@ -247,7 +241,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
       unitsPerProduct: unitsPerProduct,
       unitTypeId: this.findAllUnityTypesRes().content[0].id
     };
-  
+
     this.showDialogSelectProductEvent(product);
     this.addProductsSubmit(request);
   }

@@ -1,23 +1,17 @@
 import {Component} from '@angular/core';
-import {PageComponent} from '../../../../layout/page/page.component';
-import {NavbarComponent} from '../../../../layout/navbar/navbar.component';
 import {Router, RouterLink} from '@angular/router';
-import {HeaderComponent} from '../../../../layout/header/header.component';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {LoginAuthenticationReq} from '../../../../models/login-authentication-req';
-import {AuthenticationService} from '../../../../services/pages/authentication.service';
+import {LoginAuthenticationReq} from '@app/models/login-authentication-req';
+import {AuthenticationService} from '@app/services/pages/authentication.service';
 import {tap} from 'rxjs';
-import {BrowserStorageService} from '../../../../services/layout/browser-storage.service';
-import {SidebarService} from '../../../../services/layout/sidebar.service';
+import {BrowserStorageService} from '@app/services/layout/browser-storage.service';
+import {SidebarService} from '@app/services/layout/sidebar.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    PageComponent,
-    NavbarComponent,
     RouterLink,
-    HeaderComponent,
     ReactiveFormsModule
   ],
   templateUrl: './login.component.html',

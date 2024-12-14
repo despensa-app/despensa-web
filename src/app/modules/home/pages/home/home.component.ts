@@ -1,11 +1,11 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {tap} from 'rxjs';
-import {ShoppingListsService} from '../../../../services/pages/shopping-lists.service';
-import {FindAllShoppingListRes, ShoppingList} from '../../../../models/find-all-shopping-list-res';
+import {ShoppingListsService} from '@app/services/pages/shopping-lists.service';
+import {FindAllShoppingListRes, ShoppingList} from '@app/models/find-all-shopping-list-res';
 import {ShoppingListCardComponent} from '../../components/shopping-list-card/shopping-list-card.component';
 import {NavbarHomeComponent} from '../../layout/navbar-home/navbar-home.component';
 import {HeaderHomeComponent} from '../../layout/header-home/header-home.component';
-import {PageComponent} from '../../../../layout/page/page.component';
+import {PageComponent} from '@app/layout/page/page.component';
 import {UpdateShoppingListReq} from '@app/models/update-shopping-list-req';
 import {Button} from 'primeng/button';
 

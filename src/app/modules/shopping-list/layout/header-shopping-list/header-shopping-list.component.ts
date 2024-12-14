@@ -1,5 +1,5 @@
 import {Component, EventEmitter, input, Output, signal} from '@angular/core';
-import {HeaderComponent} from '../../../../layout/header/header.component';
+import {HeaderComponent} from '@app/layout/header/header.component';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';

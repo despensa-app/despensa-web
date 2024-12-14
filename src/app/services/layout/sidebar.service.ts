@@ -1,5 +1,5 @@
 import {Injectable, signal} from '@angular/core';
-import {DataSidebar} from '../../models/data-sidebar';
+import {DataSidebar} from '@app/models/data-sidebar';
 
 @Injectable({
   providedIn: 'root'

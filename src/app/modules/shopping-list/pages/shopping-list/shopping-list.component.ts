@@ -1,10 +1,10 @@
 import {Component, Input, signal} from '@angular/core';
 import {tap} from 'rxjs';
-import {FindByIdShoppingListRes} from '../../../../models/find-by-id-shopping-list-res';
-import {ShoppingListsService} from '../../../../services/pages/shopping-lists.service';
+import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
+import {ShoppingListsService} from '@app/services/pages/shopping-lists.service';
 import {NavbarShoppingListComponent} from '../../layout/navbar-shopping-list/navbar-shopping-list.component';
 import {HeaderShoppingListComponent} from '../../layout/header-shopping-list/header-shopping-list.component';
-import {PageComponent} from '../../../../layout/page/page.component';
+import {PageComponent} from '@app/layout/page/page.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
@@ -15,8 +15,8 @@ import {
   ProductShoppingList as ProductUpdateShoppingListReq,
   UpdateShoppingListReq
 } from '../../../../models/update-shopping-list-req';
-import {DeleteProductsShoppingListReq} from '../../../../models/delete-products-shopping-list-req';
-import {SaveShoppingListReq} from '../../../../models/save-shopping-list-req';
+import {DeleteProductsShoppingListReq} from '@app/models/delete-products-shopping-list-req';
+import {SaveShoppingListReq} from '@app/models/save-shopping-list-req';
 import {Router} from '@angular/router';
 import {
   TotalsSummaryComponent

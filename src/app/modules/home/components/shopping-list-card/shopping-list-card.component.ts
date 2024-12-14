@@ -1,5 +1,5 @@
 import {Component, EventEmitter, input, Output, signal} from '@angular/core';
-import {ShoppingList} from '../../../../models/find-all-shopping-list-res';
+import {ShoppingList} from '@app/models/find-all-shopping-list-res';
 import {RouterLink} from '@angular/router';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 

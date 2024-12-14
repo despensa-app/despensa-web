@@ -1,7 +1,7 @@
 import {Component, computed, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {ModalNavbarComponent} from '../../shared/components/modal-navbar/modal-navbar.component';
-import {ActionModal} from '../../shared/models/action-modal.model';
+import {ModalNavbarComponent} from '@app/shared/components/modal-navbar/modal-navbar.component';
+import {ActionModal} from '@app/shared/models/action-modal.model';
 
 @Component({
   selector: 'app-navbar',

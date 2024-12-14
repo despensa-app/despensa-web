@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
+import {environment} from '@env/environment';
 import {HttpClient} from '@angular/common/http';
-import {FindAllShoppingListProductsRes} from '../../models/find-all-shopping-list-products-res';
-import {SaveShoppingListProductReq} from '../../models/save-shopping-list-product-req';
+import {FindAllShoppingListProductsRes} from '@app/models/find-all-shopping-list-products-res';
+import {SaveShoppingListProductReq} from '@app/models/save-shopping-list-product-req';
 
 @Injectable({
   providedIn: 'root'
