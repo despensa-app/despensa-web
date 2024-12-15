@@ -3,11 +3,13 @@ import {Router, RouterOutlet} from '@angular/router';
 import {DataSidebar} from './models/data-sidebar';
 import {SidebarService} from './services/layout/sidebar.service';
 import {BrowserStorageService} from './services/layout/browser-storage.service';
+import {SpinnerComponent} from '@app/layout/spinner/spinner.component';
 
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet
+    RouterOutlet,
+    SpinnerComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
