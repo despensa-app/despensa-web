@@ -38,6 +38,10 @@ import {
 import {
   ProductImageListComponent
 } from '@app/modules/shopping-list/layout/add-products/product-image-list/product-image-list.component';
+import {
+  ViewTypeProductListComponent
+} from '@app/modules/shopping-list/layout/view-type-product-list/view-type-product-list.component';
+import {ViewTypeProductList} from '@app/modules/shopping-list/models/view-type-product-list';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -59,7 +63,8 @@ import {
     ToggleButtonModule,
     ProductModalAddProductsComponent,
     ProductGroupListComponent,
-    ProductImageListComponent
+    ProductImageListComponent,
+    ViewTypeProductListComponent
   ],
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'
@@ -90,6 +95,8 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     total: 0
   };
 
+  protected readonly viewTypeProductListEnum = ViewTypeProductList;
+
   shoppingListProductsRes = signal<FindAllShoppingListProductsRes>(this._initShoppingListProductsRes);
 
   selectedProduct = signal<ProductInstantSearch>(this._initProduct);
@@ -109,7 +116,7 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     }
   };
 
-  toggleProductsView = signal(false);
+  viewTypeProductListSelected = signal<ViewTypeProductList>(ViewTypeProductList.PRODUCT_LIST);
 
   constructor(
     private productsService: ProductsService,
@@ -237,10 +244,6 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     this.addOrUpdateConfigureAlgolia(shoppingListProductsRes);
   }
 
-  onToggleProductsViewChange() {
-    this.toggleProductsView.set(!this.toggleProductsView());
-  }
-
   addProductEvent($event: { product: ProductInstantSearch, unitsPerProduct: number }) {
     const request: SaveShoppingListProductReq = {
       productId: $event.product.id,
@@ -251,6 +254,10 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
 
     this.showDialogSelectProductEvent($event.product);
     this.addProductsSubmit(request);
+  }
+
+  viewTypeProductListSelectEvent($event: ViewTypeProductList) {
+    this.viewTypeProductListSelected.set($event);
   }
 
 }

@@ -25,18 +25,8 @@
         </button>
       </li>
     </ul>
-    <button class="btn btn-default mr-1"
-            [ngClass]="{ 'text-primary border-primary': isViewTypeProductList(viewTypeProductListEnum.PRODUCT_LIST) }"
-            (click)="viewProductListEvent(viewTypeProductListEnum.PRODUCT_LIST)"
-            type="button">
-      <i class="fas fa-bars text-lg"></i>
-    </button>
-    <button class="btn btn-default"
-            [ngClass]="{ 'text-primary border-primary': isViewTypeProductList(viewTypeProductListEnum.PRODUCT_IMAGE_LIST) }"
-            (click)="viewProductListEvent(viewTypeProductListEnum.PRODUCT_IMAGE_LIST)"
-            type="button">
-      <i class="fas fa-th-large text-lg"></i>
-    </button>
+    <app-view-type-product-list (viewTypeProductListSelect)="viewTypeProductListSelectEvent($event)"
+                                [viewTypeProductListSelected]="viewTypeProductListSelected()"/>
   </div>
   <div class="collapse"
        data-parent="#total-summary-shopping-list-collapse"

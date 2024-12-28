@@ -14,21 +14,21 @@
              class="w-100 d-block mb-3"
              placeholder="Nombre del producto"/>
     </p-iconField>
-    <div class="mb-3">
-      <p-checkbox styleClass="mr-2"
-                  [binary]="true"
-                  checkboxIcon="fas fa-check"
-                  (onChange)="onToggleProductsViewChange()"/>
-      <label class="m-0">Con imágen</label>
+    <div class="d-flex justify-content-end mb-3">
+      <app-view-type-product-list (viewTypeProductListSelect)="viewTypeProductListSelectEvent($event)"
+                                  [viewTypeProductListSelected]="viewTypeProductListSelected()"/>
     </div>
-    @if (toggleProductsView()) {
-      <app-product-image-list [products]="products()"
-                              (showDialogSelectProduct)="showDialogSelectProductEvent($event)"
-                              (addProduct)="addProductEvent($event)"/>
-    } @else {
-      <app-product-group-list [products]="products()"
-                              (showDialogSelectProduct)="showDialogSelectProductEvent($event)"
-                              (addProduct)="addProductEvent($event)"/>
+    @switch (viewTypeProductListSelected()) {
+      @case (viewTypeProductListEnum.PRODUCT_LIST) {
+        <app-product-group-list [products]="products()"
+                                (showDialogSelectProduct)="showDialogSelectProductEvent($event)"
+                                (addProduct)="addProductEvent($event)"/>
+      }
+      @case (viewTypeProductListEnum.PRODUCT_IMAGE_LIST) {
+        <app-product-image-list [products]="products()"
+                                (showDialogSelectProduct)="showDialogSelectProductEvent($event)"
+                                (addProduct)="addProductEvent($event)"/>
+      }
     }
     @if (showMoreButton.render()) {
       <p-button icon="fas fa-spinner"
