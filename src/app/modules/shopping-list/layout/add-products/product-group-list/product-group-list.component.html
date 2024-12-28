@@ -1,0 +1,58 @@
+<div class="list-group mb-3">
+  @for (product of products(); track product.id) {
+    <div class="list-group-item">
+      <div class="d-flex align-items-center">
+        <button type="button"
+                class="btn text-truncate pl-0 flex-grow-1 text-left"
+                data-toggle="modal"
+                data-target="#product-modal-add-products"
+                (click)="showDialogSelectProductEvent(product)"
+                [innerHTML]="product.nameHighlight">
+        </button>
+        <div class="btn-group"
+             role="group">
+          <button type="button"
+                  (click)="addProductEvent(product, 1)"
+                  class="btn btn-success">
+            <i class="fas fa-cart-arrow-down"></i>
+          </button>
+          <div class="btn-group">
+            <button type="button"
+                    class="btn btn-default dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="false">
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <button class="dropdown-item"
+                      (click)="addProductEvent(product, 2)"
+                      type="button">
+                <i class="fas fa-cart-arrow-down w-25px"></i>
+                +2
+              </button>
+              <button class="dropdown-item"
+                      (click)="addProductEvent(product, 3)"
+                      type="button">
+                <i class="fas fa-cart-arrow-down w-25px"></i>
+                +3
+              </button>
+              <button class="dropdown-item"
+                      (click)="addProductEvent(product, 4)"
+                      type="button">
+                <i class="fas fa-cart-arrow-down w-25px"></i>
+                +4
+              </button>
+              <button class="dropdown-item"
+                      data-toggle="modal"
+                      data-target="#product-modal-add-products"
+                      (click)="showDialogSelectProductEvent(product)"
+                      type="button">
+                <i class="fas fa-cart-plus w-25px"></i>
+                Más
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

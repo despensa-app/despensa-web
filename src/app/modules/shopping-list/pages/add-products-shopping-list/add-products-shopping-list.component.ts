@@ -32,6 +32,12 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
 import {
   ProductModalAddProductsComponent
 } from '../../layout/product-modal-add-products/product-modal-add-products.component';
+import {
+  ProductGroupListComponent
+} from '@app/modules/shopping-list/layout/add-products/product-group-list/product-group-list.component';
+import {
+  ProductImageListComponent
+} from '@app/modules/shopping-list/layout/add-products/product-image-list/product-image-list.component';
 
 @Component({
   selector: 'app-add-products-shopping-list',
@@ -51,7 +57,9 @@ import {
     IconFieldModule,
     InputIconModule,
     ToggleButtonModule,
-    ProductModalAddProductsComponent
+    ProductModalAddProductsComponent,
+    ProductGroupListComponent,
+    ProductImageListComponent
   ],
   templateUrl: './add-products-shopping-list.component.html',
   styleUrl: './add-products-shopping-list.component.css'
@@ -233,15 +241,16 @@ export class AddProductsShoppingListComponent implements OnInit, AfterContentIni
     this.toggleProductsView.set(!this.toggleProductsView());
   }
 
-  addProduct(product: ProductInstantSearch, unitsPerProduct: number) {
+  addProductEvent($event: { product: ProductInstantSearch, unitsPerProduct: number }) {
     const request: SaveShoppingListProductReq = {
-      productId: product.id,
+      productId: $event.product.id,
       shoppingListId: this.idShoppingList,
-      unitsPerProduct: unitsPerProduct,
+      unitsPerProduct: $event.unitsPerProduct,
       unitTypeId: this.findAllUnityTypesRes().content[0].id
     };
 
-    this.showDialogSelectProductEvent(product);
+    this.showDialogSelectProductEvent($event.product);
     this.addProductsSubmit(request);
   }
+
 }
