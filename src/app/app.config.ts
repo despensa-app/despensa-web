@@ -9,6 +9,7 @@ import {providePrimeNG} from 'primeng/config';
 import Lara from '@primeng/themes/lara';
 import {definePreset} from '@primeng/themes';
 import {spinnerInterceptor} from '@app/shared/interceptor/spinner.interceptor';
+import {MessageService} from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,6 +48,9 @@ export const appConfig: ApplicationConfig = {
           }
         }
       }
-    })
+    }),
+    {
+      provide: MessageService
+    }
   ]
 };

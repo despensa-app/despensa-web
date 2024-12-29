@@ -1,20 +1,23 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, viewChild} from '@angular/core';
 import {Router, RouterOutlet} from '@angular/router';
 import {DataSidebar} from './models/data-sidebar';
 import {SidebarService} from './services/layout/sidebar.service';
 import {BrowserStorageService} from './services/layout/browser-storage.service';
 import {SpinnerComponent} from '@app/layout/spinner/spinner.component';
+import {Toast} from 'primeng/toast';
+import {MessagePrimeNgService} from '@app/services/external/message-prime-ng.service';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    SpinnerComponent
+    SpinnerComponent,
+    Toast
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   private readonly _sidebar: DataSidebar[] = [
     {
@@ -35,16 +38,23 @@ export class AppComponent {
     }
   ];
 
+  toast = viewChild(Toast);
+
   constructor(
     private sidebarService: SidebarService,
     private browserStorageService: BrowserStorageService,
-    private router: Router
+    private router: Router,
+    private messagePrimeNgService: MessagePrimeNgService
   ) {
     this.sidebarService.setElements(this._sidebar);
 
     if (this.browserStorageService.getToken()) {
       this.sidebarService.showLogoutAndHideLogin();
     }
+  }
+
+  ngOnInit(): void {
+    this.messagePrimeNgService.setToastComponent(this.toast());
   }
 
   private logout(): void {
