@@ -2,7 +2,7 @@ import {ApplicationConfig} from '@angular/core';
 import {provideRouter, withComponentInputBinding} from '@angular/router';
 
 import {routes} from './app.routes';
-import {provideHttpClient, withInterceptors} from '@angular/common/http';
+import {provideHttpClient, withInterceptors, withXhr} from '@angular/common/http';
 import {authInterceptor} from './shared/interceptor/auth.interceptor';
 import {providePrimeNG} from 'primeng/config';
 import Lara from '@primeuix/themes/lara';
@@ -13,7 +13,7 @@ import {MessageService} from 'primeng/api';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(
+    provideHttpClient(withXhr(), 
       withInterceptors([
         authInterceptor,
         spinnerInterceptor
