@@ -14,7 +14,8 @@ import {environment} from '@env/environment';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withXhr(), 
+    provideHttpClient(
+      withXhr(),
       withInterceptors([
         authInterceptor,
         spinnerInterceptor
