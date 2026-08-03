@@ -9,6 +9,7 @@ import Lara from '@primeuix/themes/lara';
 import {definePreset} from '@primeuix/themes';
 import {spinnerInterceptor} from '@app/shared/interceptor/spinner.interceptor';
 import {MessageService} from 'primeng/api';
+import {environment} from '@env/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -45,7 +46,8 @@ export const appConfig: ApplicationConfig = {
             order: 'primeng, admin-lte, app-global-style'
           }
         }
-      }
+      },
+      license: environment.PRIMEUI_LICENSE_KEY
     }),
     {
       provide: MessageService
