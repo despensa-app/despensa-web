@@ -7,7 +7,7 @@ import {NavbarHomeComponent} from '../../layout/navbar-home/navbar-home.componen
 import {HeaderHomeComponent} from '../../layout/header-home/header-home.component';
 import {PageComponent} from '@app/layout/page/page.component';
 import {UpdateShoppingListReq} from '@app/models/update-shopping-list-req';
-import {Button} from 'primeng/button';
+import {Button, ButtonLabel} from 'primeng/button';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +16,8 @@ import {Button} from 'primeng/button';
     NavbarHomeComponent,
     HeaderHomeComponent,
     PageComponent,
-    Button
+    Button,
+    ButtonLabel
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'

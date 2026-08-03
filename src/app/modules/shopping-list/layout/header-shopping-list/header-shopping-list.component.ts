@@ -3,7 +3,6 @@ import {HeaderComponent} from '@app/layout/header/header.component';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
-import {TabViewModule} from 'primeng/tabview';
 import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
 
 @Component({
@@ -12,8 +11,7 @@ import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res'
     HeaderComponent,
     ReactiveFormsModule,
     ButtonModule,
-    DialogModule,
-    TabViewModule
+    DialogModule
   ],
   templateUrl: './header-shopping-list.component.html',
   styleUrl: './header-shopping-list.component.css'

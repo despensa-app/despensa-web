@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^20.3.27",
+    "@angular/cdk": "^20.2.14",
     "@angular/common": "^20.3.27",
     "@angular/compiler": "^20.3.27",
     "@angular/core": "^20.3.27",
@@ -18,10 +19,10 @@
     "@angular/platform-browser": "^20.3.27",
     "@angular/platform-browser-dynamic": "^20.3.27",
     "@angular/router": "^20.3.27",
-    "@primeng/themes": "^19.0.0-rc.1",
+    "@primeuix/themes": "^1.2.5",
     "algoliasearch": "^4.23.3",
     "instantsearch.js": "^4.71.0",
-    "primeng": "^19.0.0-rc.1",
+    "primeng": "^20.4.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

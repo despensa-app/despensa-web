@@ -1,6 +1,5 @@
 import {Injectable, signal} from '@angular/core';
-import {MessageService} from 'primeng/api';
-import {ToastMessageOptions} from 'primeng/api/toastmessage';
+import {MessageService, ToastMessageOptions} from 'primeng/api';
 import {Toast} from 'primeng/toast';
 
 @Injectable({

@@ -6,8 +6,8 @@ import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {authInterceptor} from './shared/interceptor/auth.interceptor';
 import {providePrimeNG} from 'primeng/config';
-import Lara from '@primeng/themes/lara';
-import {definePreset} from '@primeng/themes';
+import Lara from '@primeuix/themes/lara';
+import {definePreset} from '@primeuix/themes';
 import {spinnerInterceptor} from '@app/shared/interceptor/spinner.interceptor';
 import {MessageService} from 'primeng/api';
 
