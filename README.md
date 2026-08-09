@@ -47,9 +47,13 @@ Este proyecto es la interfaz grafica que consume los recursos del [proyecto rest
 
 ### Requisitos
 
-* [Angular 19](https://angular.dev)
-* [Node.js 22](https://nodejs.org)
+* [Angular 22](https://angular.dev)
+* [Node.js 24](https://nodejs.org) — versión exacta en `.node-version` (24.19.0)
   * [Node para windows](https://github.com/coreybutler/nvm-windows/releases) (Opcional)
+* [pnpm](https://pnpm.io) — gestor de paquetes del proyecto
+
+> El proyecto usa **pnpm**. No ejecutes `npm install`: generaría un `package-lock.json`
+> desincronizado con `pnpm-lock.yaml`.
 
 ### Empezar a trabajar
 
@@ -58,6 +62,7 @@ Este proyecto es la interfaz grafica que consume los recursos del [proyecto rest
 
 - [Clonar proyecto](#clonar-proyecto)
 - [Configurar node.js path](#nodejs-path)
+- [Instalar dependencias](#install)
 - [Ejecutar](#run)
 - [Habilitar EditorConfig](#editor-config)
 - [Establecer opciones de guardado](#on-save)
@@ -72,11 +77,26 @@ Establecer la ruta local de node.js:
 
 > File > Settings > Languages & Frameworks > Node.js
 
+<a name="install"></a>
+Instalar dependencias:
+
+```bash
+pnpm install
+```
+
 <a name="run"></a>
 Ejecutar aplicación:
 
 - `Run > Run...`
   - `start`
+
+O desde la terminal:
+
+```bash
+pnpm start   # servidor de desarrollo en http://localhost:4200
+pnpm build   # compilación de producción en dist/despensa-web
+pnpm test    # tests con Vitest
+```
 
 <a name="editor-config"></a>
 Habilitar EditorConfig

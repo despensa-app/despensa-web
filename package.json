@@ -1,6 +1,7 @@
 {
   "name": "despensa-web",
   "version": "0.0.1",
+  "packageManager": "pnpm@11.20.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
