@@ -12,7 +12,7 @@
 ![Version][github-package-shield]
 ![Twitch nmarulo][twitch-shield]
 
-# Despensa-app - REST API
+# Despensa-app - WEB
 
 ---
 
