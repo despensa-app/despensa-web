@@ -1,0 +1,9 @@
+:host {
+  display: contents;
+}
+
+.dsp-divider {
+  height: 1px;
+  margin: 14px 0;
+  background-color: var(--dsp-border, #e1e8e5);
+}
