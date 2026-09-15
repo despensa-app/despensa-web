@@ -1,0 +1,13 @@
+<div class="dsp-snackbar"
+     [class.is-visible]="visible()"
+     role="status"
+     aria-live="polite">
+  <span class="dsp-snackbar-text">{{ message()?.text }}</span>
+  @if (message()?.action) {
+    <button type="button"
+            class="dsp-snackbar-action"
+            (click)="runAction()">
+      {{ message()?.actionLabel ?? 'Deshacer' }}
+    </button>
+  }
+</div>
