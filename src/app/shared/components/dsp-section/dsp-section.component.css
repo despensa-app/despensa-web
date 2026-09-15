@@ -1,0 +1,25 @@
+:host {
+  display: contents;
+}
+
+.dsp-section {
+  margin-bottom: 28px;
+}
+
+.dsp-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: var(--dsp-ink-faint, #8b9a94);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.dsp-count {
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
