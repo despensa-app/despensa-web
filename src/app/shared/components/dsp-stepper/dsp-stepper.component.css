@@ -1,0 +1,53 @@
+:host {
+  display: contents;
+}
+
+.dsp-stepper {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--dsp-border, #e1e8e5);
+  border-radius: 999px;
+  background-color: var(--dsp-surface, #fff);
+}
+
+.dsp-stepper button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--dsp-primary, #12805c);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.dsp-stepper button:disabled {
+  color: var(--dsp-ink-faint, #8b9a94);
+  opacity: .5;
+}
+
+.dsp-stepper button:focus-visible {
+  outline: 0;
+  background-color: var(--dsp-primary-soft, #e2f2ec);
+}
+
+.dsp-stepper output {
+  min-width: 34px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.dsp-pulse {
+  animation: dsp-pulse .5s ease;
+}
+
+@keyframes dsp-pulse {
+  50% {
+    transform: scale(1.05);
+  }
+}

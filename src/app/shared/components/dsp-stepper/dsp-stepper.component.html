@@ -1,0 +1,14 @@
+<div class="dsp-stepper">
+  <button type="button"
+          [disabled]="current() <= min()"
+          (click)="step(-1)">
+    <i class="bi bi-dash-lg"></i>
+    <span class="visually-hidden">Menos</span>
+  </button>
+  <output [class.dsp-pulse]="pulse()">{{ current() }}</output>
+  <button type="button"
+          (click)="step(1)">
+    <i class="bi bi-plus-lg"></i>
+    <span class="visually-hidden">Más</span>
+  </button>
+</div>
