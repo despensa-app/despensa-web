@@ -1,0 +1,22 @@
+<div class="offcanvas offcanvas-bottom dsp-sheet"
+     [id]="sheetId()"
+     tabindex="-1"
+     [attr.aria-labelledby]="titleId()">
+  <div class="dsp-sheet-handle"></div>
+  <div class="dsp-sheet-head">
+    <h2 class="dsp-sheet-title"
+        [id]="titleId()">{{ title() }}</h2>
+    <app-dsp-icon-button icon="bi-x-lg"
+                         label="Cerrar"
+                         [dismissSheet]="true"/>
+  </div>
+  <div class="dsp-sheet-body"
+       [class.dsp-sheet-body-pad]="padded()">
+    <ng-content/>
+  </div>
+  @if (withFooter()) {
+    <div class="dsp-sheet-foot">
+      <ng-content select="[dspFooter]"/>
+    </div>
+  }
+</div>
