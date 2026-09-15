@@ -1,0 +1,12 @@
+<div class="dsp-segmented"
+     role="group"
+     [attr.aria-label]="label()">
+  @for (segment of segments(); track segment.id) {
+    <button type="button"
+            [class.is-active]="segment.active"
+            [attr.aria-pressed]="!!segment.active"
+            (click)="segmentSelect.emit(segment)">
+      {{ segment.label }}
+    </button>
+  }
+</div>
