@@ -28,9 +28,8 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/admin-lte/plugins/jquery/jquery.min.js",
-              "src/assets/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js",
-              "src/assets/admin-lte/dist/js/adminlte.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/admin-lte/dist/js/adminlte.min.js"
             ]
           },
           "configurations": {

@@ -32,12 +32,24 @@ importers:
       '@angular/router':
         specifier: ^22.1.0
         version: 22.1.0(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@22.1.0(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
+      '@fontsource/inter':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@primeuix/themes':
         specifier: ^3.0.0
         version: 3.0.0
+      admin-lte:
+        specifier: 4.1.0
+        version: 4.1.0(bootstrap@5.3.8(@popperjs/core@2.11.8))
       algoliasearch:
         specifier: ^4.23.3
         version: 4.27.0
+      bootstrap:
+        specifier: 5.3.8
+        version: 5.3.8(@popperjs/core@2.11.8)
+      bootstrap-icons:
+        specifier: 1.13.1
+        version: 1.13.1
       instantsearch.js:
         specifier: ^4.71.0
         version: 4.109.0(algoliasearch@4.27.0)
@@ -611,6 +623,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/inter@5.3.0':
+    resolution: {integrity: sha512-RofMylZmjlJEfELXeNHFWBRcSs75rGU/6bV2S2jfnvv/3rPXPGe0LgUJTklcHZ9lM4OZmAVFhcJPnACfb91A3g==}
 
   '@harperfast/extended-iterable@1.0.3':
     resolution: {integrity: sha512-sSAYhQca3rDWtQUHSAPeO7axFIUJOI6hn1gjRC5APVE1a90tuyT8f5WIgRsFhhWA7htNkju2veB9eWL6YHi/Lw==}
@@ -1202,6 +1217,9 @@ packages:
     resolution: {integrity: sha512-7FNeNl8NCE7aINx7WXiKQrPYZWC/hvrTsmk6zmxbI7LTXE7hVek/n8AfVgpe2y82zl3w0HvCHN0bVKMBoJcC0w==}
     engines: {node: '>= 10.0.0'}
 
+  '@popperjs/core@2.11.8':
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+
   '@primeicons/angular@8.0.0':
     resolution: {integrity: sha512-WFpJ8xeXxae2tg/CHxauUxbdSsuem2k8la0CxKqyf6nhDFSss8jFop+S0vmixJfOAVZK/S+6OPQ73XRvhhTAiQ==}
     peerDependencies:
@@ -1525,6 +1543,12 @@ packages:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
     engines: {node: '>= 0.6'}
 
+  admin-lte@4.1.0:
+    resolution: {integrity: sha512-XsBJSYMYjUD0PYgTeI2/3WIeYGPtr2tUAsd7ei8Zgh5bYhGzLkTxAy7aIV/k19zifmHY9llaEZ0dPIUOKCzArA==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      bootstrap: ^5.3.8
+
   agent-base@9.0.0:
     resolution: {integrity: sha512-TQf59BsZnytt8GdJKLPfUZ54g/iaUL2OWDSFCCvMOhsHduDQxO8xC4PNeyIkVcA5KwL2phPSv0douC0fgWzmnA==}
     engines: {node: '>= 20'}
@@ -1606,6 +1630,14 @@ packages:
 
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
+
+  bootstrap-icons@1.13.1:
+    resolution: {integrity: sha512-ijombt4v6bv5CLeXvRWKy7CuM3TRTuPEuGaGKvTV5cz65rQSY8RQ2JcHt6b90cBBAC7s8fsf2EkQDldzCoXUjw==}
+
+  bootstrap@5.3.8:
+    resolution: {integrity: sha512-HP1SZDqaLDPwsNiqRqi5NcP0SSXciX2s9E+RyqJIIqGo+vJeN5AJVM98CXmW/Wux0nQ5L7jeWUdplCEf0Ee+tg==}
+    peerDependencies:
+      '@popperjs/core': ^2.11.8
 
   brace-expansion@1.1.18:
     resolution: {integrity: sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==}
@@ -3644,6 +3676,8 @@ snapshots:
   '@esbuild/win32-x64@0.28.1':
     optional: true
 
+  '@fontsource/inter@5.3.0': {}
+
   '@harperfast/extended-iterable@1.0.3':
     optional: true
 
@@ -4077,6 +4111,8 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.6.0
     optional: true
 
+  '@popperjs/core@2.11.8': {}
+
   '@primeicons/angular@8.0.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.15.1))':
     dependencies:
       '@angular/core': 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.15.1)
@@ -4326,6 +4362,10 @@ snapshots:
       mime-types: 3.0.2
       negotiator: 1.0.0
 
+  admin-lte@4.1.0(bootstrap@5.3.8(@popperjs/core@2.11.8)):
+    dependencies:
+      bootstrap: 5.3.8(@popperjs/core@2.11.8)
+
   agent-base@9.0.0: {}
 
   ajv-formats@3.0.1(ajv@8.20.0):
@@ -4435,6 +4475,12 @@ snapshots:
       - supports-color
 
   boolbase@1.0.0: {}
+
+  bootstrap-icons@1.13.1: {}
+
+  bootstrap@5.3.8(@popperjs/core@2.11.8):
+    dependencies:
+      '@popperjs/core': 2.11.8
 
   brace-expansion@1.1.18:
     dependencies:
