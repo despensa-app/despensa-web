@@ -1,0 +1,14 @@
+@if (path(); as route) {
+  <a class="dsp-card"
+     [class.is-closed]="closed()"
+     [class.is-flush]="flush()"
+     [routerLink]="route">
+    <ng-content/>
+  </a>
+} @else {
+  <div class="dsp-card"
+       [class.is-closed]="closed()"
+       [class.is-flush]="flush()">
+    <ng-content/>
+  </div>
+}

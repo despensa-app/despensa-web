@@ -1,0 +1,35 @@
+:host {
+  display: contents;
+}
+
+.dsp-card {
+  position: relative;
+  display: block;
+  margin-bottom: 12px;
+  padding: 15px 16px;
+  border: 1px solid var(--dsp-border, #e1e8e5);
+  border-radius: var(--dsp-radius, 14px);
+  background-color: var(--dsp-surface, #fff);
+  box-shadow: var(--dsp-shadow-sm, 0 1px 2px rgba(14, 26, 22, .05), 0 1px 3px rgba(14, 26, 22, .05));
+  color: var(--dsp-ink, #16211d);
+  text-decoration: none;
+  transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+}
+
+a.dsp-card:hover,
+a.dsp-card:focus-visible {
+  border-color: var(--dsp-primary, #12805c);
+  box-shadow: var(--dsp-shadow, 0 4px 18px rgba(14, 26, 22, .08));
+  color: var(--dsp-ink, #16211d);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.dsp-card.is-closed {
+  background-color: var(--dsp-surface-alt, #f7faf9);
+}
+
+.dsp-card.is-flush {
+  padding: 0;
+  overflow: hidden;
+}
