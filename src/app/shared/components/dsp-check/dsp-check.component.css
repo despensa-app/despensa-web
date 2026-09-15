@@ -1,0 +1,42 @@
+:host {
+  display: contents;
+}
+
+.dsp-check {
+  position: relative;
+  flex: 0 0 auto;
+  margin: 0;
+  cursor: pointer;
+}
+
+.dsp-check input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.dsp-check-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--dsp-border, #e1e8e5);
+  border-radius: 9px;
+  background-color: var(--dsp-surface, #fff);
+  color: transparent;
+  font-size: 12px;
+  transition: background-color .16s ease, border-color .16s ease, transform .16s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.dsp-check input:checked + .dsp-check-box {
+  border-color: var(--dsp-primary, #12805c);
+  background-color: var(--dsp-primary, #12805c);
+  color: #fff;
+  transform: scale(1.06);
+}
+
+.dsp-check input:focus-visible + .dsp-check-box {
+  box-shadow: 0 0 0 3px var(--dsp-primary-soft, #e2f2ec);
+}

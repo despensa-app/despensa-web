@@ -1,0 +1,9 @@
+<span class="dsp-check">
+  <input type="checkbox"
+         [checked]="checked()"
+         [attr.aria-label]="label() ?? null"
+         (change)="onChange($event)">
+  <span class="dsp-check-box">
+    <i class="bi bi-check-lg"></i>
+  </span>
+</span>
