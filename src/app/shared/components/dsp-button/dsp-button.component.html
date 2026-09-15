@@ -1,0 +1,10 @@
+<button [type]="type()"
+        [class]="classes()"
+        [disabled]="disabled()"
+        (click)="action.emit()">
+  @if (icon(); as buttonIcon) {
+    <i class="bi me-2"
+       [class]="buttonIcon"></i>
+  }
+  <ng-content/>
+</button>
