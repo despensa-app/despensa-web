@@ -1,0 +1,56 @@
+:host {
+  display: contents;
+}
+
+.dsp-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 0 calc(var(--dsp-gutter, 16px) * -1) 14px;
+  padding: 2px var(--dsp-gutter, 16px) 6px;
+  scrollbar-width: none;
+}
+
+.dsp-chips::-webkit-scrollbar {
+  display: none;
+}
+
+/* Dentro de una tarjeta la tira no sangra hasta los bordes de la pantalla. */
+.dsp-chips.is-inset {
+  margin-right: 0;
+  margin-left: 0;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.dsp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--dsp-border, #e1e8e5);
+  border-radius: 999px;
+  background-color: var(--dsp-surface, #fff);
+  color: var(--dsp-ink-soft, #5a6a64);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all .15s ease;
+}
+
+.dsp-chip:hover,
+.dsp-chip:focus-visible {
+  border-color: var(--dsp-primary, #12805c);
+  color: var(--dsp-primary, #12805c);
+  text-decoration: none;
+}
+
+.dsp-chip.is-active,
+.dsp-chip[aria-pressed='true'] {
+  border-color: var(--dsp-primary, #12805c);
+  background-color: var(--dsp-primary, #12805c);
+  color: #fff;
+}

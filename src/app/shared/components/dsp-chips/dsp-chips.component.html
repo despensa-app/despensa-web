@@ -1,0 +1,18 @@
+<div class="dsp-chips"
+     [class.is-inset]="inset()"
+     role="group"
+     [attr.aria-label]="label()">
+  @for (chip of chips(); track chip.id) {
+    <button type="button"
+            class="dsp-chip"
+            [class.is-active]="chip.active"
+            [attr.aria-pressed]="!!chip.active"
+            (click)="chipSelect.emit(chip)">
+      @if (chip.icon; as chipIcon) {
+        <i class="bi"
+           [class]="chipIcon"></i>
+      }
+      {{ chip.label }}
+    </button>
+  }
+</div>
