@@ -1,0 +1,12 @@
+<div class="dsp-empty"
+     [class.is-compact]="compact()">
+  <span class="dsp-empty-icon">
+    <i class="bi"
+       [class]="icon()"></i>
+  </span>
+  <h3>{{ title() }}</h3>
+  @if (description()) {
+    <p>{{ description() }}</p>
+  }
+  <ng-content/>
+</div>
