@@ -1,0 +1,38 @@
+:host {
+  display: contents;
+}
+
+.dsp-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background-color: var(--dsp-surface-alt, #f7faf9);
+  color: var(--dsp-ink-soft, #5a6a64);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.dsp-tag-primary {
+  background-color: var(--dsp-primary-soft, #e2f2ec);
+  color: var(--dsp-primary, #12805c);
+}
+
+.dsp-tag-accent {
+  background-color: var(--dsp-accent-soft, #fbf0de);
+  color: var(--dsp-accent, #d98217);
+}
+
+.dsp-tag-danger {
+  background-color: var(--dsp-danger-soft, #fae9e9);
+  color: var(--dsp-danger, #c94141);
+}
+
+.dsp-tag-info {
+  background-color: var(--dsp-info-soft, #e7effa);
+  color: var(--dsp-info, #2f6fb0);
+}

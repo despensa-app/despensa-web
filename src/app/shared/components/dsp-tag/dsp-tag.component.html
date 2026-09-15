@@ -1,0 +1,7 @@
+<span [class]="classes()">
+  @if (icon(); as tagIcon) {
+    <i class="bi"
+       [class]="tagIcon"></i>
+  }
+  <ng-content/>
+</span>
