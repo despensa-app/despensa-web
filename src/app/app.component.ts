@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
   }
 
   private logout(): void {
-    this.browserStorageService.clear();
+    this.browserStorageService.removeToken();
     this.sidebarService.showLoginAndHideLogout();
     this.router.navigate(['auth/login'])
         .then();
