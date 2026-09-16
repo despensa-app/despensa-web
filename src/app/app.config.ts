@@ -1,4 +1,4 @@
-import {ApplicationConfig} from '@angular/core';
+import {ApplicationConfig, provideBrowserGlobalErrorListeners} from '@angular/core';
 import {provideRouter, withComponentInputBinding} from '@angular/router';
 
 import {routes} from './app.routes';
@@ -8,17 +8,20 @@ import {providePrimeNG} from 'primeng/config';
 import Lara from '@primeuix/themes/lara';
 import {definePreset} from '@primeuix/themes';
 import {spinnerInterceptor} from '@app/shared/interceptor/spinner.interceptor';
+import {apiErrorInterceptor} from '@app/shared/interceptor/api-error.interceptor';
 import {MessageService} from 'primeng/api';
 import {environment} from '@env/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(
       withXhr(),
       withInterceptors([
         authInterceptor,
-        spinnerInterceptor
+        spinnerInterceptor,
+        apiErrorInterceptor
       ])
     ),
     providePrimeNG({
