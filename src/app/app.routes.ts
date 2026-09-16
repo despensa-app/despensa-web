@@ -19,6 +19,7 @@ export const routes: Routes = [
   },
   {
     path: '',
+    pathMatch: 'full',
     loadComponent: () => import('./modules/home/pages/home/home.component').then(m => m.HomeComponent)
   },
   {
