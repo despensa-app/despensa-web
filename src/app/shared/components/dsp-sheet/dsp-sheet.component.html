@@ -4,8 +4,12 @@
      [attr.aria-labelledby]="titleId()">
   <div class="dsp-sheet-handle"></div>
   <div class="dsp-sheet-head">
-    <h2 class="dsp-sheet-title"
-        [id]="titleId()">{{ title() }}</h2>
+    <ng-content select="[dspSheetHeaderStart]"/>
+    <div class="dsp-sheet-heading">
+      <h2 class="dsp-sheet-title"
+          [id]="titleId()">{{ title() }}</h2>
+      <ng-content select="[dspSheetHeaderSubtitle]"/>
+    </div>
     <app-dsp-icon-button icon="bi-x-lg"
                          label="Cerrar"
                          [dismissSheet]="true"/>
