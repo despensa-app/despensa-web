@@ -1,4 +1,5 @@
 import {Component, computed, EventEmitter, input, Output} from '@angular/core';
+import {RouterLink} from '@angular/router';
 
 /**
  * Botón del rediseño. Compone las clases de Bootstrap 5 y las dos variantes
@@ -7,7 +8,7 @@ import {Component, computed, EventEmitter, input, Output} from '@angular/core';
  */
 @Component({
   selector: 'app-dsp-button',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './dsp-button.component.html',
   styleUrl: './dsp-button.component.css'
 })
@@ -26,6 +27,9 @@ export class DspButtonComponent {
 
   /** Clase de Bootstrap Icons a la izquierda del texto. */
   icon = input<string>();
+
+  /** Si está definido renderiza un enlace con aspecto de botón. */
+  path = input<string>();
 
   @Output() action = new EventEmitter<void>();
 
