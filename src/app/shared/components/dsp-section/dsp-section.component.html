@@ -4,6 +4,7 @@
     @if (count()) {
       <span class="dsp-count">{{ count() }}</span>
     }
+    <ng-content select="[dspSectionEnd]"/>
   </h2>
   <ng-content/>
 </section>
