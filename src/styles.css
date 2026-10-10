@@ -290,6 +290,10 @@
     color: var(--dsp-ink-faint);
   }
 
+  .dsp-card-foot {
+    margin-top: 12px;
+  }
+
   .dsp-card.is-closed .dsp-card-title {
     color: var(--dsp-ink-soft);
   }

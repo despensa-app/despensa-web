@@ -1,3 +1,4 @@
+import {NgTemplateOutlet} from '@angular/common';
 import {Component, input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 
@@ -8,6 +9,7 @@ import {RouterLink} from '@angular/router';
 @Component({
   selector: 'app-dsp-card',
   imports: [
+    NgTemplateOutlet,
     RouterLink
   ],
   templateUrl: './dsp-card.component.html',
