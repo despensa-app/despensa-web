@@ -1,0 +1,16 @@
+@if (caption(); as text) {
+  <div class="dsp-progress-label">
+    <span>{{ text }}</span>
+    <b>{{ value() }} %</b>
+  </div>
+}
+<div class="dsp-progress"
+     role="progressbar"
+     [attr.aria-label]="label()"
+     [attr.aria-valuenow]="value()"
+     aria-valuemin="0"
+     aria-valuemax="100">
+  <div class="dsp-progress-bar"
+       [class.is-accent]="accent()"
+       [style.width.%]="value()"></div>
+</div>

@@ -1,0 +1,30 @@
+@if (path(); as route) {
+  <a class="dsp-option"
+     [class.is-selected]="selected()"
+     [class.is-danger]="danger()"
+     [routerLink]="route"
+     [attr.data-bs-dismiss]="dismissSheet() ? 'offcanvas' : null">
+    <i class="bi" [class]="icon()" aria-hidden="true"></i>
+    <span class="dsp-option-text">
+      {{ text() }}
+      @if (description()) {
+        <small>{{ description() }}</small>
+      }
+    </span>
+  </a>
+} @else {
+  <button type="button"
+        class="dsp-option"
+        [class.is-selected]="selected()"
+        [class.is-danger]="danger()"
+        [attr.data-bs-dismiss]="dismissSheet() ? 'offcanvas' : null"
+        (click)="action.emit()">
+    <i class="bi" [class]="icon()" aria-hidden="true"></i>
+    <span class="dsp-option-text">
+      {{ text() }}
+      @if (description()) {
+        <small>{{ description() }}</small>
+      }
+    </span>
+  </button>
+}

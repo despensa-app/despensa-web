@@ -1,0 +1,8 @@
+<div class="dsp-stats">
+  @for (stat of stats(); track stat.label) {
+    <div class="dsp-stat">
+      <span class="dsp-stat-value">{{ stat.value }}</span>
+      <span class="dsp-stat-label">{{ stat.label }}</span>
+    </div>
+  }
+</div>

@@ -1,0 +1,17 @@
+@if (path(); as route) {
+  <a class="dsp-appbar-btn"
+     [routerLink]="route">
+    <i class="bi"
+       [class]="icon()"></i>
+    <span class="visually-hidden">{{ label() }}</span>
+  </a>
+} @else {
+  <button type="button"
+          class="dsp-appbar-btn"
+          [attr.data-bs-dismiss]="dismissSheet() ? 'offcanvas' : null"
+          (click)="action.emit()">
+    <i class="bi"
+       [class]="icon()"></i>
+    <span class="visually-hidden">{{ label() }}</span>
+  </button>
+}

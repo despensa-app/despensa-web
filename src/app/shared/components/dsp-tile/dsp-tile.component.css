@@ -1,0 +1,59 @@
+:host {
+  display: contents;
+}
+
+.dsp-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--dsp-border, #e1e8e5);
+  border-radius: var(--dsp-radius, 14px);
+  background-color: var(--dsp-surface, #fff);
+  box-shadow: var(--dsp-shadow-sm, 0 1px 2px rgba(14, 26, 22, .05), 0 1px 3px rgba(14, 26, 22, .05));
+  color: var(--dsp-ink, #16211d);
+  text-align: left;
+  text-decoration: none;
+}
+
+.dsp-tile-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  background-color: var(--dsp-primary-soft, #e2f2ec);
+  color: var(--dsp-primary, #12805c);
+  font-size: 34px;
+}
+
+.dsp-tile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dsp-tile-body {
+  flex: 1 1 auto;
+  padding: 10px 12px 12px;
+}
+
+.dsp-tile-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.dsp-tile-meta {
+  margin: 4px 0 0;
+  color: var(--dsp-ink-soft, #5a6a64);
+  font-size: 12.5px;
+}
+
+.dsp-tile-action {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}

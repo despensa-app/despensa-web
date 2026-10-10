@@ -18,21 +18,21 @@
           <div class="d-flex">
             <div class="mr-1">
               <label for="units">Unidades</label>
-              <p-inputNumber
+              <p-inputnumber
                 [ngClass]="{'d-block': true}"
-                styleClass="w-100"
+                class="w-100"
                 inputStyleClass="w-100"
                 formControlName="unitsPerProduct"
                 mode="decimal"
-                min="1"
+                [min]="1"
                 inputId="units"
                 [useGrouping]="false"/>
             </div>
             <div class="flex-grow-1">
               <label for="unit_type_name">Tipo de unidades</label>
-              <p-autoComplete
+              <p-autocomplete
                 formControlName="unitType"
-                styleClass="w-100"
+                class="w-100"
                 inputId="unit_type_name"
                 [dropdown]="true"
                 [suggestions]="findAllUnityTypesRes().content"

@@ -22,8 +22,9 @@
 @if (showMoreButton().render) {
   <p-button [disabled]="showMoreButton().disabled"
             styleClass="btn btn-default btn-block"
-            label="Mostrar más"
-            (click)="showMoreButton().click()"/>
+            (click)="showMoreButton().click()">
+    <span pButtonLabel>Mostrar más</span>
+  </p-button>
 }
 
 <app-product-modal-shopping-list [selectedProduct]="selectedProduct()"

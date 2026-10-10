@@ -12,7 +12,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'pnpm'
       - name: Install node modules
-        run: npm install --progress=false
+        run: pnpm install --frozen-lockfile
       - name: Build project
-        run: npm run build
+        run: pnpm build

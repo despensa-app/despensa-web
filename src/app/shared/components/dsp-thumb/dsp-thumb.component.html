@@ -1,0 +1,11 @@
+<span class="dsp-thumb"
+      [class.dsp-thumb-sm]="size() === 'sm'"
+      [class.dsp-thumb-lg]="size() === 'lg'">
+  @if (imageUrl(); as url) {
+    <img [src]="url"
+         [alt]="imageAlt()">
+  } @else {
+    <i class="bi"
+       [class]="icon()"></i>
+  }
+</span>

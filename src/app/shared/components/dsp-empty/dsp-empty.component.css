@@ -1,0 +1,37 @@
+:host {
+  display: contents;
+}
+
+.dsp-empty {
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.dsp-empty.is-compact {
+  padding: 24px 12px;
+}
+
+.dsp-empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background-color: var(--dsp-primary-soft, #e2f2ec);
+  color: var(--dsp-primary, #12805c);
+  font-size: 30px;
+}
+
+.dsp-empty h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.dsp-empty p {
+  max-width: 34ch;
+  margin: 0 auto 18px;
+  color: var(--dsp-ink-soft, #5a6a64);
+  font-size: 14px;
+}

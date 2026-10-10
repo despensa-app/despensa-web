@@ -1,0 +1,39 @@
+:host {
+  display: contents;
+}
+
+.dsp-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 128px;
+}
+
+.dsp-chart-col {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  height: 100%;
+}
+
+.dsp-chart-bar {
+  width: 100%;
+  min-height: 4px;
+  border-radius: 6px 6px 0 0;
+  background-color: var(--dsp-primary, #12805c);
+  opacity: .85;
+}
+
+.dsp-chart-col.is-highlight .dsp-chart-bar {
+  background-color: var(--dsp-accent, #d98217);
+  opacity: 1;
+}
+
+.dsp-chart-label {
+  color: var(--dsp-ink-faint, #8b9a94);
+  font-size: 10.5px;
+  white-space: nowrap;
+}

@@ -1,13 +1,672 @@
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback");
-@import "assets/admin-lte/plugins/fontawesome-free/css/all.min.css";
-@import "assets/admin-lte/dist/css/adminlte.min.css" layer(admin-lte);
+@layer primeng, admin-lte, app-global-style;
+
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/inter/latin-800.css";
+@import "bootstrap-icons/font/bootstrap-icons.min.css";
+
+@import "admin-lte/dist/css/adminlte.min.css" layer(admin-lte);
 
 @layer app-global-style {
-  .w-25px {
-    width: 25px;
+  /* ==========================================================================
+     Índice
+       01. Tokens
+       02. Tema oscuro
+       03. Base y armazón
+       04. Barra superior (app bar)
+       05. Barra inferior (tab bar) y FAB
+       06. Tarjetas de lista
+       07. Filas de producto
+       11. Hojas inferiores (offcanvas)
+       14. Métricas y progreso
+       15. Deslizar para borrar
+       16. Utilidades y animaciones
+       17. Puente con Bootstrap 5 (--bs-*)
+       18. Escritorio
+     ========================================================================== */
+  /* 01. Tokens ============================================================== */
+  :root {
+    /* Marca */
+    --dsp-primary: #12805c;
+    --dsp-primary-strong: #0b6146;
+    --dsp-primary-soft: #e2f2ec;
+    --dsp-primary-rgb: 18, 128, 92;
+    --dsp-accent: #d98217;
+    --dsp-accent-soft: #fbf0de;
+    --dsp-danger: #c94141;
+    --dsp-danger-soft: #fae9e9;
+    --dsp-info: #2f6fb0;
+    --dsp-info-soft: #e7effa;
+
+    /* Superficies */
+    --dsp-bg: #f1f5f3;
+    --dsp-surface: #ffffff;
+    --dsp-surface-alt: #f7faf9;
+    --dsp-border: #e1e8e5;
+    --dsp-overlay: rgba(14, 26, 22, .48);
+
+    /* Texto */
+    --dsp-ink: #16211d;
+    --dsp-ink-soft: #5a6a64;
+    --dsp-ink-faint: #8b9a94;
+
+    /* Formas */
+    --dsp-radius-lg: 20px;
+    --dsp-radius: 14px;
+    --dsp-radius-sm: 10px;
+
+    /* Sombras */
+    --dsp-shadow-sm: 0 1px 2px rgba(14, 26, 22, .05), 0 1px 3px rgba(14, 26, 22, .05);
+    --dsp-shadow: 0 4px 18px rgba(14, 26, 22, .08);
+    --dsp-shadow-lg: 0 14px 40px rgba(14, 26, 22, .18);
+
+    /* Medidas del armazón */
+    --dsp-shell: 620px;
+    --dsp-appbar-h: 56px;
+    --dsp-tabbar-h: 66px;
+    --dsp-gutter: 16px;
+    --dsp-tap: 48px;
   }
 
-  .wrapper .content-wrapper {
-    min-height: calc(100vh - calc(3.5rem + 1px));
+  /* 02. Tema oscuro ========================================================= */
+  [data-bs-theme="dark"] {
+    --dsp-primary: #3fc192;
+    --dsp-primary-strong: #56d0a4;
+    --dsp-primary-soft: #16332a;
+    --dsp-primary-rgb: 63, 193, 146;
+    --dsp-accent: #e8a848;
+    --dsp-accent-soft: #33280f;
+    --dsp-danger: #e97070;
+    --dsp-danger-soft: #391d1d;
+    --dsp-info: #6aa6e0;
+    --dsp-info-soft: #16283a;
+
+    --dsp-bg: #101514;
+    --dsp-surface: #191f1e;
+    --dsp-surface-alt: #212828;
+    --dsp-border: #2c3533;
+    --dsp-overlay: rgba(0, 0, 0, .62);
+
+    --dsp-ink: #e8efec;
+    --dsp-ink-soft: #a3b1ac;
+    --dsp-ink-faint: #74827d;
+
+    --dsp-shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+    --dsp-shadow: 0 4px 18px rgba(0, 0, 0, .45);
+    --dsp-shadow-lg: 0 14px 40px rgba(0, 0, 0, .6);
+  }
+
+  /* 03. Base y armazón ====================================================== */
+  body.dsp {
+    background-color: var(--dsp-bg);
+    color: var(--dsp-ink);
+    font-family: 'Inter', 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: -.005em;
+    padding-bottom: calc(var(--dsp-tabbar-h) + 20px + env(safe-area-inset-bottom));
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .2s ease, color .2s ease;
+  }
+
+  body.dsp.dsp-no-tabbar {
+    padding-bottom: 0;
+  }
+
+  .dsp-shell {
+    width: 100%;
+    max-width: var(--dsp-shell);
+    margin: 0 auto;
+    padding: 0 var(--dsp-gutter);
+  }
+
+  .dsp h1,
+  .dsp h2,
+  .dsp h3,
+  .dsp h4,
+  .dsp h5 {
+    color: var(--dsp-ink);
+    font-weight: 700;
+    letter-spacing: -.02em;
+  }
+
+  .dsp a {
+    color: var(--dsp-primary);
+  }
+
+  .dsp a:hover {
+    color: var(--dsp-primary-strong);
+  }
+
+  .dsp hr {
+    border-top-color: var(--dsp-border);
+    opacity: 1;
+  }
+
+  /* 04. Barra superior (app bar) ============================================ */
+  /* El párrafo se proyecta mediante ng-content y no recibe el atributo de
+     encapsulación de DspHeroComponent. */
+  .dsp-hero p {
+    margin: 6px 0 0;
+    color: var(--dsp-ink-soft);
+    font-size: 14px;
+  }
+
+  /* 05. Barra inferior (tab bar) y FAB ====================================== */
+  .dsp-tabbar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    background-color: var(--dsp-surface);
+    border-top: 1px solid var(--dsp-border);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .dsp-tabbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    max-width: var(--dsp-shell);
+    height: var(--dsp-tabbar-h);
+    margin: 0 auto;
+    padding: 0 4px;
+  }
+
+  .dsp-tab {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-width: 0;
+    height: 100%;
+    padding: 0 2px;
+    border: 0;
+    background: transparent;
+    color: var(--dsp-ink-faint);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    transition: color .15s ease;
+  }
+
+  .dsp-tab i {
+    font-size: 17px;
+  }
+
+  .dsp-tab span {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dsp-tab:hover,
+  .dsp-tab:focus-visible {
+    color: var(--dsp-ink-soft);
+    text-decoration: none;
+  }
+
+  /* `aria-current="page"` es la fuente de la verdad del destino activo; la
+     clase `is-active` se mantiene por compatibilidad con la v1. */
+  .dsp-tab.is-active,
+  .dsp-tab[aria-current="page"] {
+    color: var(--dsp-primary);
+  }
+
+  .dsp-tab.is-active i,
+  .dsp-tab[aria-current="page"] i {
+    transform: translateY(-1px);
+  }
+
+  .dsp-fab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 54px;
+    height: 54px;
+    margin: 0 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--dsp-primary);
+    box-shadow: 0 6px 18px rgba(var(--dsp-primary-rgb), .38);
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    transition: transform .18s cubic-bezier(.34, 1.56, .64, 1), background-color .15s ease;
+  }
+
+  .dsp-fab:hover,
+  .dsp-fab:focus-visible {
+    background-color: var(--dsp-primary-strong);
+    color: #fff;
+    text-decoration: none;
+    transform: scale(1.06);
+  }
+
+  .dsp-fab:active {
+    transform: scale(.94);
+  }
+
+  /* 06. Tarjetas de lista =================================================== */
+  .dsp-card-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dsp-card-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .dsp-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    margin-top: 6px;
+    color: var(--dsp-ink-soft);
+    font-size: 13px;
+  }
+
+  .dsp-card-meta i {
+    margin-right: 3px;
+    color: var(--dsp-ink-faint);
+  }
+
+  .dsp-card-foot {
+    margin-top: 12px;
+  }
+
+  .dsp-card.is-closed .dsp-card-title {
+    color: var(--dsp-ink-soft);
+  }
+
+  /* 07. Filas de producto =================================================== */
+  .dsp-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    padding: 8px 12px;
+    background-color: var(--dsp-surface);
+    border-bottom: 1px solid var(--dsp-border);
+    color: var(--dsp-ink);
+    text-decoration: none;
+    transition: background-color .15s ease, opacity .25s ease;
+  }
+
+  .dsp-row:last-child {
+    border-bottom: 0;
+  }
+
+  .dsp-row:hover {
+    background-color: var(--dsp-surface-alt);
+    color: var(--dsp-ink);
+    text-decoration: none;
+  }
+
+  /* Fila entera pulsable: en modo compra el <label> envuelve toda la fila */
+  label.dsp-row {
+    margin-bottom: 0;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* Fila grande para el modo compra: objetivo táctil cómodo a una mano */
+  .dsp-row-lg {
+    min-height: 68px;
+    padding: 12px;
+  }
+
+  .dsp-row-lg .dsp-row-title {
+    font-size: 16px;
+  }
+
+  .dsp-row-main {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .dsp-row-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .dsp-row-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 8px;
+    margin: 3px 0 0;
+    color: var(--dsp-ink-soft);
+    font-size: 12.5px;
+    line-height: 1.35;
+  }
+
+  .dsp-row-end {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    text-align: right;
+  }
+
+  .dsp-row-price {
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .dsp-row.is-checked {
+    background-color: var(--dsp-surface-alt);
+  }
+
+  .dsp-row.is-checked .dsp-row-title {
+    color: var(--dsp-ink-faint);
+    text-decoration: line-through;
+  }
+
+  .dsp-row.is-checked .dsp-row-meta,
+  .dsp-row.is-checked .dsp-row-price {
+    color: var(--dsp-ink-faint);
+  }
+
+  .dsp-row.is-checked .dsp-thumb {
+    filter: grayscale(1);
+    opacity: .55;
+  }
+
+  /* 11. Hojas inferiores (offcanvas) ======================================== */
+  /* `offcanvas` de Bootstrap 5 con `placement="bottom"`, no modales reestilados. */
+  .offcanvas.dsp-sheet {
+    --bs-offcanvas-height: auto;
+    --bs-offcanvas-bg: var(--dsp-surface);
+    --bs-offcanvas-color: var(--dsp-ink);
+    --bs-offcanvas-border-width: 0;
+    --bs-offcanvas-padding-x: 0;
+    --bs-offcanvas-padding-y: 0;
+    --bs-offcanvas-transition: transform .3s cubic-bezier(.32, .72, 0, 1);
+
+    max-width: var(--dsp-shell);
+    max-height: 88vh;
+    margin-inline: auto;
+    border-radius: var(--dsp-radius-lg) var(--dsp-radius-lg) 0 0;
+    box-shadow: var(--dsp-shadow-lg);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .dsp-sheet-handle {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 4px;
+    margin: 10px auto 2px;
+    border-radius: 999px;
+    background-color: var(--dsp-border);
+  }
+
+  .dsp-sheet-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px 12px;
+    border-bottom: 1px solid var(--dsp-border);
+  }
+
+  .dsp-sheet-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+
+  .dsp-sheet-body {
+    overflow-y: auto;
+    max-height: 62vh;
+    padding: 8px 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dsp-sheet-body.dsp-sheet-body-pad {
+    padding: 16px;
+  }
+
+  .dsp-sheet-foot {
+    padding: 12px 16px;
+    border-top: 1px solid var(--dsp-border);
+  }
+
+  /* Opciones dentro de una hoja */
+  /* 14. Métricas y progreso ================================================= */
+  /* 15. Deslizar para borrar ================================================ */
+  .dsp-swipe-content .dsp-row {
+    border-bottom: 0;
+  }
+
+  /* 16. Utilidades y animaciones ============================================ */
+  .dsp-text-faint {
+    color: var(--dsp-ink-faint) !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dsp *,
+    .dsp *::before,
+    .dsp *::after,
+    .offcanvas.dsp-sheet {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+  }
+  /* 17. Puente con Bootstrap 5 (--bs-*) ===================================== */
+  body.dsp {
+    --bs-body-bg: var(--dsp-bg);
+    --bs-body-color: var(--dsp-ink);
+    --bs-body-font-family: 'Inter', 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --bs-border-color: var(--dsp-border);
+    --bs-border-radius: var(--dsp-radius-sm);
+    --bs-border-radius-lg: var(--dsp-radius);
+    --bs-emphasis-color: var(--dsp-ink);
+    --bs-secondary-color: var(--dsp-ink-soft);
+    --bs-tertiary-color: var(--dsp-ink-faint);
+    --bs-secondary-bg: var(--dsp-surface-alt);
+    --bs-tertiary-bg: var(--dsp-surface-alt);
+    --bs-link-color: var(--dsp-primary);
+    --bs-link-hover-color: var(--dsp-primary-strong);
+    --bs-primary: var(--dsp-primary);
+    --bs-primary-rgb: var(--dsp-primary-rgb);
+    --bs-focus-ring-color: var(--dsp-primary-soft);
+    --bs-focus-ring-width: 3px;
+    --bs-heading-color: var(--dsp-ink);
+  }
+
+  /* Botones: los `--bs-btn-*` son el punto de extensión oficial de BS5. */
+  .dsp .btn {
+    --bs-btn-border-radius: var(--dsp-radius-sm);
+    --bs-btn-font-weight: 600;
+    --bs-btn-focus-box-shadow: 0 0 0 3px var(--dsp-primary-soft);
+  }
+
+  .dsp .btn-primary {
+    --bs-btn-bg: var(--dsp-primary);
+    --bs-btn-border-color: var(--dsp-primary);
+    --bs-btn-hover-bg: var(--dsp-primary-strong);
+    --bs-btn-hover-border-color: var(--dsp-primary-strong);
+    --bs-btn-active-bg: var(--dsp-primary-strong);
+    --bs-btn-active-border-color: var(--dsp-primary-strong);
+    --bs-btn-disabled-bg: var(--dsp-primary);
+    --bs-btn-disabled-border-color: var(--dsp-primary);
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;
+    --bs-btn-disabled-color: #fff;
+  }
+
+  .dsp .btn-outline-primary {
+    --bs-btn-color: var(--dsp-primary);
+    --bs-btn-border-color: var(--dsp-primary);
+    --bs-btn-hover-bg: var(--dsp-primary);
+    --bs-btn-hover-border-color: var(--dsp-primary);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-bg: var(--dsp-primary-strong);
+    --bs-btn-active-border-color: var(--dsp-primary-strong);
+    --bs-btn-active-color: #fff;
+    --bs-btn-disabled-color: var(--dsp-primary);
+    --bs-btn-disabled-border-color: var(--dsp-primary);
+  }
+
+  .dsp .btn-outline-secondary {
+    --bs-btn-color: var(--dsp-ink-soft);
+    --bs-btn-border-color: var(--dsp-border);
+    --bs-btn-hover-bg: var(--dsp-surface-alt);
+    --bs-btn-hover-border-color: var(--dsp-border);
+    --bs-btn-hover-color: var(--dsp-ink);
+    --bs-btn-active-bg: var(--dsp-surface-alt);
+    --bs-btn-active-border-color: var(--dsp-border);
+    --bs-btn-active-color: var(--dsp-ink);
+  }
+
+  /* Botones «suaves»: fondo tintado, propios del rediseño */
+  .dsp .btn-soft {
+    --bs-btn-bg: var(--dsp-primary-soft);
+    --bs-btn-border-color: transparent;
+    --bs-btn-color: var(--dsp-primary);
+    --bs-btn-hover-bg: var(--dsp-primary);
+    --bs-btn-hover-border-color: var(--dsp-primary);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-bg: var(--dsp-primary-strong);
+    --bs-btn-active-color: #fff;
+  }
+
+  .dsp .btn-soft-danger {
+    --bs-btn-bg: var(--dsp-danger-soft);
+    --bs-btn-border-color: transparent;
+    --bs-btn-color: var(--dsp-danger);
+    --bs-btn-hover-bg: var(--dsp-danger);
+    --bs-btn-hover-border-color: var(--dsp-danger);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-bg: var(--dsp-danger);
+    --bs-btn-active-color: #fff;
+  }
+
+  /* Formularios */
+  .dsp .form-control {
+    border-color: var(--dsp-border);
+    background-color: var(--dsp-surface);
+    color: var(--dsp-ink);
+  }
+
+  .dsp .form-control:focus {
+    border-color: var(--dsp-primary);
+    box-shadow: 0 0 0 3px var(--dsp-primary-soft);
+  }
+
+  .dsp .form-control::placeholder {
+    color: var(--dsp-ink-faint);
+  }
+
+  .dsp .input-group-text {
+    border-color: var(--dsp-border);
+    background-color: var(--dsp-surface-alt);
+    color: var(--dsp-ink-faint);
+  }
+
+  /* Tarjetas y colapsables del vendor usados en las pantallas */
+  .dsp .card {
+    --bs-card-bg: var(--dsp-surface);
+    --bs-card-border-color: var(--dsp-border);
+    --bs-card-color: var(--dsp-ink);
+    --bs-card-border-radius: var(--dsp-radius);
+    --bs-card-cap-bg: transparent;
+  }
+
+  .dsp .list-group {
+    --bs-list-group-bg: var(--dsp-surface);
+    --bs-list-group-color: var(--dsp-ink);
+    --bs-list-group-border-color: var(--dsp-border);
+    --bs-list-group-action-hover-bg: var(--dsp-surface-alt);
+  }
+
+  .dsp .dropdown-menu {
+    --bs-dropdown-bg: var(--dsp-surface);
+    --bs-dropdown-color: var(--dsp-ink);
+    --bs-dropdown-border-color: var(--dsp-border);
+    --bs-dropdown-link-color: var(--dsp-ink);
+    --bs-dropdown-link-hover-bg: var(--dsp-surface-alt);
+    --bs-dropdown-link-hover-color: var(--dsp-ink);
+    --bs-dropdown-border-radius: var(--dsp-radius);
+    box-shadow: var(--dsp-shadow);
+  }
+
+  .dsp .nav-tabs {
+    --bs-nav-tabs-border-color: var(--dsp-border);
+    --bs-nav-tabs-link-active-bg: var(--dsp-surface);
+    --bs-nav-tabs-link-active-color: var(--dsp-ink);
+    --bs-nav-tabs-link-active-border-color: var(--dsp-border) var(--dsp-border) var(--dsp-surface);
+    --bs-nav-link-color: var(--dsp-ink-soft);
+    --bs-nav-link-hover-color: var(--dsp-primary);
+  }
+
+  .dsp .alert {
+    --bs-alert-border-radius: var(--dsp-radius);
+  }
+
+  /* El fondo del offcanvas y del modal comparte el overlay de los tokens */
+  .dsp .offcanvas-backdrop.show,
+  .dsp .modal-backdrop.show {
+    background-color: var(--dsp-overlay);
+    opacity: 1;
+  }
+
+  /* 18. Escritorio ========================================================== */
+  @media (min-width: 768px) {
+    .dsp-appbar {
+      box-shadow: var(--dsp-shadow-sm);
+    }
+
+    .dsp-tabbar {
+      right: auto;
+      left: 50%;
+      bottom: 16px;
+      width: min(var(--dsp-shell), calc(100% - 32px));
+      transform: translateX(-50%);
+      border: 1px solid var(--dsp-border);
+      border-radius: 999px;
+      box-shadow: var(--dsp-shadow);
+    }
+
+    .dsp-tabbar-inner {
+      height: 62px;
+      padding: 0 10px;
+    }
+
+    .dsp-snackbar {
+      bottom: calc(var(--dsp-tabbar-h) + 30px);
+    }
+
+    body.dsp-no-tabbar .dsp-snackbar {
+      bottom: 100px;
+    }
   }
 }

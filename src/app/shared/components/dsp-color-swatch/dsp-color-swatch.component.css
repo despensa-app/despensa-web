@@ -1,0 +1,12 @@
+:host {
+  display: contents;
+}
+
+.dsp-swatch {
+  height: 56px;
+  border-radius: 12px;
+}
+
+.dsp-swatch.is-bordered {
+  border: 1px solid var(--dsp-border, #e1e8e5);
+}

@@ -1,0 +1,55 @@
+/* `display: contents` para que la barra quede como hija directa del layout:
+   `position: sticky` necesita medirse contra el contenedor de scroll real, no
+   contra la caja del componente anfitrión. */
+:host {
+  display: contents;
+}
+
+.dsp-appbar {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  border-bottom: 1px solid var(--dsp-border, #e1e8e5);
+  background-color: var(--dsp-surface, #fff);
+}
+
+.dsp-appbar.is-embedded {
+  position: static;
+}
+
+.dsp-appbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  max-width: var(--dsp-shell, 620px);
+  min-height: var(--dsp-appbar-h, 56px);
+  margin: 0 auto;
+  padding: 0 6px;
+}
+
+.dsp-appbar-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0 4px;
+  overflow: hidden;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dsp-appbar-title small {
+  display: block;
+  color: var(--dsp-ink-faint, #8b9a94);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.dsp-appbar-brand .dsp-appbar-title {
+  font-size: 21px;
+  letter-spacing: -.03em;
+}

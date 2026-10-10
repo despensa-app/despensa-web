@@ -1,0 +1,21 @@
+@if (path(); as route) {
+  <a [class]="classes()"
+     [routerLink]="disabled() ? null : route"
+     [attr.aria-disabled]="disabled() ? 'true' : null"
+     [attr.tabindex]="disabled() ? -1 : null">
+    @if (icon(); as buttonIcon) {
+      <i class="bi me-2" [class]="buttonIcon" aria-hidden="true"></i>
+    }
+    <ng-content/>
+  </a>
+} @else {
+  <button [type]="type()"
+        [class]="classes()"
+        [disabled]="disabled()"
+        (click)="action.emit()">
+    @if (icon(); as buttonIcon) {
+      <i class="bi me-2" [class]="buttonIcon" aria-hidden="true"></i>
+    }
+    <ng-content/>
+  </button>
+}

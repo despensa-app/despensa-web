@@ -1,0 +1,23 @@
+<header class="dsp-appbar"
+        [class.dsp-appbar-brand]="brand()"
+        [class.is-embedded]="embedded()">
+  <div class="dsp-appbar-inner">
+    <ng-content select="[dspStart]"/>
+    @if (titleTag() === 'h1') {
+      <h1 class="dsp-appbar-title">
+        {{ title() }}
+        @if (subtitle()) {
+          <small>{{ subtitle() }}</small>
+        }
+      </h1>
+    } @else {
+      <span class="dsp-appbar-title">
+        {{ title() }}
+        @if (subtitle()) {
+          <small>{{ subtitle() }}</small>
+        }
+      </span>
+    }
+    <ng-content select="[dspEnd]"/>
+  </div>
+</header>

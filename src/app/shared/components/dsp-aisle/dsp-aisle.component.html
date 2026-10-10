@@ -1,0 +1,23 @@
+<div class="dsp-aisle">
+  <button type="button"
+          class="dsp-aisle-head"
+          data-bs-toggle="collapse"
+          [attr.data-bs-target]="'#' + collapseId()"
+          [attr.aria-expanded]="expanded()"
+          [attr.aria-controls]="collapseId()">
+    <span class="dsp-aisle-icon">
+      <i class="bi"
+         [class]="icon()"></i>
+    </span>
+    <span class="dsp-aisle-name">{{ name() }}</span>
+    @if (count()) {
+      <app-dsp-tag>{{ count() }}</app-dsp-tag>
+    }
+    <i class="bi bi-chevron-down dsp-aisle-caret"></i>
+  </button>
+  <div class="collapse"
+       [class.show]="expanded()"
+       [id]="collapseId()">
+    <ng-content/>
+  </div>
+</div>

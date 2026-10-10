@@ -3,9 +3,9 @@ import {Router, RouterLink} from '@angular/router';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {LoginAuthenticationReq} from '@app/models/login-authentication-req';
 import {AuthenticationService} from '@app/services/pages/authentication.service';
-import {tap} from 'rxjs';
 import {BrowserStorageService} from '@app/services/layout/browser-storage.service';
 import {SidebarService} from '@app/services/layout/sidebar.service';
+import {from, switchMap, tap} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -30,8 +30,7 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private router: Router) {
     if (this.browserStorageService.getToken()) {
-      this.router.navigate([''])
-          .then();
+      void this.router.navigateByUrl('/');
     }
   }
 
@@ -46,13 +45,9 @@ export class LoginComponent {
           tap(loginResponse => {
             this.browserStorageService.setToken(loginResponse.accessToken);
             this.sidebarService.showLogoutAndHideLogin();
-          })
+          }),
+          switchMap(() => from(this.router.navigateByUrl('/')))
         )
-        .subscribe({
-          complete: () => {
-            this.router.navigate([''])
-                .then();
-          }
-        });
+        .subscribe();
   }
 }

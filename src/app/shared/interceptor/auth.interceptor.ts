@@ -7,7 +7,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = browserStorageService.getToken();
   let reqClone = req;
 
-  if (token) {
+  if (token && !req.url.endsWith('/auth/login')) {
     reqClone = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`

@@ -8,7 +8,7 @@ import {
 import {tap} from 'rxjs';
 import {FindByIdProductListRes, ProductShoppingList} from '@app/models/find-by-id-product-list-res';
 import {FindByIdShoppingListRes} from '@app/models/find-by-id-shopping-list-res';
-import {Button} from 'primeng/button';
+import {Button, ButtonLabel} from 'primeng/button';
 import {ViewTypeProductList} from '@app/modules/shopping-list/models/view-type-product-list';
 import {
   ProductImageListComponent
@@ -24,6 +24,7 @@ import {
     ReactiveFormsModule,
     ProductModalShoppingListComponent,
     Button,
+    ButtonLabel,
     ProductImageListComponent,
     ProductGroupListComponent
   ],

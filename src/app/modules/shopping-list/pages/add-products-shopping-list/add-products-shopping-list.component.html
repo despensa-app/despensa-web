@@ -6,14 +6,14 @@
     <app-add-product-header-shopping-list [idShoppingList]="idShoppingList"/>
   </ng-container>
   <ng-container content>
-    <p-iconField iconPosition="left">
-      <p-inputIcon styleClass="fas fa-search"/>
+    <p-iconfield iconPosition="left">
+      <p-inputicon class="fas fa-search"/>
       <input type="text"
              [formControl]="nameProductFormControl"
              pInputText
              class="w-100 d-block mb-3"
              placeholder="Nombre del producto"/>
-    </p-iconField>
+    </p-iconfield>
     <div class="d-flex justify-content-end mb-3">
       <app-view-type-product-list (viewTypeProductListSelect)="viewTypeProductListSelectEvent($event)"
                                   [viewTypeProductListSelected]="viewTypeProductListSelected()"/>
@@ -31,11 +31,13 @@
       }
     }
     @if (showMoreButton.render()) {
-      <p-button icon="fas fa-spinner"
-                [disabled]="showMoreButton.disabled()"
+      <p-button [disabled]="showMoreButton.disabled()"
                 styleClass="btn btn-default btn-block"
-                label="Cargar más"
-                (click)="showMoreButton.click()"/>
+                (click)="showMoreButton.click()">
+        <i pButtonIcon
+           class="fas fa-spinner"></i>
+        <span pButtonLabel>Cargar más</span>
+      </p-button>
     }
 
     <app-product-modal-add-products [selectedProduct]="selectedProduct()"

@@ -1,0 +1,12 @@
+<div class="dsp-chart"
+     role="img"
+     [attr.aria-label]="label()">
+  @for (bar of bars(); track bar.label) {
+    <div class="dsp-chart-col"
+         [class.is-highlight]="bar.highlight">
+      <div class="dsp-chart-bar"
+           [style.height.%]="bar.value"></div>
+      <span class="dsp-chart-label">{{ bar.label }}</span>
+    </div>
+  }
+</div>
