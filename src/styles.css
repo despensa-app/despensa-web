@@ -132,11 +132,11 @@
     letter-spacing: -.02em;
   }
 
-  .dsp a {
+  .dsp a:not(.btn) {
     color: var(--dsp-primary);
   }
 
-  .dsp a:hover {
+  .dsp a:not(.btn):hover {
     color: var(--dsp-primary-strong);
   }
 
