@@ -1,5 +1,6 @@
 import {Component, computed, EventEmitter, input, Output} from '@angular/core';
 import {RouterLink} from '@angular/router';
+import {NgTemplateOutlet} from '@angular/common';
 
 /**
  * Botón del rediseño. Compone las clases de Bootstrap 5 y las dos variantes
@@ -8,15 +9,17 @@ import {RouterLink} from '@angular/router';
  */
 @Component({
   selector: 'app-dsp-button',
-  imports: [RouterLink],
+  imports: [RouterLink, NgTemplateOutlet],
   templateUrl: './dsp-button.component.html',
   styleUrl: './dsp-button.component.css'
 })
 export class DspButtonComponent {
 
+  styleClass = input<string>('');
+
   variant = input<'primary' | 'outline-primary' | 'soft' | 'outline-secondary' | 'soft-danger'>('primary');
 
-  size = input<'sm' | 'md'>('md');
+  size = input<'sm' | 'lg' | ''>('');
 
   /** Botón de acción principal a ancho completo (`.dsp-btn-block-lg`). */
   block = input<boolean>(false);
@@ -35,12 +38,12 @@ export class DspButtonComponent {
 
   classes = computed(() => {
     const classes = ['btn', `btn-${this.variant()}`];
-    if (this.size() === 'sm') {
-      classes.push('btn-sm');
+    if (this.size() !== '') {
+      classes.push(`btn-${this.size()}`);
     }
-    if (this.block()) {
-      classes.push('dsp-btn-block-lg');
-    }
+
+    classes.push(this.styleClass());
+
     return classes.join(' ');
   });
 
