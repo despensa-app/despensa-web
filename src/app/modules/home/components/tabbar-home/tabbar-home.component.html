@@ -1,0 +1,13 @@
+<app-dsp-tabbar [tabs]="tabs"
+                fabIcon="bi-plus-lg"
+                fabLabel="Acciones rápidas"
+                (fabAction)="openSheet('quick-sheet')"/>
+
+<app-dsp-sheet sheetId="quick-sheet"
+               title="Crear">
+  <app-dsp-option icon="bi-list-ul"
+                  text="Lista vacía"
+                  description="Empezar desde cero"
+                  path="/shopping-list"
+                  [dismissSheet]="true"/>
+</app-dsp-sheet>
