@@ -1,0 +1,15 @@
+<app-dsp-sheet [sheetId]="sheetId()"
+               title="{{response().name}}">
+  <app-dsp-option icon="bi-cart3"
+                  text="Modificar"
+                  [dismissSheet]="true"
+                  path="/shopping-list/{{response().id}}"/>
+  <app-dsp-option icon="bi-pencil"
+                  text="Renombrar"/>
+  <app-dsp-divider/>
+  <app-dsp-option icon="bi-trash3"
+                  text="Eliminar lista"
+                  [danger]="true"
+                  [dismissSheet]="true"
+                  (action)="deleteSelectedShoppingListEvent()"/>
+</app-dsp-sheet>
