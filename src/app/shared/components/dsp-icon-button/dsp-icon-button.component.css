@@ -1,0 +1,27 @@
+:host {
+  display: contents;
+}
+
+.dsp-appbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--dsp-ink, #16211d);
+  font-size: 17px;
+  line-height: 1;
+  transition: background-color .15s ease;
+}
+
+.dsp-appbar-btn:hover,
+.dsp-appbar-btn:focus-visible {
+  background-color: var(--dsp-surface-alt, #f7faf9);
+  color: var(--dsp-ink, #16211d);
+  text-decoration: none;
+}

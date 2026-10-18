@@ -1,0 +1,36 @@
+:host {
+  display: contents;
+}
+
+.dsp-segmented {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--dsp-border, #e1e8e5);
+  border-radius: 999px;
+  background-color: var(--dsp-surface-alt, #f7faf9);
+}
+
+.dsp-segmented button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--dsp-ink-soft, #5a6a64);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.dsp-segmented .is-active,
+.dsp-segmented [aria-pressed='true'] {
+  background-color: var(--dsp-surface, #fff);
+  box-shadow: var(--dsp-shadow-sm, 0 1px 2px rgba(14, 26, 22, .05), 0 1px 3px rgba(14, 26, 22, .05));
+  color: var(--dsp-ink, #16211d);
+  text-decoration: none;
+}

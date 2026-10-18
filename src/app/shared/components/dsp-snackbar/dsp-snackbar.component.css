@@ -1,0 +1,59 @@
+:host {
+  display: contents;
+}
+
+.dsp-snackbar {
+  position: fixed;
+  right: 0;
+  bottom: calc(var(--dsp-tabbar-h, 66px) + 12px + env(safe-area-inset-bottom));
+  left: 0;
+  z-index: 1080;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: calc(100% - 32px);
+  max-width: calc(var(--dsp-shell, 620px) - 32px);
+  margin: 0 auto;
+  padding: 12px 12px 12px 16px;
+  border-radius: var(--dsp-radius, 14px);
+  background-color: #1d2724;
+  box-shadow: var(--dsp-shadow-lg, 0 14px 40px rgba(14, 26, 22, .18));
+  color: #f3f7f5;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(120%);
+  pointer-events: none;
+  transition: transform .3s cubic-bezier(.32, .72, 0, 1), opacity .2s ease;
+}
+
+.dsp-snackbar.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dsp-snackbar-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dsp-snackbar-action {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #6fe0b2;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.dsp-snackbar-action:focus-visible {
+  outline: 0;
+  background-color: rgba(111, 224, 178, .14);
+}

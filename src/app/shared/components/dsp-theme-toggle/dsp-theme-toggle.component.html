@@ -1,0 +1,50 @@
+<button type="button"
+        class="dsp-appbar-btn"
+        aria-label="Cambiar tema de color"
+        data-bs-toggle="dropdown"
+        aria-expanded="false">
+  @switch (preference()) {
+    @case ('light') {
+      <i class="bi bi-sun-fill" aria-hidden="true"></i>
+    }
+    @case ('dark') {
+      <i class="bi bi-moon-fill" aria-hidden="true"></i>
+    }
+    @default {
+      <i class="bi bi-circle-half" aria-hidden="true"></i>
+    }
+  }
+</button>
+
+<ul class="dropdown-menu dropdown-menu-end">
+  <li>
+    <button type="button"
+            class="dropdown-item"
+            [class.active]="preference() === 'light'"
+            [attr.aria-pressed]="preference() === 'light'"
+            (click)="useTheme('light')">
+      <i class="bi bi-sun-fill me-2" aria-hidden="true"></i>
+      Claro
+    </button>
+  </li>
+  <li>
+    <button type="button"
+            class="dropdown-item"
+            [class.active]="preference() === 'dark'"
+            [attr.aria-pressed]="preference() === 'dark'"
+            (click)="useTheme('dark')">
+      <i class="bi bi-moon-fill me-2" aria-hidden="true"></i>
+      Oscuro
+    </button>
+  </li>
+  <li>
+    <button type="button"
+            class="dropdown-item"
+            [class.active]="preference() === 'auto'"
+            [attr.aria-pressed]="preference() === 'auto'"
+            (click)="useTheme('auto')">
+      <i class="bi bi-circle-half me-2" aria-hidden="true"></i>
+      Automático
+    </button>
+  </li>
+</ul>

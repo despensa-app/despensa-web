@@ -1,0 +1,8 @@
+<div class="dsp-hero">
+  @if (titleTag() === 'h1') {
+    <h1>{{ title() }}</h1>
+  } @else {
+    <h2>{{ title() }}</h2>
+  }
+  <ng-content/>
+</div>

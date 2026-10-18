@@ -1,0 +1,17 @@
+<div class="dsp-search"
+     [class.mb-0]="flush()">
+  <i class="bi bi-search dsp-search-icon"></i>
+  <label class="visually-hidden"
+         [for]="inputId">{{ label() }}</label>
+  <input type="search"
+         [id]="inputId"
+         [value]="value()"
+         [placeholder]="placeholder()"
+         (input)="onInput($event)">
+  <button type="button"
+          class="dsp-search-clear"
+          (click)="clear()">
+    <i class="bi bi-x-lg"></i>
+    <span class="visually-hidden">Limpiar</span>
+  </button>
+</div>

@@ -1,0 +1,44 @@
+@if (path(); as route) {
+  <a [class]="classes()"
+     [routerLink]="disabled() ? null : route"
+     [attr.aria-disabled]="disabled() ? 'true' : null"
+     [attr.tabindex]="disabled() ? -1 : null">
+    @if (icon(); as buttonIcon) {
+      <i class="bi me-2"
+         [class]="buttonIcon"
+         aria-hidden="true"></i>
+    }
+    <ng-container [ngTemplateOutlet]="btnContent"/>
+  </a>
+} @else if (block()) {
+  <div class="d-grid gap-2">
+    <!-- TODO: Pendiente de corregir el código duplicado   -->
+    <button [type]="type()"
+            [class]="classes()"
+            [disabled]="disabled()"
+            (click)="action.emit()">
+      @if (icon(); as buttonIcon) {
+        <i class="bi me-2"
+           [class]="buttonIcon"
+           aria-hidden="true"></i>
+      }
+      <ng-container [ngTemplateOutlet]="btnContent"/>
+    </button>
+  </div>
+} @else {
+  <button [type]="type()"
+          [class]="classes()"
+          [disabled]="disabled()"
+          (click)="action.emit()">
+    @if (icon(); as buttonIcon) {
+      <i class="bi me-2"
+         [class]="buttonIcon"
+         aria-hidden="true"></i>
+    }
+    <ng-container [ngTemplateOutlet]="btnContent"/>
+  </button>
+}
+
+<ng-template #btnContent>
+  <ng-content/>
+</ng-template>

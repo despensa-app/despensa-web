@@ -8,5 +8,6 @@ export interface ShoppingList {
   id: number;
   name: string;
   totalProducts: number;
+  totalPrice: number;
   createdAt: string;
 }

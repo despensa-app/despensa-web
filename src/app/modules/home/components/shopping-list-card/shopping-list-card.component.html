@@ -1,82 +1,21 @@
-<div class="card card-primary card-outline">
-  <div class="d-flex justify-content-between align-items-center">
-    <div class="card-header border-bottom-0 flex-grow-1 pt-4">
-      @if (showEdit()) {
-        <form class="flex-grow-1 mr-1"
-              [formGroup]="shoppingListForm"
-              (submit)="saveShoppingListEvent()">
-          <div class="input-group">
-            <input type="text"
-                   class="form-control"
-                   formControlName="name"
-                   placeholder="Nombre de la lista"
-                   id="name"
-                   name="name">
-            <input type="hidden"
-                   formControlName="id">
-            <label class="sr-only"
-                   for="name">Nombre</label>
-            <div class="input-group-append">
-              <button class="btn btn-success"
-                      type="submit">
-                <i class="fas fa-save w-25px"></i>
-              </button>
-              <button class="btn btn-default"
-                      (click)="cancelEvent()"
-                      type="button">
-                <i class="fas fa-times w-25px"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-      } @else {
-        <h3 class="card-title">
-          <a routerLink="/shopping-list/{{response().id}}"
-             class="text-body stretched-link text-break">
-            {{ response().name }}
-          </a>
-        </h3>
-      }
-    </div>
-    <div class="dropdown">
-      <button type="button"
-              data-toggle="dropdown"
-              aria-expanded="false"
-              class="btn text-body pt-4 px-4">
-        <i class="fas fa-ellipsis-v w-25px"></i>
-      </button>
-      <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item"
-           routerLink="/shopping-list/{{response().id}}">
-          <i class="fas fa-link w-25px"></i>
-          <span>Ver</span>
-        </a>
-        <button class="dropdown-item"
-                disabled>
-          <i class="far fa-star w-25px"></i>
-          <span>Favorito</span>
-        </button>
-        <button class="dropdown-item"
-                [attr.disabled]="showEdit()"
-                (click)="editEvent()">
-          <i class="fas fa-edit w-25px"></i>
-          <span>Editar</span>
-        </button>
-        <button type="button"
-                (click)="deleteShoppingListEvent()"
-                class="dropdown-item text-danger">
-          <i class="fas fa-trash w-25px"></i>
-          <span>Eliminar</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="card-body position-relative pt-0">
-    <span class="text-muted d-block">{{ response().totalProducts }} Productos</span>
-    <small class="text-muted d-block">{{ response().createdAt }}</small>
-    <a class="stretched-link"
-       routerLink="/shopping-list/{{response().id}}">
-      <span class="sr-only">Ver detalles</span>
+<app-dsp-card>
+  <app-dsp-card-head>
+    <a routerLink="/shopping-list/{{response().id}}"
+       class="flex-grow-1 text-body text-decoration-none"
+       style="min-width: 0;">
+      <h3 class="dsp-card-title">{{ response().name }}</h3>
+      <p class="dsp-card-meta">
+        <span><i class="bi bi-shop"></i>Mercadona</span>
+        <span><i class="bi bi-basket2"></i>{{ response().totalProducts }} productos</span>
+        <span><i class="bi bi-receipt"></i>{{ response().totalPrice | number: '1.0-2' }} €</span>
+      </p>
     </a>
-  </div>
-</div>
+    <button type="button"
+            class="dsp-row-btn"
+            (click)="openActionsEvent()"
+            aria-label="Opciones de la lista">
+      <i class="bi bi-three-dots-vertical"
+         aria-hidden="true"></i>
+    </button>
+  </app-dsp-card-head>
+</app-dsp-card>

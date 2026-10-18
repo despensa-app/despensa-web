@@ -1,0 +1,42 @@
+:host {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-bottom: 1px solid var(--dsp-border, #e1e8e5);
+}
+
+:host(:last-child) {
+  border-bottom: 0;
+}
+
+.dsp-swipe-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.dsp-swipe-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  border: 0;
+  background-color: var(--dsp-danger, #c94141);
+  color: #fff;
+  font-size: 15px;
+}
+
+.dsp-swipe-content {
+  position: relative;
+  background-color: var(--dsp-surface, #fff);
+  transition: transform .28s cubic-bezier(.32, .72, 0, 1);
+  touch-action: pan-y;
+  will-change: transform;
+}
+
+:host(.is-open) .dsp-swipe-content {
+  transform: translateX(-76px);
+}

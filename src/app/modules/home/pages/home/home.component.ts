@@ -2,21 +2,28 @@ import {Component, OnInit, signal} from '@angular/core';
 import {tap} from 'rxjs';
 import {ShoppingListsService} from '@app/services/pages/shopping-lists.service';
 import {FindAllShoppingListRes, ShoppingList} from '@app/models/find-all-shopping-list-res';
-import {ShoppingListCardComponent} from '../../components/shopping-list-card/shopping-list-card.component';
-import {NavbarHomeComponent} from '../../layout/navbar-home/navbar-home.component';
-import {HeaderHomeComponent} from '../../layout/header-home/header-home.component';
-import {PageComponent} from '@app/layout/page/page.component';
-import {UpdateShoppingListReq} from '@app/models/update-shopping-list-req';
-import {Button} from 'primeng/button';
+import {DspAppbarComponent} from '@app/shared/components/dsp-appbar/dsp-appbar.component';
+import {DspHeroComponent} from '@app/shared/components/dsp-hero/dsp-hero.component';
+import {DspSectionComponent} from '@app/shared/components/dsp-section/dsp-section.component';
+import {DspThemeToggleComponent} from '@app/shared/components/dsp-theme-toggle/dsp-theme-toggle.component';
+import {ShoppingListCardComponent} from '@app/modules/home/components/shopping-list-card/shopping-list-card.component';
+import {TabbarHomeComponent} from '@app/modules/home/components/tabbar-home/tabbar-home.component';
+import {
+  ShoppingListCardSheetComponent
+} from '@app/modules/home/components/shopping-list-card-sheet/shopping-list-card-sheet.component';
+import {DspButtonComponent} from '@app/shared/components/dsp-button/dsp-button.component';
 
 @Component({
   selector: 'app-home',
   imports: [
+    DspAppbarComponent,
+    DspHeroComponent,
+    DspSectionComponent,
+    DspThemeToggleComponent,
     ShoppingListCardComponent,
-    NavbarHomeComponent,
-    HeaderHomeComponent,
-    PageComponent,
-    Button
+    TabbarHomeComponent,
+    ShoppingListCardSheetComponent,
+    DspButtonComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -40,9 +47,34 @@ export class HomeComponent implements OnInit {
     }
   });
 
+  private readonly _initSelectedShoppingList: ShoppingList = {
+    id: 0,
+    name: '',
+    totalProducts: 0,
+    totalPrice: 0,
+    createdAt: ''
+  };
+
+  selectedShoppingList = signal<ShoppingList>(this._initSelectedShoppingList);
+
   constructor(
     private shoppingListsService: ShoppingListsService
   ) {
+  }
+
+  openSheet(id: string): void {
+    const element = document.getElementById(id);
+    const bootstrap = (window as Window & {
+      bootstrap?: {
+        Offcanvas: {
+          getOrCreateInstance: (element: Element) => { show: () => void }
+        }
+      }
+    }).bootstrap;
+    if (element && bootstrap) {
+      bootstrap.Offcanvas.getOrCreateInstance(element)
+               .show();
+    }
   }
 
   ngOnInit() {
@@ -59,23 +91,6 @@ export class HomeComponent implements OnInit {
             }));
           }
         });
-  }
-
-  public updateShoppingListEvent(response: ShoppingList) {
-    const request: UpdateShoppingListReq = {
-      name: response.name
-    };
-
-    this.shoppingListsRes.update(shoppingLists => {
-      const index = shoppingLists.content.findIndex(shoppingList => shoppingList.id === response.id);
-
-      shoppingLists.content[index] = response;
-
-      return shoppingLists;
-    });
-
-    this.shoppingListsService.update(response.id, request)
-        .subscribe();
   }
 
   deleteShoppingListEvent(id: number) {
@@ -114,5 +129,10 @@ export class HomeComponent implements OnInit {
         )
         .subscribe();
   }
+
+  public selectedShoppingListEvent(response: ShoppingList) {
+    this.selectedShoppingList.set(response);
+  }
+
 
 }

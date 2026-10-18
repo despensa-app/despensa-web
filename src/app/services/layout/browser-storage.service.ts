@@ -21,6 +21,10 @@ export class BrowserStorageService {
     return this.get('token');
   }
 
+  removeToken() {
+    this.storage.removeItem('token');
+  }
+
   get(key: string) {
     return this.storage.getItem(key);
   }
@@ -29,7 +33,4 @@ export class BrowserStorageService {
     this.storage.setItem(key, value);
   }
 
-  clear() {
-    this.storage.clear();
-  }
 }

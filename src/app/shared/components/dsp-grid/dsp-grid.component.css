@@ -1,0 +1,9 @@
+:host {
+  display: contents;
+}
+
+.dsp-grid {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}

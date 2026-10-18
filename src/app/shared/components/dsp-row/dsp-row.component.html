@@ -1,0 +1,16 @@
+<ng-content select="[dspStart]"/>
+<span class="dsp-row-main">
+  @if (rowTitle()) {
+    <span class="dsp-row-title d-block">{{ rowTitle() }}</span>
+  }
+  @if (rowMeta()) {
+    <span class="dsp-row-meta">{{ rowMeta() }}</span>
+  }
+  <ng-content/>
+</span>
+@if (price(); as amount) {
+  <span class="dsp-row-end">
+    <span class="dsp-row-price">{{ amount }}</span>
+  </span>
+}
+<ng-content select="[dspEnd]"/>

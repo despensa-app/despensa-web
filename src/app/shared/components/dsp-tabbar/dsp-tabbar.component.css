@@ -1,0 +1,15 @@
+:host {
+  display: contents;
+}
+
+/* Variante incrustada: la barra se enseña dentro de una tarjeta de la guía de
+   estilo, sin flotar sobre la pantalla. */
+.dsp-tabbar.is-embedded {
+  position: static;
+  width: auto;
+  transform: none;
+  border: 0;
+  border-top: 1px solid var(--dsp-border, #e1e8e5);
+  border-radius: 0;
+  box-shadow: none;
+}

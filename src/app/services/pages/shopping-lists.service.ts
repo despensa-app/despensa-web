@@ -33,12 +33,7 @@ export class ShoppingListsService {
       params: {
         ...request
       }
-    })
-               .pipe(
-                 tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail)
-                 })
-               );
+    });
   }
 
   findById(id: number, request?: FindByIdProductListReq) {
@@ -46,19 +41,13 @@ export class ShoppingListsService {
       params: {
         ...request
       }
-    })
-               .pipe(
-                 tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail)
-                 })
-               );
+    });
   }
 
   update(id: number, request: UpdateShoppingListReq) {
     return this.httpClient.put<UpdateShoppingListRes>(`${this._shoppingListsURI}/${id}`, request)
                .pipe(
                  tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail),
                    complete: () => this.messagePrimeNgService.showSuccess('Lista de compra actualizada')
                  })
                );
@@ -68,7 +57,6 @@ export class ShoppingListsService {
     return this.httpClient.delete(`${this._shoppingListsURI}/${id}/products`, {body: request})
                .pipe(
                  tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail),
                    complete: () => this.messagePrimeNgService.showSuccess('Producto eliminado de la lista de compra')
                  })
                );
@@ -78,7 +66,6 @@ export class ShoppingListsService {
     return this.httpClient.post<SaveShoppingListRes>(this._shoppingListsURI, request)
                .pipe(
                  tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail),
                    complete: () => this.messagePrimeNgService.showSuccess('Lista de compra creada')
                  })
                );
@@ -88,7 +75,6 @@ export class ShoppingListsService {
     return this.httpClient.delete<void>(`${this._shoppingListsURI}/${id}`)
                .pipe(
                  tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail),
                    complete: () => this.messagePrimeNgService.showSuccess('Lista de compra eliminada')
                  })
                );
@@ -99,19 +85,13 @@ export class ShoppingListsService {
       params: {
         ...request
       }
-    })
-               .pipe(
-                 tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail)
-                 })
-               );
+    });
   }
 
   updateSelectedProducts(id: number, request: ProductsSelectedReq) {
     return this.httpClient.put<UpdateShoppingListRes>(`${this._shoppingListsURI}/${id}/products-selected`, request)
                .pipe(
                  tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail),
                    complete: () => this.messagePrimeNgService.showSuccess('Productos desmarcados')
                  })
                );

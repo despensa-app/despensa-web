@@ -1,0 +1,34 @@
+:host {
+  display: contents;
+}
+
+.dsp-progress {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background-color: var(--dsp-border, #e1e8e5);
+}
+
+.dsp-progress-bar {
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--dsp-primary, #12805c);
+  transition: width .35s cubic-bezier(.32, .72, 0, 1);
+}
+
+.dsp-progress-bar.is-accent {
+  background-color: var(--dsp-accent, #d98217);
+}
+
+.dsp-progress-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  color: var(--dsp-ink-soft, #5a6a64);
+  font-size: 13px;
+}
+
+.dsp-progress-label b {
+  color: var(--dsp-ink, #16211d);
+}

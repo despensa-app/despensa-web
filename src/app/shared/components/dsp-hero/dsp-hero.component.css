@@ -1,0 +1,15 @@
+:host {
+  display: contents;
+}
+
+.dsp-hero {
+  padding: 18px 0 14px;
+}
+
+.dsp-hero h1,
+.dsp-hero h2 {
+  margin: 0;
+  font-size: 27px;
+  line-height: 1.15;
+}
+

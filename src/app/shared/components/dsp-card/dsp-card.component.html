@@ -1,0 +1,19 @@
+@if (path(); as route) {
+  <a class="dsp-card"
+     [class.is-closed]="closed()"
+     [class.is-flush]="flush()"
+     [routerLink]="route">
+    <ng-container [ngTemplateOutlet]="cardContent"/>
+  </a>
+} @else {
+  <div class="dsp-card"
+       [class.is-closed]="closed()"
+       [class.is-flush]="flush()">
+    <ng-container [ngTemplateOutlet]="cardContent"/>
+  </div>
+}
+
+<ng-template #cardContent>
+  <ng-content select="app-dsp-card-head"/>
+  <ng-content select="app-dsp-card-foot"/>
+</ng-template>

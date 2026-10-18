@@ -4,13 +4,16 @@
     <meta charset="utf-8">
     <title>Despensa App</title>
     <base href="/">
+    <!-- Resuelve el tema antes de cargar los estilos y arrancar Angular para
+         evitar un destello claro cuando corresponde el modo oscuro. -->
+    <script src="assets/theme.js"></script>
     <meta name="viewport"
-          content="width=device-width, initial-scale=1">
+          content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="icon"
           type="image/x-icon"
           href="favicon.ico">
   </head>
-  <body class="layout-top-nav layout-footer-fixed hold-transition">
+  <body class="dsp">
     <app-root></app-root>
   </body>
 </html>

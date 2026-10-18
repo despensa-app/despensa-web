@@ -20,19 +20,13 @@ export class ProductsService {
   }
 
   findAllShoppingList(id: number) {
-    return this.httpClient.get<FindAllShoppingListProductsRes>(`${this._shoppingListProductsURI}/${id}`)
-               .pipe(
-                 tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail)
-                 })
-               );
+    return this.httpClient.get<FindAllShoppingListProductsRes>(`${this._shoppingListProductsURI}/${id}`);
   }
 
   saveShoppingList(request: SaveShoppingListProductReq) {
     return this.httpClient.post(this._shoppingListProductsURI, request)
                .pipe(
                  tap({
-                   error: ({error}) => this.messagePrimeNgService.showError(error.error.detail),
                    complete: () => this.messagePrimeNgService.showSuccess('Producto agregado')
                  })
                );

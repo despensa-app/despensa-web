@@ -1,0 +1,16 @@
+<div class="dsp-swipe-actions">
+  <button type="button"
+          (click)="remove.emit()">
+    <i class="bi bi-trash3"></i>
+    <span class="visually-hidden">{{ removeLabel() }}</span>
+  </button>
+</div>
+<div class="dsp-swipe-content"
+     [style.transform]="transform()"
+     (pointerdown)="onPointerDown($event)"
+     (pointermove)="onPointerMove($event)"
+     (pointerup)="onPointerEnd($event)"
+     (pointercancel)="onPointerEnd($event)"
+     (pointerleave)="onPointerEnd($event)">
+  <ng-content/>
+</div>

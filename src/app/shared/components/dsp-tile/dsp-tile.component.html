@@ -1,0 +1,28 @@
+<article class="dsp-tile">
+  <div class="dsp-tile-img">
+    @if (imageUrl(); as url) {
+      <img [src]="url"
+           [alt]="imageAlt()">
+    } @else {
+      <i class="bi"
+         [class]="icon()"></i>
+    }
+  </div>
+  <div class="dsp-tile-body">
+    <h3 class="dsp-tile-title">{{ tileTitle() }}</h3>
+    @if (tileMeta()) {
+      <p class="dsp-tile-meta">{{ tileMeta() }}</p>
+    }
+  </div>
+  @if (actionIcon(); as buttonIcon) {
+    <div class="dsp-tile-action">
+      <button type="button"
+              class="btn btn-soft btn-sm"
+              (click)="action.emit()">
+        <i class="bi"
+           [class]="buttonIcon"></i>
+        <span class="visually-hidden">{{ actionLabel() }}</span>
+      </button>
+    </div>
+  }
+</article>

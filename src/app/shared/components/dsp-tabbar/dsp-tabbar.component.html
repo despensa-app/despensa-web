@@ -1,0 +1,45 @@
+<nav class="dsp-tabbar"
+     [class.is-embedded]="embedded()">
+  <div class="dsp-tabbar-inner">
+    @for (tab of tabs(); track tab.id; let index = $index) {
+      @if (fabIcon() && index === fabIndex()) {
+        <button type="button"
+                class="dsp-fab"
+                (click)="fabAction.emit()">
+          <i class="bi"
+             [class]="fabIcon()!"></i>
+          <span class="visually-hidden">{{ fabLabel() }}</span>
+        </button>
+      }
+      @if (tab.path; as path) {
+        <a class="dsp-tab"
+           [class.is-active]="tab.active"
+           [attr.aria-current]="tab.active ? 'page' : null"
+           [routerLink]="path">
+          <i class="bi"
+             [class]="tab.icon"></i>
+          <span>{{ tab.label }}</span>
+        </a>
+      } @else {
+        <button type="button"
+                class="dsp-tab"
+                [class.is-active]="tab.active"
+                [attr.aria-current]="tab.active ? 'page' : null"
+                (click)="tabSelect.emit(tab)">
+          <i class="bi"
+             [class]="tab.icon"></i>
+          <span>{{ tab.label }}</span>
+        </button>
+      }
+    }
+    @if (fabIcon() && fabAtEnd()) {
+      <button type="button"
+              class="dsp-fab"
+              (click)="fabAction.emit()">
+        <i class="bi"
+           [class]="fabIcon()!"></i>
+        <span class="visually-hidden">{{ fabLabel() }}</span>
+      </button>
+    }
+  </div>
+</nav>

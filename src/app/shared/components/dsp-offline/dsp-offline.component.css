@@ -1,0 +1,19 @@
+:host {
+  display: contents;
+}
+
+.dsp-offline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 12px;
+  background-color: var(--dsp-accent-soft, #fbf0de);
+  color: var(--dsp-accent, #d98217);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.dsp-offline.is-rounded {
+  border-radius: var(--dsp-radius, 14px);
+}

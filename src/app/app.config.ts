@@ -1,26 +1,35 @@
-import {ApplicationConfig} from '@angular/core';
+import {ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners} from '@angular/core';
 import {provideRouter, withComponentInputBinding} from '@angular/router';
 
 import {routes} from './app.routes';
-import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {provideAnimations} from '@angular/platform-browser/animations';
+import {provideHttpClient, withInterceptors, withXhr} from '@angular/common/http';
 import {authInterceptor} from './shared/interceptor/auth.interceptor';
 import {providePrimeNG} from 'primeng/config';
-import Lara from '@primeng/themes/lara';
-import {definePreset} from '@primeng/themes';
+import Lara from '@primeuix/themes/lara';
+import {definePreset} from '@primeuix/themes';
 import {spinnerInterceptor} from '@app/shared/interceptor/spinner.interceptor';
+import {apiErrorInterceptor} from '@app/shared/interceptor/api-error.interceptor';
 import {MessageService} from 'primeng/api';
+import {environment} from '@env/environment';
+import {registerLocaleData} from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+// La interfaz está en español: sin esto, los pipes de número y fecha
+// formatearían al estilo inglés (1,000.5 en vez de 1.000,5).
+registerLocaleData(localeEs);
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(
+      withXhr(),
       withInterceptors([
         authInterceptor,
-        spinnerInterceptor
+        spinnerInterceptor,
+        apiErrorInterceptor
       ])
     ),
-    provideAnimations(),
     providePrimeNG({
       theme: {
         preset: definePreset(Lara, {
@@ -47,10 +56,15 @@ export const appConfig: ApplicationConfig = {
             order: 'primeng, admin-lte, app-global-style'
           }
         }
-      }
+      },
+      license: environment.PRIMEUI_LICENSE_KEY
     }),
     {
       provide: MessageService
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'es-ES'
     }
   ]
 };

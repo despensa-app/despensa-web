@@ -1,0 +1,29 @@
+:host {
+  display: contents;
+}
+
+.dsp-skeleton {
+  border-radius: var(--dsp-radius-sm, 10px);
+  background: linear-gradient(90deg, var(--dsp-surface-alt, #f7faf9) 25%, var(--dsp-border, #e1e8e5) 37%, var(--dsp-surface-alt, #f7faf9) 63%);
+  background-size: 400% 100%;
+  animation: dsp-shimmer 1.4s ease infinite;
+}
+
+.dsp-skeleton-line {
+  height: 12px;
+  margin-bottom: 8px;
+}
+
+.dsp-skeleton.is-last {
+  margin-bottom: 0;
+}
+
+@keyframes dsp-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
