@@ -145,7 +145,37 @@
     opacity: 1;
   }
 
+  .dsp-section-title .dsp-count {
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
   /* 04. Barra superior (app bar) ============================================ */
+  .dsp-appbar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--dsp-ink);
+    font-size: 17px;
+    line-height: 1;
+    transition: background-color .15s ease;
+  }
+
+  .dsp-appbar-btn:hover,
+  .dsp-appbar-btn:focus-visible {
+    background-color: var(--dsp-surface-alt);
+    color: var(--dsp-ink);
+    text-decoration: none;
+  }
+
   /* El párrafo se proyecta mediante ng-content y no recibe el atributo de
      encapsulación de DspHeroComponent. */
   .dsp-hero p {
@@ -394,6 +424,29 @@
   .dsp-row.is-checked .dsp-thumb {
     filter: grayscale(1);
     opacity: .55;
+  }
+
+  .dsp-row-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--dsp-ink-faint);
+    font-size: 15px;
+    line-height: 1;
+    transition: background-color .15s ease, color .15s ease;
+  }
+
+  .dsp-row-btn:hover,
+  .dsp-row-btn:focus-visible {
+    background-color: var(--dsp-surface-alt);
+    color: var(--dsp-ink);
+    text-decoration: none;
   }
 
   /* 11. Hojas inferiores (offcanvas) ======================================== */
